@@ -20,7 +20,7 @@ Tracks our season win-total competition. Each pick scores the gap between the te
 1. Create a new GitHub repository and upload everything in this folder (keep the `.github` folder; it's hidden on Mac/Linux).
 2. **Settings → Pages**: set Source to *Deploy from a branch*, Branch `main`, folder `/ (root)`.
 3. **Actions → Update standings → Run workflow** to load live standings straight away. After that it runs automatically.
-4. The site is at `https://<your-username>.github.io/<repo-name>/`.
+4. The site is at `https://<samuelreeves96>.github.io/<Over-Under-Draft>/`.
 
 If the Action fails with a permissions error, go to **Settings → Actions → General → Workflow permissions** and choose *Read and write permissions*.
 

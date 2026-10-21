@@ -1,0 +1,70 @@
+{
+  "headline": "One Game In And Already Somebody's Cooked",
+  "intro": "Welcome to the 2026 season, where one game gives you either an 82-win pace or a 0-win pace, so treat every number below with the seriousness of a Sunday arvo sausage sizzle. Pos leads on 59.5, Sam is wearing the early spoon on −84.0, and three of you haven't had a single pick play yet. It's early, the projections will swing like a pub door, and I've already poured the first beer for the pack of us who'll be crying by Christmas.",
+  "players": [
+    {
+      "name": "Pos",
+      "text": "59.5 and top of the ladder after one night. The whole lot comes from Spurs Under 59.5 and a 0–1 start, with the other five picks yet to play a minute. The efficiency number is a calmer 45.1, which is still a monster. Enjoy the view, mate, because a single Spurs win swings it hard the other way.",
+      "rank": 1,
+      "total": 59.5
+    },
+    {
+      "name": "Harry",
+      "text": "51.5, second, and it's also one pick doing all the work: Celtics Under 51.5 with the Celtics sitting 0–1. His efficiency total of 29.0 says it's not all a mirage. Very comfortable for a man who has done nothing but watch.",
+      "rank": 2,
+      "total": 51.5
+    },
+    {
+      "name": "Leon",
+      "text": "32.5 for Mr Overs, and Pistons Over 49.5 at 1–0 is the lot, so we'll call it optimism with a shred of merit. Efficiency has it at a tamer 10.0, so don't go booking the trophy engraving yet. The other five overs haven't played a game, which is how Leon likes his picks: unproven and full of hope.",
+      "rank": 3,
+      "total": 32.5
+    },
+    {
+      "name": "Nic",
+      "text": "20.5 and a wild ride for one game. Knicks Under (+52.5) and Thunder Over (+19.5) are carrying him, while Celtics Over (−51.5) is already trying to drown him. Net result is a fourth-place start. In this comp a single −50 will kill ya, and Nicky T has already copped one.",
+      "rank": 4,
+      "total": 20.5
+    },
+    {
+      "name": "Marco",
+      "text": "0.0 and fifth, because not one of his six picks has played a game. Technically undefeated, practically a bystander. Check back when something happens to him.",
+      "rank": 5,
+      "total": 0.0
+    },
+    {
+      "name": "Angus",
+      "text": "0.0 as well, with all six picks still to tip off. Goo is sitting in the cleanest position in the comp: no wins, no losses, no excuses yet. That'll change soon enough.",
+      "rank": 6,
+      "total": 0.0
+    },
+    {
+      "name": "Roscoe the Dog",
+      "text": "Also 0.0, with every pick yet to play. The dog is fading the group and so far the group hasn't given him anything to bark at. Roscoe is currently outscoring Dan, Ned and Sam, so the bar is on the floor.",
+      "rank": 7,
+      "total": 0.0
+    },
+    {
+      "name": "Dan",
+      "text": "−28.0 and eighth. Spurs Over 59.5 at 0–1 is a −59.5 hole, and the 76ers Over at 1–0 gave back +31.5 to soften the landing. Doccy's efficiency total is −38.4, so the Spurs pick doesn't look any better under the bonnet. Early days, but he's already a Spurs win away from breathing normally.",
+      "rank": 8,
+      "total": -28.0
+    },
+    {
+      "name": "Ned",
+      "text": "−52.0 for a man who wasn't even in the draft. He's fading the Pistons (−32.5) and the Thunder (−19.5), and both won their opener. Efficiency has it at a much kinder −15.1, so there's hope. The dog isn't the only one fading the group, but he's the only one who looks calm about it.",
+      "rank": 9,
+      "total": -52.0
+    },
+    {
+      "name": "Sam",
+      "text": "−84.0 and the early spoon. 76ers Under (−31.5) and Knicks Over (−52.5) have both gone the wrong way, and it's the lowest score in the comp by a distance. His efficiency total of −34.4 is a lot kinder, which is the only thing keeping him off the ledge. Sammy, it's one game, so breathe, but also yeah, brutal.",
+      "rank": 10,
+      "total": -84.0
+    }
+  ],
+  "signoff": "May your unders tank and your overs thrive!",
+  "date": "2026-10-21",
+  "basis": "Win pace",
+  "model": "claude-sonnet-5-5"
+}

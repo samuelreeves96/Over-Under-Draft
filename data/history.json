@@ -1,5 +1,6 @@
 {
   "_format": "teams[name] = [wins, losses, pointsFor, pointsAgainst]",
   "days": [
+    {"date":"2026-10-20","teams":{"Knicks":[0,1,100.0,106.0],"Celtics":[0,1,113.0,121.0],"Hawks":[0,0,0,0],"Bulls":[0,0,0,0],"Cavaliers":[0,0,0,0],"Pacers":[0,0,0,0],"Heat":[0,0,0,0],"Bucks":[0,0,0,0],"Nets":[0,0,0,0],"Magic":[0,0,0,0],"Wizards":[0,0,0,0],"Raptors":[0,0,0,0],"Hornets":[0,0,0,0],"Pistons":[1,0,121.0,113.0],"76ers":[1,0,106.0,100.0],"Spurs":[0,1,104.0,116.0],"Pelicans":[0,0,0,0],"Mavericks":[0,0,0,0],"Nuggets":[0,0,0,0],"Warriors":[0,0,0,0],"Rockets":[0,0,0,0],"Clippers":[0,0,0,0],"Lakers":[0,0,0,0],"Timberwolves":[0,0,0,0],"Suns":[0,0,0,0],"Trail Blazers":[0,0,0,0],"Kings":[0,0,0,0],"Jazz":[0,0,0,0],"Grizzlies":[0,0,0,0],"Thunder":[1,0,116.0,104.0]}}
   ]
 }

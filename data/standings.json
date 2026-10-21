@@ -1,217 +1,276 @@
 {
-  "updated": null,
-  "source": "placeholder",
-  "sample": true,
+  "updated": "2026-10-21T05:37+00:00",
+  "source": "ESPN",
   "teams": [
     {
       "name": "76ers",
-      "fullName": "76ers",
-      "abbr": "",
-      "wins": 0,
-      "losses": 0
+      "fullName": "Philadelphia 76ers",
+      "abbr": "PHI",
+      "wins": 1,
+      "losses": 0,
+      "pointsFor": 106.0,
+      "pointsAgainst": 100.0
     },
     {
       "name": "Bucks",
-      "fullName": "Bucks",
-      "abbr": "",
+      "fullName": "Milwaukee Bucks",
+      "abbr": "MIL",
       "wins": 0,
-      "losses": 0
+      "losses": 0,
+      "pointsFor": 0,
+      "pointsAgainst": 0
     },
     {
       "name": "Bulls",
-      "fullName": "Bulls",
-      "abbr": "",
+      "fullName": "Chicago Bulls",
+      "abbr": "CHI",
       "wins": 0,
-      "losses": 0
+      "losses": 0,
+      "pointsFor": 0,
+      "pointsAgainst": 0
     },
     {
       "name": "Cavaliers",
-      "fullName": "Cavaliers",
-      "abbr": "",
+      "fullName": "Cleveland Cavaliers",
+      "abbr": "CLE",
       "wins": 0,
-      "losses": 0
+      "losses": 0,
+      "pointsFor": 0,
+      "pointsAgainst": 0
     },
     {
       "name": "Celtics",
-      "fullName": "Celtics",
-      "abbr": "",
+      "fullName": "Boston Celtics",
+      "abbr": "BOS",
       "wins": 0,
-      "losses": 0
+      "losses": 1,
+      "pointsFor": 113.0,
+      "pointsAgainst": 121.0
     },
     {
       "name": "Clippers",
-      "fullName": "Clippers",
-      "abbr": "",
+      "fullName": "LA Clippers",
+      "abbr": "LAC",
       "wins": 0,
-      "losses": 0
+      "losses": 0,
+      "pointsFor": 0,
+      "pointsAgainst": 0
     },
     {
       "name": "Grizzlies",
-      "fullName": "Grizzlies",
-      "abbr": "",
+      "fullName": "Memphis Grizzlies",
+      "abbr": "MEM",
       "wins": 0,
-      "losses": 0
+      "losses": 0,
+      "pointsFor": 0,
+      "pointsAgainst": 0
     },
     {
       "name": "Hawks",
-      "fullName": "Hawks",
-      "abbr": "",
+      "fullName": "Atlanta Hawks",
+      "abbr": "ATL",
       "wins": 0,
-      "losses": 0
+      "losses": 0,
+      "pointsFor": 0,
+      "pointsAgainst": 0
     },
     {
       "name": "Heat",
-      "fullName": "Heat",
-      "abbr": "",
+      "fullName": "Miami Heat",
+      "abbr": "MIA",
       "wins": 0,
-      "losses": 0
+      "losses": 0,
+      "pointsFor": 0,
+      "pointsAgainst": 0
     },
     {
       "name": "Hornets",
-      "fullName": "Hornets",
-      "abbr": "",
+      "fullName": "Charlotte Hornets",
+      "abbr": "CHA",
       "wins": 0,
-      "losses": 0
+      "losses": 0,
+      "pointsFor": 0,
+      "pointsAgainst": 0
     },
     {
       "name": "Jazz",
-      "fullName": "Jazz",
-      "abbr": "",
+      "fullName": "Utah Jazz",
+      "abbr": "UTAH",
       "wins": 0,
-      "losses": 0
+      "losses": 0,
+      "pointsFor": 0,
+      "pointsAgainst": 0
     },
     {
       "name": "Kings",
-      "fullName": "Kings",
-      "abbr": "",
+      "fullName": "Sacramento Kings",
+      "abbr": "SAC",
       "wins": 0,
-      "losses": 0
+      "losses": 0,
+      "pointsFor": 0,
+      "pointsAgainst": 0
     },
     {
       "name": "Knicks",
-      "fullName": "Knicks",
-      "abbr": "",
+      "fullName": "New York Knicks",
+      "abbr": "NY",
       "wins": 0,
-      "losses": 0
+      "losses": 1,
+      "pointsFor": 100.0,
+      "pointsAgainst": 106.0
     },
     {
       "name": "Lakers",
-      "fullName": "Lakers",
-      "abbr": "",
+      "fullName": "Los Angeles Lakers",
+      "abbr": "LAL",
       "wins": 0,
-      "losses": 0
+      "losses": 0,
+      "pointsFor": 0,
+      "pointsAgainst": 0
     },
     {
       "name": "Magic",
-      "fullName": "Magic",
-      "abbr": "",
+      "fullName": "Orlando Magic",
+      "abbr": "ORL",
       "wins": 0,
-      "losses": 0
+      "losses": 0,
+      "pointsFor": 0,
+      "pointsAgainst": 0
     },
     {
       "name": "Mavericks",
-      "fullName": "Mavericks",
-      "abbr": "",
+      "fullName": "Dallas Mavericks",
+      "abbr": "DAL",
       "wins": 0,
-      "losses": 0
+      "losses": 0,
+      "pointsFor": 0,
+      "pointsAgainst": 0
     },
     {
       "name": "Nets",
-      "fullName": "Nets",
-      "abbr": "",
+      "fullName": "Brooklyn Nets",
+      "abbr": "BKN",
       "wins": 0,
-      "losses": 0
+      "losses": 0,
+      "pointsFor": 0,
+      "pointsAgainst": 0
     },
     {
       "name": "Nuggets",
-      "fullName": "Nuggets",
-      "abbr": "",
+      "fullName": "Denver Nuggets",
+      "abbr": "DEN",
       "wins": 0,
-      "losses": 0
+      "losses": 0,
+      "pointsFor": 0,
+      "pointsAgainst": 0
     },
     {
       "name": "Pacers",
-      "fullName": "Pacers",
-      "abbr": "",
+      "fullName": "Indiana Pacers",
+      "abbr": "IND",
       "wins": 0,
-      "losses": 0
+      "losses": 0,
+      "pointsFor": 0,
+      "pointsAgainst": 0
     },
     {
       "name": "Pelicans",
-      "fullName": "Pelicans",
-      "abbr": "",
+      "fullName": "New Orleans Pelicans",
+      "abbr": "NO",
       "wins": 0,
-      "losses": 0
+      "losses": 0,
+      "pointsFor": 0,
+      "pointsAgainst": 0
     },
     {
       "name": "Pistons",
-      "fullName": "Pistons",
-      "abbr": "",
-      "wins": 0,
-      "losses": 0
+      "fullName": "Detroit Pistons",
+      "abbr": "DET",
+      "wins": 1,
+      "losses": 0,
+      "pointsFor": 121.0,
+      "pointsAgainst": 113.0
     },
     {
       "name": "Raptors",
-      "fullName": "Raptors",
-      "abbr": "",
+      "fullName": "Toronto Raptors",
+      "abbr": "TOR",
       "wins": 0,
-      "losses": 0
+      "losses": 0,
+      "pointsFor": 0,
+      "pointsAgainst": 0
     },
     {
       "name": "Rockets",
-      "fullName": "Rockets",
-      "abbr": "",
+      "fullName": "Houston Rockets",
+      "abbr": "HOU",
       "wins": 0,
-      "losses": 0
+      "losses": 0,
+      "pointsFor": 0,
+      "pointsAgainst": 0
     },
     {
       "name": "Spurs",
-      "fullName": "Spurs",
-      "abbr": "",
+      "fullName": "San Antonio Spurs",
+      "abbr": "SA",
       "wins": 0,
-      "losses": 0
+      "losses": 1,
+      "pointsFor": 104.0,
+      "pointsAgainst": 116.0
     },
     {
       "name": "Suns",
-      "fullName": "Suns",
-      "abbr": "",
+      "fullName": "Phoenix Suns",
+      "abbr": "PHX",
       "wins": 0,
-      "losses": 0
+      "losses": 0,
+      "pointsFor": 0,
+      "pointsAgainst": 0
     },
     {
       "name": "Thunder",
-      "fullName": "Thunder",
-      "abbr": "",
-      "wins": 0,
-      "losses": 0
+      "fullName": "Oklahoma City Thunder",
+      "abbr": "OKC",
+      "wins": 1,
+      "losses": 0,
+      "pointsFor": 116.0,
+      "pointsAgainst": 104.0
     },
     {
       "name": "Timberwolves",
-      "fullName": "Timberwolves",
-      "abbr": "",
+      "fullName": "Minnesota Timberwolves",
+      "abbr": "MIN",
       "wins": 0,
-      "losses": 0
+      "losses": 0,
+      "pointsFor": 0,
+      "pointsAgainst": 0
     },
     {
       "name": "Trail Blazers",
-      "fullName": "Trail Blazers",
-      "abbr": "",
+      "fullName": "Portland Trail Blazers",
+      "abbr": "POR",
       "wins": 0,
-      "losses": 0
+      "losses": 0,
+      "pointsFor": 0,
+      "pointsAgainst": 0
     },
     {
       "name": "Warriors",
-      "fullName": "Warriors",
-      "abbr": "",
+      "fullName": "Golden State Warriors",
+      "abbr": "GS",
       "wins": 0,
-      "losses": 0
+      "losses": 0,
+      "pointsFor": 0,
+      "pointsAgainst": 0
     },
     {
       "name": "Wizards",
-      "fullName": "Wizards",
-      "abbr": "",
+      "fullName": "Washington Wizards",
+      "abbr": "WSH",
       "wins": 0,
-      "losses": 0
+      "losses": 0,
+      "pointsFor": 0,
+      "pointsAgainst": 0
     }
   ]
 }

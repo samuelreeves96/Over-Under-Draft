@@ -177,10 +177,14 @@
   @keyframes pulse { 50% { opacity: .25; } }
   @media (prefers-reduced-motion: reduce) { .status.in::before { animation: none; } }
   .badge { background: var(--nba-red); color: #fff; border-radius: 999px; padding: 2px 8px; font-size: 11px; white-space: nowrap; }
-  .h2hline { display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap; margin: -2px 0 12px;
-    padding: 7px 8px; background: var(--chip); border-radius: 8px; font-size: 13.5px; font-weight: 600; }
-  .h2hline .grp { display: inline-flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+  .h2hs { display: flex; flex-direction: column; gap: 4px; margin: -2px 0 12px; }
+  .h2hline { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 8px;
+    padding: 6px 8px; background: var(--chip); border-radius: 8px; font-size: 13.5px; font-weight: 600; }
+  .h2hline .grp { display: inline-flex; align-items: center; gap: 6px; min-width: 0; }
+  .h2hline .grp:first-child { justify-content: flex-end; }
+  .h2hline .grp span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .h2hline .grp.won { color: var(--pos); }
+  .h2hline .grp.lost { color: var(--muted); }
   .h2hline .vs { font-family: "Barlow Condensed", "Arial Narrow", sans-serif; font-weight: 800; font-size: 16px; color: var(--nba-red);
     text-transform: uppercase; }
   .sides { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
@@ -806,12 +810,16 @@ function gameCard(g, me) {
       <div class="fans">${list.map(f => fanChip(f, sd)).join("") || `<div class="nofans">No one needs a ${t.name ? esc(t.name) + " " : ""}win</div>`}</div></div>`;
   };
 
-  const grp = sd => `<span class="grp${winSide === sd ? " won" : ""}">${only(sd).map(n => `${avatar(n, 22)}<span>${esc(n)}</span>`).join(" ")}</span>`;
+  // One row per pairing of opposing players
+  const who = (n, sd) => `<span class="grp${winSide ? (winSide === sd ? " won" : " lost") : ""}">${
+    sd === "away" ? `<span>${esc(n)}</span>${avatar(n, 22)}` : `${avatar(n, 22)}<span>${esc(n)}</span>`}</span>`;
+  const pairs = only("away").flatMap(a => only("home").map(h => [a, h]));
   const html = `<article class="game${h2h ? " h2h" : ""}">
-    <header>${status}${h2h ? `<span class="badge">Head to head</span>` : ""}</header>
-    ${h2h ? `<div class="h2hline">${grp("away")}<span class="vs">vs</span>${grp("home")}</div>` : ""}
+    <header>${status}${h2h ? `<span class="badge">${pairs.length > 1 ? pairs.length + " head to heads" : "Head to head"}</span>` : ""}</header>
+    ${h2h ? `<div class="h2hs">${pairs.map(([a, h]) =>
+      `<div class="h2hline">${who(a, "away")}<span class="vs">vs</span>${who(h, "home")}</div>`).join("")}</div>` : ""}
     <div class="sides">${col("away")}${col("home")}</div></article>`;
-  return { html, h2h };
+  return { html, h2h, pairs: h2h ? pairs.length : 0 };
 }
 
 function renderGames() {
@@ -827,7 +835,7 @@ function renderGames() {
   const cards = [...gamesData.events]
     .sort((a, b) => (order[a.state] ?? 1) - (order[b.state] ?? 1) || String(a.date).localeCompare(String(b.date)))
     .map(g => gameCard(g, me));
-  const h2h = cards.filter(c => c.h2h).length, n = cards.length;
+  const h2h = cards.reduce((s, c) => s + c.pairs, 0), n = cards.length;
   note.textContent = n
     ? `${n} game${n === 1 ? "" : "s"} · ${h2h} head-to-head${h2h === 1 ? "" : "s"}. Numbers are what a result is worth to each person on win pace.` +
       (gamesData.live ? "" : " Showing the saved schedule; live scores aren't available.")

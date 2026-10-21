@@ -1,0 +1,32 @@
+name: Update standings
+
+on:
+  schedule:
+    # Twice a day (UTC), after US games have finished
+    - cron: "17 8,14 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch standings
+        run: python3 scripts/fetch_standings.py
+
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add data/standings.json data/history.json
+          if git diff --cached --quiet; then
+            echo "No changes"
+          else
+            git commit -m "Update standings"
+            git pull --rebase
+            git push
+          fi

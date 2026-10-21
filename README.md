@@ -13,6 +13,7 @@ Tracks our season win-total competition. Each pick scores the gap between the te
 |---|---|
 | `index.html` | The site (leaderboard + sortable picks table) |
 | `picks.csv` | Everyone's picks: Round, Pick, Name, Over/Under, Team, Line |
+| `avatars/` | Profile pictures; mapped to names in `AVATARS` near the top of the script in `index.html` |
 | `data/standings.json` | Latest team records and points for/against, refreshed by the GitHub Action |
 | `data/history.json` | One saved snapshot per day; drives the Movers panel and Progress charts |
 | `scripts/fetch_standings.py` | Pulls standings from ESPN |

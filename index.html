@@ -4,25 +4,38 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>NBA Over/Under Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #f6f7f9; --card: #ffffff; --text: #16191d; --muted: #646b75; --faint: #9aa1aa;
-    --line: #e3e6ea; --accent: #2b5fd9; --pos: #1a7f43; --neg: #c0362c;
-    --pos-bg: #e6f4ec; --neg-bg: #fbe9e7; --chip: #eef1f5;
+    --nba-blue: #17408B; --nba-red: #C9082A; --nba-navy: #0B1D3F;
+    --bg: #f3f5f9; --card: #ffffff; --text: #111827; --muted: #5d6676; --faint: #a3abb9;
+    --line: #e1e5ec; --accent: #17408B; --pos: #12784a; --neg: #C9082A;
+    --pos-bg: #e3f3ea; --neg-bg: #fbe6ea; --chip: #e9eef6; --ghost: #c5ccd8;
   }
   @media (prefers-color-scheme: dark) {
     :root {
-      --bg: #111316; --card: #1a1d21; --text: #e9ecef; --muted: #9aa2ad; --faint: #6b737d;
-      --line: #2b3036; --accent: #7aa2ff; --pos: #5cc98a; --neg: #f07b70;
-      --pos-bg: #16301f; --neg-bg: #3a1c19; --chip: #252a30;
+      --bg: #0a1426; --card: #111e36; --text: #e8edf5; --muted: #9aa6ba; --faint: #5d6a82;
+      --line: #22304b; --accent: #6f9bff; --pos: #4fd08f; --neg: #ff6680;
+      --pos-bg: #12301f; --neg-bg: #3c1520; --chip: #1a2843; --ghost: #33435f;
     }
   }
   * { box-sizing: border-box; }
   body { margin: 0; background: var(--bg); color: var(--text);
     font: 15px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
-  main { max-width: 1080px; margin: 0 auto; padding: 24px 16px 48px; }
-  h1 { font-size: 26px; margin: 0 0 4px; }
-  h2 { font-size: 18px; margin: 32px 0 12px; }
+  .display { font-family: "Barlow Condensed", "Arial Narrow", system-ui, sans-serif; }
+  .masthead { background: var(--nba-navy); color: #fff; border-bottom: 4px solid var(--nba-red); }
+  .masthead .inner { max-width: 1080px; margin: 0 auto; padding: 22px 16px 18px; display: flex; align-items: center; gap: 14px; }
+  .masthead .mark { width: 44px; height: 44px; flex-shrink: 0; }
+  .masthead h1 { font-family: "Barlow Condensed", "Arial Narrow", sans-serif; font-weight: 800; font-size: 34px;
+    line-height: 1; letter-spacing: .01em; text-transform: uppercase; margin: 0; }
+  .masthead p { margin: 4px 0 0; color: #c3cde0; font-size: 14px; }
+  main { max-width: 1080px; margin: 0 auto; padding: 12px 16px 48px; }
+  h2 { font-family: "Barlow Condensed", "Arial Narrow", sans-serif; font-weight: 700; font-size: 22px;
+    text-transform: uppercase; letter-spacing: .02em; margin: 34px 0 12px; display: flex; align-items: center; gap: 10px; }
+  h2::before { content: ""; width: 5px; height: 20px; background: var(--nba-red); border-radius: 2px; }
+  h2 .seg { margin-left: auto; text-transform: none; letter-spacing: 0; font-family: system-ui, sans-serif; font-weight: 400; }
   h3 { font-size: 13px; margin: 0 0 8px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .03em; }
   .sub { color: var(--muted); margin: 0 0 4px; }
   .note { color: var(--muted); font-size: 13px; }
@@ -35,7 +48,7 @@
   .seg { display: inline-flex; background: var(--chip); border-radius: 8px; padding: 3px; }
   .seg button { font: inherit; font-size: 14px; border: 0; background: transparent; color: var(--muted);
     padding: 5px 12px; border-radius: 6px; cursor: pointer; }
-  .seg button.on { background: var(--card); color: var(--text); font-weight: 600; box-shadow: 0 1px 2px rgba(0,0,0,.12); }
+  .seg button.on { background: var(--nba-blue); color: #fff; font-weight: 600; box-shadow: 0 1px 2px rgba(0,0,0,.18); }
   label.ctl { font-size: 14px; color: var(--muted); display: inline-flex; gap: 6px; align-items: center; }
   select, button.clear { font: inherit; font-size: 14px; padding: 6px 10px; border-radius: 6px; border: 1px solid var(--line);
     background: var(--card); color: var(--text); }
@@ -46,10 +59,24 @@
   .player { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px;
     cursor: pointer; text-align: left; color: inherit; font: inherit; }
   .player.active { outline: 2px solid var(--accent); }
+  .player:first-child { border-top: 3px solid var(--nba-red); }
+
+  /* Avatars */
+  .av { flex-shrink: 0; border-radius: 50%; object-fit: cover; background: var(--chip); display: inline-grid; place-items: center;
+    box-shadow: 0 0 0 2px var(--card), 0 0 0 3px var(--line); vertical-align: middle; }
+  .av.init { background: var(--nba-blue); color: #fff; font-weight: 700; font-family: "Barlow Condensed", "Arial Narrow", sans-serif; }
+  .av-40 { width: 40px; height: 40px; font-size: 17px; }
+  .av-28 { width: 28px; height: 28px; font-size: 13px; }
+  .av-22 { width: 22px; height: 22px; font-size: 11px; }
   .player .top { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
   .rank { color: var(--muted); font-size: 13px; margin-right: 6px; }
   .pname { font-weight: 600; }
-  .total { font-size: 22px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .total { font-family: "Barlow Condensed", "Arial Narrow", sans-serif; font-size: 30px; font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums; }
+  .player .who-row { display: flex; align-items: center; gap: 10px; min-width: 0; flex: 1; }
+  .player .who-row > span { min-width: 0; display: flex; flex-direction: column; }
+  .player .rank { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin: 0; }
+  .player .pname { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .player .top { align-items: center !important; }
   .meta { color: var(--muted); font-size: 12.5px; margin-top: 4px; display: flex; justify-content: space-between; gap: 8px; }
   .delta { font-variant-numeric: tabular-nums; font-weight: 600; }
 
@@ -62,12 +89,30 @@
   .panel li:first-child { border-top: 0; }
   .panel .who { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .panel .who small { color: var(--muted); }
+  .panel .who .av { margin-right: 4px; }
   .empty { color: var(--muted); font-size: 13px; }
 
   /* Charts */
   .charts { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; }
   .chart { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px 6px; }
-  .chart .head { display: flex; justify-content: space-between; align-items: baseline; }
+  .chart .head { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 2px; }
+  .chart .head .who-row { display: flex; align-items: center; gap: 8px; min-width: 0; }
+
+  /* Combined chart */
+  .combined { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px; position: relative; }
+  .legend { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+  .legend button { display: inline-flex; align-items: center; gap: 6px; font: inherit; font-size: 13px; color: var(--text);
+    background: var(--chip); border: 1px solid transparent; border-radius: 999px; padding: 3px 10px 3px 3px; cursor: pointer; }
+  .legend button.on { background: var(--card); border-color: var(--nba-blue); box-shadow: 0 0 0 1px var(--nba-blue); }
+  .legend button .v { color: var(--muted); font-variant-numeric: tabular-nums; }
+  .combined svg { display: block; width: 100%; height: auto; touch-action: pan-y; }
+  .combined svg text { font: 11px system-ui, sans-serif; fill: var(--muted); font-variant-numeric: tabular-nums; }
+  .tipbox { position: absolute; pointer-events: none; background: var(--card); border: 1px solid var(--line); border-radius: 8px;
+    box-shadow: 0 4px 14px rgba(0,0,0,.14); padding: 8px 10px; font-size: 12.5px; min-width: 150px; z-index: 3; }
+  .tipbox .d { font-weight: 700; margin-bottom: 4px; }
+  .tipbox .r { display: flex; justify-content: space-between; gap: 12px; font-variant-numeric: tabular-nums; }
+  .tipbox .r.hl { font-weight: 700; color: var(--nba-blue); }
+  @media (prefers-color-scheme: dark) { .tipbox .r.hl { color: var(--accent); } }
   .chart svg { display: block; width: 100%; height: auto; touch-action: pan-y; }
   .chart svg text { font: 10px system-ui, sans-serif; fill: var(--muted); font-variant-numeric: tabular-nums; }
   .chart svg text.tip { fill: var(--text); font-size: 11px; font-weight: 600; }
@@ -77,7 +122,9 @@
   .tablewrap { overflow-x: auto; background: var(--card); border: 1px solid var(--line); border-radius: 10px; }
   table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
   th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--line); white-space: nowrap; }
-  th { font-size: 12.5px; color: var(--muted); font-weight: 600; cursor: pointer; user-select: none; background: var(--card); }
+  th { font-size: 12px; color: #fff; font-weight: 600; cursor: pointer; user-select: none; background: var(--nba-navy);
+    text-transform: uppercase; letter-spacing: .04em; }
+  @media (prefers-color-scheme: dark) { th { background: #0d1a33; } }
   th.num, td.num { text-align: right; }
   tr:last-child td { border-bottom: 0; }
   .tag { display: inline-block; padding: 1px 7px; border-radius: 999px; font-size: 12px; font-weight: 600; }
@@ -92,13 +139,16 @@
   .switch .track { width: 34px; height: 20px; border-radius: 999px; background: var(--line); position: relative; transition: background .15s; flex-shrink: 0; }
   .switch .track::after { content: ""; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; border-radius: 50%;
     background: var(--card); box-shadow: 0 1px 2px rgba(0,0,0,.25); transition: transform .15s; }
-  .switch input:checked + .track { background: var(--accent); }
+  .switch input:checked + .track { background: var(--nba-blue); }
   .switch input:checked + .track::after { transform: translateX(14px); }
   .switch input:focus-visible + .track { outline: 2px solid var(--accent); outline-offset: 2px; }
-  .commentary { background: var(--card); border: 1px solid var(--line); border-left: 3px solid var(--accent);
+  .commentary { background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--nba-red);
     border-radius: 10px; padding: 16px 18px; margin-top: 20px; }
   .commentary .kicker { font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
-  .commentary h2 { margin: 4px 0 8px; font-size: 20px; }
+  .commentary h2 { margin: 4px 0 10px; font-size: 26px; text-transform: none; }
+  .commentary h2::before { display: none; }
+  .commentary .entry { display: flex; gap: 10px; align-items: flex-start; }
+  .commentary .entry .av { margin-top: 1px; }
   .commentary p { margin: 0 0 10px; max-width: 72ch; }
   .commentary .entry b { font-variant-numeric: tabular-nums; }
   .commentary .signoff { font-style: italic; margin-bottom: 4px; }
@@ -116,9 +166,15 @@
 </style>
 </head>
 <body>
+<header class="masthead"><div class="inner">
+  <svg class="mark" viewBox="0 0 44 44" aria-hidden="true">
+    <circle cx="22" cy="22" r="20" fill="#E8762B" stroke="#fff" stroke-width="2"/>
+    <path d="M2 22h40M22 2v40M8 8c8 6 8 22 0 28M36 8c-8 6-8 22 0 28" fill="none" stroke="#3a1a08" stroke-width="1.6"/>
+  </svg>
+  <div><h1>Over/Under Tracker</h1>
+  <p>Points = how far each team's projected wins finish above (Over) or below (Under) the line.</p></div>
+</div></header>
 <main>
-  <h1>NBA Over/Under Tracker</h1>
-  <p class="sub">Points = how far each team's projected wins finish above (Over) or below (Under) the line.</p>
   <p class="note" id="updated">Loading…</p>
   <div class="banner" id="banner" hidden></div>
 
@@ -158,8 +214,14 @@
     <th class="num">Avg / pick</th><th class="barcol"></th><th class="num">Change</th><th>Best pick</th>
   </tr></thead><tbody id="rounds"></tbody></table></div>
 
-  <h2>Progress</h2>
+  <h2>Progress
+    <span class="seg" id="chartMode" role="group" aria-label="Chart layout">
+      <button data-v="split" class="on">Separate</button>
+      <button data-v="combined">Combined</button>
+    </span>
+  </h2>
   <div class="charts" id="charts"></div>
+  <div class="combined" id="combined" hidden></div>
 
   <h2>Picks</h2>
   <div class="controls">
@@ -193,7 +255,21 @@ const METHOD_NOTES = {
   eff: "Efficiency: keeps wins already banked and projects the rest from points scored vs allowed, which rewards teams outplaying their record.",
 };
 
-const state = { method: "pace", period: "7" };
+// Avatar images in avatars/. Anyone not listed gets their initials.
+const AVATARS = {
+  "Nic": "avatars/nic.jpg",
+  "Pos": "avatars/pos.jpg",
+  "Sam": "avatars/sam.jpg",
+  "Dan": "avatars/dan.jpg",
+  "Harry": "avatars/harry.jpg",
+  "Marco": "avatars/marco.jpg",
+  "Leon": "avatars/leon.jpg",
+  "Angus": "avatars/angus.jpg",
+  "Ned": "avatars/ned.jpg",
+  "Roscoe the Dog": "avatars/roscoe.jpg",
+};
+
+const state = { method: "pace", period: "7", chartMode: "split", focus: null };
 let picks = [];      // one per pick, with .series[method][dayIndex] = { proj, pts, rec }
 let timeline = [];   // [{ date, teams: Map(lowercase name -> rec) }]
 let players = [];
@@ -205,6 +281,10 @@ const arrow = n => (n > 0.05 ? "▲ " : n < -0.05 ? "▼ " : "");
 const parseDate = s => { const [y, m, d] = s.split("-").map(Number); return new Date(y, m - 1, d); };
 const isoDate = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 const addDays = (s, n) => { const d = parseDate(s); d.setDate(d.getDate() + n); return isoDate(d); };
+const initials = n => n.split(/\s+/).filter(w => /^[A-Za-z]/.test(w)).slice(0, 2).map(w => w[0].toUpperCase()).join("");
+const avatar = (name, size = 28) => AVATARS[name]
+  ? `<img class="av av-${size}" src="${esc(AVATARS[name])}" alt="" loading="lazy">`
+  : `<span class="av av-${size} init" aria-hidden="true">${esc(initials(name))}</span>`;
 const shortDate = s => parseDate(s).toLocaleDateString(undefined, { day: "numeric", month: "short" });
 // US game date: UTC minus 10 hours (matches scripts/fetch_standings.py)
 const gameDateNow = () => new Date(Date.now() - 10 * 3600e3).toISOString().slice(0, 10);
@@ -274,7 +354,7 @@ function renderBoard() {
   const active = document.getElementById("filterName").value;
   document.getElementById("board").innerHTML = ranked.map((pl, i) => `
     <button class="player${pl.name === active ? " active" : ""}" data-name="${esc(pl.name)}">
-      <div class="top"><span><span class="rank">${i + 1}</span><span class="pname">${esc(pl.name)}</span></span>
+      <div class="top"><span class="who-row">${avatar(pl.name, 40)}<span><span class="rank">${["1st","2nd","3rd"][i] || (i + 1) + "th"}</span><span class="pname" title="${esc(pl.name)}">${esc(pl.name)}</span></span></span>
       <span class="total ${cls(pl.total)}">${fmt(pl.total)}</span></div>
       <div class="meta"><span>Best: ${esc(pl.best.team)} ${pl.best.side}</span>
       <span class="delta ${cls(pl.delta)}" title="Change over selected period">${arrow(pl.delta)}${fmt(pl.delta)}</span></div>
@@ -289,7 +369,7 @@ function renderBoard() {
 function renderMovers() {
   const m = state.method, last = timeline.length - 1, base = baselineIndex();
   const periodLabel = document.querySelector("#period option:checked").textContent.toLowerCase();
-  const pl = players.map(p => ({ label: esc(p.name), sub: "", d: p.totals[m][last] - p.totals[m][base] }));
+  const pl = players.map(p => ({ label: `${avatar(p.name, 22)} ${esc(p.name)}`, sub: "", d: p.totals[m][last] - p.totals[m][base] }));
   const pk = picks.map(p => ({ label: `${esc(p.team)} ${p.side}`, sub: esc(p.name), d: p.series[m][last].pts - p.series[m][base].pts }));
   const top = (list, dir) => list.filter(x => dir * x.d > 0.05).sort((a, b) => dir * (b.d - a.d)).slice(0, 3);
   const panel = (title, list) => `<div class="panel"><h3>${title}</h3>${list.length
@@ -311,19 +391,115 @@ function niceStep(range) {
 }
 
 function renderCharts() {
-  const m = state.method, last = timeline.length - 1;
+  const split = state.chartMode === "split";
+  document.getElementById("charts").hidden = !split;
+  document.getElementById("combined").hidden = split;
+  return split ? renderSplitCharts() : renderCombinedChart();
+}
+
+function chartScale(m) {
   // Ignore the first week's wild swings when sizing the axis (once there's enough data); spikes are clipped
   const skip = timeline.length > 21 ? 8 : 0;
   const all = players.flatMap(p => p.totals[m].slice(skip));
   let lo = Math.min(-2, ...all), hi = Math.max(2, ...all);
   const step = niceStep(hi - lo);
   lo = Math.floor(lo / step) * step; hi = Math.ceil(hi / step) * step;
+  const ticks = [];
+  for (let v = lo; v <= hi + 1e-9; v += step) ticks.push(+v.toFixed(6));
+  return { lo, hi, ticks };
+}
+
+// All players on one chart: grey lines, one highlighted; avatars mark each line's end
+function renderCombinedChart() {
+  const m = state.method, last = timeline.length - 1, n = timeline.length;
+  const W = 960, H = 420, P = { l: 44, r: 150, t: 16, b: 28 };
+  const { lo, hi, ticks } = chartScale(m);
+  const x = i => P.l + (n > 1 ? (i / (n - 1)) * (W - P.l - P.r) : (W - P.l - P.r) / 2);
+  const y = v => P.t + ((hi - v) / (hi - lo)) * (H - P.t - P.b);
+  const cy = v => Math.max(P.t, Math.min(H - P.b, y(v)));
+  const ordered = [...players].sort((a, b) => b.totals[m][last] - a.totals[m][last]);
+  const focus = state.focus;
+
+  // End labels: avatar + name + score, nudged apart so they don't overlap
+  const GAP = 26;
+  const ends = ordered.map(p => ({ p, ty: cy(p.totals[m][last]) }));
+  for (let i = 1; i < ends.length; i++) ends[i].ty = Math.max(ends[i].ty, ends[i - 1].ty + GAP);
+  const overflow = ends.length ? ends[ends.length - 1].ty - (H - P.b) : 0;
+  if (overflow > 0) ends.forEach(e => (e.ty -= overflow));
+  for (let i = ends.length - 2; i >= 0; i--) ends[i].ty = Math.min(ends[i].ty, ends[i + 1].ty - GAP);
+
+  const pathFor = p => p.totals[m].map((v, i) => `${i ? "L" : "M"}${x(i).toFixed(1)},${y(v).toFixed(1)}`).join("");
+  const grid = ticks.map(t => `<line x1="${P.l}" x2="${W - P.r}" y1="${y(t)}" y2="${y(t)}" stroke="${t === 0 ? "var(--faint)" : "var(--line)"}"/>
+    <text x="${P.l - 8}" y="${y(t) + 4}" text-anchor="end">${t > 0 ? "+" : ""}${t}</text>`).join("");
+  const xl = `<text x="${x(0)}" y="${H - 8}">${shortDate(timeline[0].date)}</text>` +
+    (n > 1 ? `<text x="${x(n - 1)}" y="${H - 8}" text-anchor="end">${shortDate(timeline[n - 1].date)}</text>` : "");
+  const lines = ordered.filter(p => p.name !== focus).map(p =>
+    `<path d="${pathFor(p)}" fill="none" stroke="var(--ghost)" stroke-width="1.75" stroke-linejoin="round" stroke-linecap="round" data-name="${esc(p.name)}"/>`).join("");
+  const fp = ordered.find(p => p.name === focus);
+  const focusLine = fp ? `<path d="${pathFor(fp)}" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="${x(last)}" cy="${cy(fp.totals[m][last])}" r="4.5" fill="var(--accent)" stroke="var(--card)" stroke-width="2"/>` : "";
+  const ex = x(last);
+  const labels = ends.map(({ p, ty }, k) => {
+    const v = p.totals[m][last], on = p.name === focus;
+    const img = AVATARS[p.name]
+      ? `<image href="${esc(AVATARS[p.name])}" x="${ex + 14}" y="${ty - 10}" width="20" height="20" clip-path="url(#avc${k})" preserveAspectRatio="xMidYMid slice"/>`
+      : `<circle cx="${ex + 24}" cy="${ty}" r="10" fill="var(--nba-blue)"/><text x="${ex + 24}" y="${ty + 4}" text-anchor="middle" style="fill:#fff;font-weight:700;font-size:9px">${esc(initials(p.name))}</text>`;
+    return `<g class="end" data-name="${esc(p.name)}" style="cursor:pointer" opacity="${focus && !on ? 0.55 : 1}">
+      <clipPath id="avc${k}"><circle cx="${ex + 24}" cy="${ty}" r="10"/></clipPath>
+      <line x1="${ex + 2}" y1="${cy(v)}" x2="${ex + 13}" y2="${ty}" stroke="var(--line)"/>
+      ${img}<circle cx="${ex + 24}" cy="${ty}" r="10.5" fill="none" stroke="${on ? "var(--accent)" : "var(--card)"}" stroke-width="2"/>
+      <text x="${ex + 40}" y="${ty + 4}" style="fill:var(--text);${on ? "font-weight:700" : ""}">${esc(p.name.split(" ")[0])}</text>
+      <text x="${W - 4}" y="${ty + 4}" text-anchor="end" style="fill:var(--${v > 0.05 ? "pos" : v < -0.05 ? "neg" : "muted"});font-weight:600">${fmt(v)}</text>
+    </g>`;
+  }).join("");
+
+  const box = document.getElementById("combined");
+  box.innerHTML = `
+    <div class="legend">${ordered.map(p => `<button data-name="${esc(p.name)}" class="${p.name === focus ? "on" : ""}">
+      ${avatar(p.name, 22)}${esc(p.name)} <span class="v">${fmt(p.totals[m][last])}</span></button>`).join("")}</div>
+    <svg viewBox="0 0 ${W} ${H}" role="img" aria-label="All players' total points over time">
+      ${grid}${xl}
+      <g clip-path="url(#plotclip)">${lines}${focusLine}</g>
+      <clipPath id="plotclip"><rect x="${P.l}" y="${P.t - 6}" width="${W - P.l - P.r + 6}" height="${H - P.t - P.b + 12}"/></clipPath>
+      ${labels}
+      <g class="hover" visibility="hidden"><line y1="${P.t}" y2="${H - P.b}" stroke="var(--faint)"/></g>
+      <rect class="hit" x="${P.l}" y="0" width="${W - P.l - P.r}" height="${H}" fill="transparent"/>
+    </svg>
+    <div class="tipbox" hidden></div>
+    <p class="note" style="margin:6px 0 0">Tap a name to highlight their line. Hover or drag across the chart to compare everyone on a date.</p>`;
+
+  const setFocus = name => { state.focus = state.focus === name ? null : name; renderCombinedChart(); };
+  box.querySelectorAll(".legend button, g.end").forEach(el => el.onclick = () => setFocus(el.dataset.name));
+
+  const svg = box.querySelector("svg"), g = svg.querySelector(".hover"), tip = box.querySelector(".tipbox");
+  const move = e => {
+    const r = svg.getBoundingClientRect();
+    const px = ((e.clientX - r.left) / r.width) * W;
+    const i = n > 1 ? Math.max(0, Math.min(n - 1, Math.round(((px - P.l) / (W - P.l - P.r)) * (n - 1)))) : 0;
+    const vx = x(i);
+    g.querySelector("line").setAttribute("x1", vx); g.querySelector("line").setAttribute("x2", vx);
+    g.setAttribute("visibility", "visible");
+    const rows = [...players].map(p => ({ n: p.name, v: p.totals[m][i] })).sort((a, b) => b.v - a.v);
+    tip.innerHTML = `<div class="d">${shortDate(timeline[i].date)}</div>` + rows.map(r =>
+      `<div class="r${r.n === focus ? " hl" : ""}"><span>${esc(r.n)}</span><span class="${cls(r.v)}">${fmt(r.v)}</span></div>`).join("");
+    tip.hidden = false;
+    const bx = box.getBoundingClientRect(), sx = (vx / W) * r.width + (r.left - bx.left);
+    const left = sx + 14 + tip.offsetWidth > bx.width ? sx - 14 - tip.offsetWidth : sx + 14;
+    tip.style.left = Math.max(4, left) + "px";
+    tip.style.top = (r.top - bx.top + 40) + "px";
+  };
+  const hit = svg.querySelector("rect.hit");
+  hit.addEventListener("pointermove", move);
+  hit.addEventListener("pointerdown", move);
+  hit.addEventListener("pointerleave", () => { g.setAttribute("visibility", "hidden"); tip.hidden = true; });
+}
+
+function renderSplitCharts() {
+  const m = state.method, last = timeline.length - 1;
+  const { lo, hi, ticks } = chartScale(m);
   const n = timeline.length;
   const x = i => PAD.l + (n > 1 ? (i / (n - 1)) * (CW - PAD.l - PAD.r) : (CW - PAD.l - PAD.r) / 2);
   const y = v => PAD.t + ((hi - v) / (hi - lo)) * (CH - PAD.t - PAD.b);
-  const ticks = [];
-  for (let v = lo; v <= hi + 1e-9; v += step) ticks.push(+v.toFixed(6));
-
   const ordered = [...players].sort((a, b) => b.totals[m][last] - a.totals[m][last]);
   chartData = ordered.map(p => ({ name: p.name, values: p.totals[m], x, y }));
   document.getElementById("charts").innerHTML = ordered.map((p, ci) => {
@@ -338,7 +514,7 @@ function renderCharts() {
       : `<text x="${x(0)}" y="${CH - 6}" text-anchor="middle">${shortDate(timeline[0].date)}</text>`;
     const cur = vals[last];
     return `<div class="chart">
-      <div class="head"><span class="pname">${esc(p.name)}</span><span class="delta ${cls(cur)}">${fmt(cur)}</span></div>
+      <div class="head"><span class="who-row">${avatar(p.name, 28)}<span class="pname">${esc(p.name)}</span></span><span class="delta ${cls(cur)}">${fmt(cur)}</span></div>
       <svg viewBox="0 0 ${CW} ${CH}" role="img" aria-label="${esc(p.name)} total points over time, now ${fmt(cur)}" data-ci="${ci}">
         <clipPath id="clip${ci}"><rect x="${PAD.l}" y="${PAD.t - 4}" width="${CW - PAD.l - PAD.r + 6}" height="${CH - PAD.t - PAD.b + 8}"/></clipPath>
         ${grid}${xl}
@@ -473,7 +649,7 @@ function render() {
 function renderCommentary(c) {
   const sec = document.getElementById("commentary");
   const when = c.date ? parseDate(c.date).toLocaleDateString(undefined, { day: "numeric", month: "long", year: "numeric" }) : "";
-  const entry = p => `<p class="entry"><b>${p.rank ? p.rank + ". " : ""}${esc(p.name)}${p.total != null ? ` (${fmt(p.total)})` : ""}</b> ${esc(p.text)}</p>`;
+  const entry = p => `<p class="entry">${avatar(p.name, 28)}<span><b>${p.rank ? p.rank + ". " : ""}${esc(p.name)}${p.total != null ? ` (${fmt(p.total)})` : ""}</b> ${esc(p.text)}</span></p>`;
   const top = c.players.slice(0, 3), rest = c.players.slice(3);
   sec.innerHTML = `
     <div class="kicker">AI commentary · ${esc(when)}</div>
@@ -608,6 +784,19 @@ async function init() {
     document.querySelectorAll("#method button").forEach(x => x.classList.toggle("on", x === b));
     render();
   });
+  document.querySelectorAll("#chartMode button").forEach(b => b.onclick = () => {
+    state.chartMode = b.dataset.v;
+    document.querySelectorAll("#chartMode button").forEach(x => x.classList.toggle("on", x === b));
+    try { localStorage.setItem("chartMode", state.chartMode); } catch (e) {}
+    renderCharts();
+  });
+  try {
+    const saved = localStorage.getItem("chartMode");
+    if (saved === "combined" || saved === "split") {
+      state.chartMode = saved;
+      document.querySelectorAll("#chartMode button").forEach(x => x.classList.toggle("on", x.dataset.v === saved));
+    }
+  } catch (e) {}
   render();
   setupCommentary(commentary);
 }

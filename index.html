@@ -164,6 +164,46 @@
   .bar .fill { position: absolute; top: 0; bottom: 0; border-radius: 3px; }
   .bar .fill.pos { background: var(--pos); } .bar .fill.neg { background: var(--neg); }
   .hit { font-variant-numeric: tabular-nums; }
+
+  /* Games */
+  .games { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 10px; }
+  .game { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; min-width: 0; }
+  .game.h2h { border-top: 3px solid var(--nba-red); }
+  .game header { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 10px;
+    font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+  .status.in { color: var(--nba-red); }
+  .status.in::before { content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--nba-red);
+    margin-right: 6px; vertical-align: 1px; animation: pulse 1.4s ease-in-out infinite; }
+  @keyframes pulse { 50% { opacity: .25; } }
+  @media (prefers-reduced-motion: reduce) { .status.in::before { animation: none; } }
+  .badge { background: var(--nba-red); color: #fff; border-radius: 999px; padding: 2px 8px; font-size: 11px; white-space: nowrap; }
+  .h2hline { display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap; margin: -2px 0 12px;
+    padding: 7px 8px; background: var(--chip); border-radius: 8px; font-size: 13.5px; font-weight: 600; }
+  .h2hline .grp { display: inline-flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+  .h2hline .grp.won { color: var(--pos); }
+  .h2hline .vs { font-family: "Barlow Condensed", "Arial Narrow", sans-serif; font-weight: 800; font-size: 16px; color: var(--nba-red);
+    text-transform: uppercase; }
+  .sides { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .side { min-width: 0; }
+  .team-hd { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; min-width: 0; }
+  .abbr { min-width: 34px; height: 34px; padding: 0 4px; border-radius: 8px; display: grid; place-items: center; flex-shrink: 0;
+    font-family: "Barlow Condensed", "Arial Narrow", sans-serif; font-weight: 700; font-size: 14px; }
+  .tinfo { min-width: 0; }
+  .tname { font-weight: 600; line-height: 1.15; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .trec { font-size: 12px; color: var(--muted); }
+  .score { margin-left: auto; font-family: "Barlow Condensed", "Arial Narrow", sans-serif; font-size: 28px; font-weight: 700;
+    line-height: 1; font-variant-numeric: tabular-nums; }
+  .score.trail { color: var(--muted); font-weight: 600; }
+  .fans { display: flex; flex-direction: column; gap: 4px; }
+  .fan { display: flex; align-items: center; gap: 7px; padding: 4px 8px 4px 4px; border-radius: 8px; background: var(--chip); min-width: 0; }
+  .fan .fx { min-width: 0; flex: 1; }
+  .fan .r1 { display: flex; justify-content: space-between; gap: 6px; font-size: 13px; }
+  .fan .n { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .fan .st { font-size: 12px; font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .fan .pk { font-size: 11.5px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .fan.good { background: var(--pos-bg); } .fan.bad { background: var(--neg-bg); }
+  .fan.me { box-shadow: inset 0 0 0 2px var(--nba-blue); }
+  .nofans { font-size: 12px; color: var(--muted); padding: 4px 2px; }
 </style>
 </head>
 <body>
@@ -204,6 +244,14 @@
 
   <h2>Leaderboard</h2>
   <div class="board" id="board"></div>
+
+  <h2>Games
+    <span class="seg" id="gameDay" role="group" aria-label="Game day">
+      <button data-o="-1">Yesterday</button><button data-o="0" class="on">Today</button><button data-o="1">Tomorrow</button>
+    </span>
+  </h2>
+  <p class="note" id="gamesNote" style="margin:-6px 0 10px">Loading games…</p>
+  <div class="games" id="games"></div>
 
   <h2>Movers</h2>
   <div class="movers" id="movers"></div>
@@ -643,7 +691,164 @@ function renderRounds() {
 
 function render() {
   document.getElementById("methodNote").textContent = METHOD_NOTES[state.method];
-  renderBoard(); renderMovers(); renderRounds(); renderCharts(); renderTable();
+  renderBoard(); renderGames(); renderMovers(); renderRounds(); renderCharts(); renderTable();
+}
+
+// ---------- Games ----------
+const SCOREBOARD_URL = "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard";
+let gamesData;            // undefined = loading, null = unavailable
+let gamesBaseDate = null; // ESPN's "today" (US date)
+let gamesTimer = null;
+
+const keyOf = name => { const k = String(name || "").toLowerCase(); return TEAM_ALIASES[k] || k; };
+
+// Accepts ESPN's scoreboard response or the compact copy saved by the GitHub Action
+function normaliseScoreboard(data) {
+  const events = (data.events || []).map(ev => {
+    if (ev.teams) return ev;
+    const comp = (ev.competitions || [])[0] || {};
+    const st = (ev.status || comp.status || {}).type || {};
+    const teams = (comp.competitors || []).map(c => {
+      const t = c.team || {};
+      let score = c.score;
+      if (score && typeof score === "object") score = score.value;
+      return {
+        homeAway: c.homeAway, name: t.name || t.shortDisplayName || "", abbr: t.abbreviation || "",
+        color: t.color || "", score: score === undefined || score === null || score === "" ? null : +score,
+        winner: !!c.winner, record: ((c.records || [])[0] || {}).summary || "",
+      };
+    }).sort((a, b) => (a.homeAway === "away" ? -1 : 1) - (b.homeAway === "away" ? -1 : 1));
+    return { id: ev.id, date: ev.date, state: st.state || "pre", detail: st.shortDetail || st.detail || "",
+      completed: !!st.completed, teams };
+  });
+  return { date: (data.day && data.day.date) || "", events };
+}
+
+async function loadGames(offset) {
+  let url = SCOREBOARD_URL;
+  if (offset) url += "?dates=" + addDays(gamesBaseDate || gameDateNow(), offset).replace(/-/g, "");
+  try {
+    const res = await fetch(url, { cache: "no-store" });
+    if (!res.ok) throw new Error("ESPN " + res.status);
+    const sb = normaliseScoreboard(await res.json());
+    if (!offset) gamesBaseDate = sb.date || gameDateNow();
+    return { ...sb, live: true };
+  } catch (err) {
+    console.warn("Live scoreboard unavailable:", err);
+    if (offset) return null;
+    try {
+      const saved = (await fetch("data/standings.json", { cache: "no-store" }).then(r => r.json())).scoreboard;
+      if (saved) { gamesBaseDate = saved.date || gameDateNow(); return { ...normaliseScoreboard(saved), live: false }; }
+    } catch (e) {}
+    return null;
+  }
+}
+
+// Points a pick gains if its team gets the result it needs, and loses otherwise (win pace)
+function stakes(p) {
+  const last = timeline.length - 1, cur = p.series.pace[last];
+  const rec = cur.rec, gp = rec.wins + rec.losses;
+  const ptsAt = proj => (p.side === "Over" ? proj - p.line : p.line - proj);
+  const ifWin = ptsAt(((rec.wins + 1) / (gp + 1)) * SEASON_GAMES) - cur.pts;
+  const ifLoss = ptsAt((rec.wins / (gp + 1)) * SEASON_GAMES) - cur.pts;
+  return p.side === "Over" ? { up: ifWin, down: ifLoss } : { up: ifLoss, down: ifWin };
+}
+
+function teamColours(hex) {
+  const c = /^[0-9a-f]{6}$/i.test(hex || "") ? hex : "17408B";
+  const [r, g, b] = [0, 2, 4].map(i => parseInt(c.slice(i, i + 2), 16) / 255);
+  const lum = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+  return `background:#${c};color:${lum > 0.6 ? "#111" : "#fff"}`;
+}
+
+function gameCard(g, me) {
+  const away = g.teams.find(t => t.homeAway === "away") || g.teams[0] || {};
+  const home = g.teams.find(t => t.homeAway === "home") || g.teams[1] || {};
+  const team = { away, home }, other = { away: "home", home: "away" };
+  const fans = { away: new Map(), home: new Map() };
+  for (const p of picks) for (const sd of ["away", "home"]) {
+    if (!team[sd].name || p.teamKey !== keyOf(team[sd].name)) continue;
+    const root = p.side === "Over" ? sd : other[sd];     // Over wants a win, Under wants a loss
+    const st = stakes(p);
+    const f = fans[root].get(p.name) || { name: p.name, picks: [], up: 0, down: 0 };
+    f.picks.push(p); f.up += st.up; f.down += st.down;
+    fans[root].set(p.name, f);
+  }
+  const both = [...fans.away.keys()].filter(n => fans.home.has(n));
+  const only = sd => [...fans[sd].keys()].filter(n => !both.includes(n));
+  const h2h = only("away").length > 0 && only("home").length > 0;
+  const winSide = g.state === "post" ? (away.winner ? "away" : home.winner ? "home" : null) : null;
+  const started = g.state !== "pre" && away.score != null && home.score != null;
+
+  const status = g.state === "in" ? `<span class="status in">Live · ${esc(g.detail)}</span>`
+    : g.state === "post" ? `<span class="status">${esc(g.detail || "Final")}</span>`
+    : `<span class="status">${esc(new Date(g.date).toLocaleString(undefined, { weekday: "short", hour: "numeric", minute: "2-digit" }))}</span>`;
+
+  const fanChip = (f, sd) => {
+    const res = winSide ? (winSide === sd ? "good" : "bad") : "";
+    const nick = team[sd].name;
+    const st = winSide
+      ? `<span class="st ${res === "good" ? "pos" : "neg"}">${res === "good" ? "✓ Got it" : "✗ Missed"}</span>`
+      : `<span class="st" title="${esc(`${fmt(f.up)} if the ${nick} win, ${fmt(f.down)} if they lose (win pace)`)}">
+           <span class="pos">${fmt(f.up)}</span> / <span class="neg">${fmt(f.down)}</span></span>`;
+    return `<div class="fan ${res}${f.name === me ? " me" : ""}">${avatar(f.name, 22)}<div class="fx">
+      <div class="r1"><span class="n">${esc(f.name)}</span>${st}</div>
+      <div class="pk">${f.picks.map(p => `${esc(p.team)} ${p.side}`).join(", ")}${both.includes(f.name) ? " · hedged" : ""}</div></div></div>`;
+  };
+
+  const col = sd => {
+    const t = team[sd], opp = team[other[sd]];
+    const lead = started && t.score >= opp.score;
+    const list = [...fans[sd].values()].sort((a, b) => (b.up - b.down) - (a.up - a.down));
+    return `<div class="side"><div class="team-hd"><span class="abbr" style="${teamColours(t.color)}">${esc(t.abbr || "?")}</span>
+      <div class="tinfo"><div class="tname">${esc(t.name || "TBD")}</div><div class="trec">${esc(t.record || "")}${t.record ? " · " : ""}${sd === "away" ? "Away" : "Home"}</div></div>
+      ${started ? `<span class="score${lead ? "" : " trail"}">${t.score}</span>` : ""}</div>
+      <div class="fans">${list.map(f => fanChip(f, sd)).join("") || `<div class="nofans">No one needs a ${t.name ? esc(t.name) + " " : ""}win</div>`}</div></div>`;
+  };
+
+  const grp = sd => `<span class="grp${winSide === sd ? " won" : ""}">${only(sd).map(n => `${avatar(n, 22)}<span>${esc(n)}</span>`).join(" ")}</span>`;
+  const html = `<article class="game${h2h ? " h2h" : ""}">
+    <header>${status}${h2h ? `<span class="badge">Head to head</span>` : ""}</header>
+    ${h2h ? `<div class="h2hline">${grp("away")}<span class="vs">vs</span>${grp("home")}</div>` : ""}
+    <div class="sides">${col("away")}${col("home")}</div></article>`;
+  return { html, h2h };
+}
+
+function renderGames() {
+  if (gamesData === undefined) return;
+  const box = document.getElementById("games"), note = document.getElementById("gamesNote");
+  if (!gamesData) {
+    box.innerHTML = "";
+    note.textContent = "Couldn't load games from ESPN right now.";
+    return;
+  }
+  const me = document.getElementById("filterName").value;
+  const order = { in: 0, pre: 1, post: 2 };
+  const cards = [...gamesData.events]
+    .sort((a, b) => (order[a.state] ?? 1) - (order[b.state] ?? 1) || String(a.date).localeCompare(String(b.date)))
+    .map(g => gameCard(g, me));
+  const h2h = cards.filter(c => c.h2h).length, n = cards.length;
+  note.textContent = n
+    ? `${n} game${n === 1 ? "" : "s"} · ${h2h} head-to-head${h2h === 1 ? "" : "s"}. Numbers are what a result is worth to each person on win pace.` +
+      (gamesData.live ? "" : " Showing the saved schedule; live scores aren't available.")
+    : "No games on this day.";
+  box.innerHTML = cards.map(c => c.html).join("");
+}
+
+async function showGames(offset, quiet) {
+  state.gameDay = offset;
+  document.querySelectorAll("#gameDay button").forEach(x => x.classList.toggle("on", +x.dataset.o === offset));
+  if (!quiet) { gamesData = undefined; document.getElementById("gamesNote").textContent = "Loading games…"; document.getElementById("games").innerHTML = ""; }
+  const data = await loadGames(offset);
+  if (state.gameDay !== offset) return;
+  gamesData = data;
+  renderGames();
+  clearTimeout(gamesTimer);
+  // Keep live scores ticking while games are on
+  if (data && data.live && offset === 0 && data.events.some(g =>
+      g.state === "in" || (g.state === "pre" && new Date(g.date).getTime() - Date.now() < 10 * 60e3))) {
+    gamesTimer = setTimeout(() => showGames(0, true), 60e3);
+  }
 }
 
 // ---------- AI commentary ----------
@@ -772,12 +977,12 @@ async function init() {
     values.map(v => `<option value="${esc(v)}">${id === "filterRound" ? "Round " + v : esc(v)}</option>`).join(""));
   fill("filterName", players.map(p => p.name));
   fill("filterRound", [...new Set(picks.filter(p => p.round).map(p => p.round))].sort((a, b) => a - b));
-  document.getElementById("filterName").onchange = () => { renderBoard(); renderTable(); };
+  document.getElementById("filterName").onchange = () => { renderBoard(); renderGames(); renderTable(); };
   document.getElementById("filterRound").onchange = renderTable;
   document.getElementById("clear").onclick = () => {
     document.getElementById("filterName").value = "";
     document.getElementById("filterRound").value = "";
-    renderBoard(); renderTable();
+    renderBoard(); renderGames(); renderTable();
   };
   document.getElementById("period").onchange = e => { state.period = e.target.value; render(); };
   document.querySelectorAll("#method button").forEach(b => b.onclick = () => {
@@ -798,8 +1003,10 @@ async function init() {
       document.querySelectorAll("#chartMode button").forEach(x => x.classList.toggle("on", x.dataset.v === saved));
     }
   } catch (e) {}
+  document.querySelectorAll("#gameDay button").forEach(b => b.onclick = () => showGames(+b.dataset.o));
   render();
   setupCommentary(commentary);
+  showGames(0);
 }
 
 init().catch(err => {

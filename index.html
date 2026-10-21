@@ -228,6 +228,11 @@
   .sw-bar .range.pot { top: 0; bottom: 0; box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--faint) 45%, transparent); }
   .sw-bar .bank { position: absolute; top: 5px; bottom: 5px; border-radius: 2px; }
   .sw-bar .bank.pos { background: var(--pos); } .sw-bar .bank.neg { background: var(--neg); }
+  .livepill { font-family: system-ui, sans-serif; font-size: 11px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase;
+    background: var(--nba-red); color: #fff; border-radius: 999px; padding: 3px 9px; }
+  .livepill::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #fff;
+    margin-right: 6px; vertical-align: 1px; animation: pulse 1.4s ease-in-out infinite; }
+  @media (prefers-reduced-motion: reduce) { .livepill::before { animation: none; } }
   .sw-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
   .sw-head h3 { margin: 0; }
   .sw-bar .nowbar { position: absolute; top: 3px; bottom: 3px; border-radius: 2px; z-index: 1; }
@@ -279,6 +284,10 @@
         <option value="season">Season</option>
       </select>
     </label>
+    <label class="switch" id="liveToggleWrap" hidden title="Count live games as if they ended with the current scores">
+      <input type="checkbox" id="liveToggle" role="switch">
+      <span class="track" aria-hidden="true"></span> If games ended now
+    </label>
     <label class="switch" id="aiToggleWrap" hidden>
       <input type="checkbox" id="aiToggle" role="switch" checked>
       <span class="track" aria-hidden="true"></span> AI commentary
@@ -288,7 +297,7 @@
 
   <section class="commentary" id="commentary" hidden></section>
 
-  <h2>Leaderboard</h2>
+  <h2>Leaderboard <span class="livepill" id="livePill" hidden>As it stands</span></h2>
   <div class="board" id="board"></div>
 
   <h2>Games
@@ -406,8 +415,66 @@ function project(rec, line, method) {
   return (rec.wins / gp) * SEASON_GAMES;
 }
 
+let baseTimeline = [];   // real standings
+let todayGames = null;   // today's scoreboard, kept even when another day is on show
+let liveCount = 0;       // live games currently counted as if finished
+
+// Today's snapshot with live games treated as finished (leader wins). Also applies any
+// finished game that ESPN's standings haven't caught up with yet. Tied games are skipped.
+function liveSnapshot() {
+  const last = baseTimeline[baseTimeline.length - 1];
+  const teams = new Map([...last.teams].map(([k, v]) => [k, { ...v }]));
+  let count = 0;
+  for (const g of (todayGames && todayGames.events) || []) {
+    const away = g.teams.find(t => t.homeAway === "away") || {}, home = g.teams.find(t => t.homeAway === "home") || {};
+    const ka = keyOf(away.name), kh = keyOf(home.name);
+    if (!teams.has(ka) || !teams.has(kh) || away.score == null || home.score == null) continue;
+    let winner = null;
+    if (g.state === "in") winner = away.score > home.score ? "away" : home.score > away.score ? "home" : null;
+    else if (g.state === "post") {
+      const t = away.winner ? away : home.winner ? home : null, m = t && /^(\d+)-(\d+)/.exec(t.record || "");
+      const rec = t && teams.get(keyOf(t.name));
+      if (m && rec && +m[1] + +m[2] > rec.wins + rec.losses) winner = t === away ? "away" : "home";
+    }
+    if (!winner) continue;
+    const a = teams.get(ka), h = teams.get(kh);
+    (winner === "away" ? a : h).wins++; (winner === "away" ? h : a).losses++;
+    a.pf += away.score; a.pa += home.score; h.pf += home.score; h.pa += away.score;
+    count++;
+  }
+  return { count, snapshot: { date: last.date, teams } };
+}
+
+function applyLive() {
+  const { count, snapshot } = baseTimeline.length ? liveSnapshot() : { count: 0 };
+  liveCount = state.swingLive ? count : 0;
+  timeline = liveCount ? [...baseTimeline.slice(0, -1), snapshot] : baseTimeline;
+  computeSeries();
+  updateLiveUI(count);
+}
+
+function updateLiveUI(count) {
+  const anyLive = !!(todayGames && todayGames.events.some(g => g.state === "in"));
+  const wrap = document.getElementById("liveToggleWrap"), box = document.getElementById("liveToggle");
+  wrap.hidden = !anyLive && !liveCount;
+  box.checked = state.swingLive;
+  document.getElementById("livePill").hidden = !liveCount;
+  const note = document.getElementById("liveNote");
+  if (note) note.remove();
+  if (liveCount) document.getElementById("updated").insertAdjacentHTML("afterend",
+    `<p class="note" id="liveNote" style="color:var(--nba-red);margin-top:2px">Counting ${liveCount === 1 ? "today's game" : `${liveCount} of today's games`} as if ${liveCount === 1 ? "it" : "they"} ended with the current score. Turn off “If games ended now” for the official standings.</p>`);
+}
+
+function setLiveMode(on) {
+  state.swingLive = on;
+  try { localStorage.setItem("swingLive", on ? "on" : "off"); } catch (e) {}
+  applyLive();
+  render();
+}
+
 function computeSeries() {
   const zero = { wins: 0, losses: 0, pf: 0, pa: 0 };
+  const baseLast = baseTimeline.length ? baseTimeline[baseTimeline.length - 1] : timeline[timeline.length - 1];
   for (const p of picks) {
     p.series = {};
     for (const m of ["pace", "eff"]) {
@@ -419,6 +486,9 @@ function computeSeries() {
       });
     }
     p.found = timeline[timeline.length - 1].teams.has(p.teamKey);
+    // Real (official) position, used for game stakes so live mode doesn't skew them
+    const brec = baseLast.teams.get(p.teamKey) || zero, bproj = project(brec, p.line, "pace");
+    p.base = { rec: brec, pts: p.side === "Over" ? bproj - p.line : p.line - bproj };
   }
   const byName = new Map();
   for (const p of picks) {
@@ -755,8 +825,8 @@ let standingsTimer = null;
 async function refreshStandings(again) {
   try {
     const standings = await loadStandings();
-    timeline = buildTimeline(historyData, standings);
-    computeSeries();
+    baseTimeline = buildTimeline(historyData, standings);
+    applyLive();
     render();
   } catch (e) { console.warn("Standings refresh failed:", e); }
   if (again) { clearTimeout(standingsTimer); standingsTimer = setTimeout(() => refreshStandings(false), 3 * 60e3); }
@@ -808,7 +878,7 @@ async function loadGames(offset) {
 
 // Points a pick gains if its team gets the result it needs, and loses otherwise (win pace)
 function stakes(p) {
-  const last = timeline.length - 1, cur = p.series.pace[last];
+  const cur = p.base;
   const rec = cur.rec, gp = rec.wins + rec.losses;
   const ptsAt = proj => (p.side === "Over" ? proj - p.line : p.line - proj);
   const ifWin = ptsAt(((rec.wins + 1) / (gp + 1)) * SEASON_GAMES) - cur.pts;
@@ -821,7 +891,7 @@ function stakes(p) {
 // standings have caught up with the result yet.
 function resultSwing(p, t) {
   const m = /^(\d+)-(\d+)/.exec(t.record || "");
-  const rec = p.series.pace[timeline.length - 1].rec;
+  const rec = p.base.rec;
   const w = m ? +m[1] : rec.wins, l = m ? +m[2] : rec.losses;
   const before = t.winner ? [w - 1, l] : [w, l - 1];
   if (before[0] < 0 || before[1] < 0) return null;
@@ -1031,11 +1101,7 @@ function renderSwing() {
       ${anyLive ? `<span><i style="width:3px;height:12px;background:var(--nba-blue)"></i>If live games ended now</span>` : ""}
       ${liveView ? `<span><i class="nowkey"></i>Points as it stands</span>` : ""}</div>`;
   const tog = document.getElementById("swingLive");
-  if (tog) tog.onchange = () => {
-    state.swingLive = tog.checked;
-    try { localStorage.setItem("swingLive", tog.checked ? "on" : "off"); } catch (e) {}
-    renderSwing();
-  };
+  if (tog) tog.onchange = () => setLiveMode(tog.checked);
 }
 
 function renderGames() {
@@ -1070,8 +1136,10 @@ async function showGames(offset, quiet) {
   const wasLive = new Set(gamesData && gamesData.events ? gamesData.events.filter(g => g.state !== "post").map(g => g.id) : []);
   const justFinished = quiet && data && data.events.some(g => g.state === "post" && wasLive.has(g.id));
   gamesData = data;
+  if (offset === 0 && data) todayGames = data;
   if (justFinished) refreshStandings(true);
-  renderGames();
+  if (offset === 0 && data && (state.swingLive || liveCount)) { applyLive(); render(); }
+  else { if (offset === 0) updateLiveUI(); renderGames(); }
   clearTimeout(gamesTimer);
   // Keep live scores ticking while games are on
   if (data && data.live && offset === 0 && data.events.some(g =>
@@ -1185,7 +1253,8 @@ async function init() {
     };
   });
   historyData = history;
-  timeline = buildTimeline(history, standings);
+  baseTimeline = buildTimeline(history, standings);
+  timeline = baseTimeline;
   computeSeries();
 
   document.getElementById("updated").textContent = standings.live
@@ -1234,6 +1303,7 @@ async function init() {
     }
   } catch (e) {}
   document.querySelectorAll("#gameDay button").forEach(b => b.onclick = () => showGames(+b.dataset.o));
+  document.getElementById("liveToggle").onchange = e => setLiveMode(e.target.checked);
   render();
   setupCommentary(commentary);
   showGames(0);

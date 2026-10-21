@@ -85,6 +85,34 @@
   .tag.under { background: var(--neg-bg); color: var(--neg); }
   .pts { font-weight: 700; }
   footer { margin-top: 28px; }
+
+  /* AI commentary */
+  .switch { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; color: var(--muted); cursor: pointer; user-select: none; }
+  .switch input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .switch .track { width: 34px; height: 20px; border-radius: 999px; background: var(--line); position: relative; transition: background .15s; flex-shrink: 0; }
+  .switch .track::after { content: ""; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; border-radius: 50%;
+    background: var(--card); box-shadow: 0 1px 2px rgba(0,0,0,.25); transition: transform .15s; }
+  .switch input:checked + .track { background: var(--accent); }
+  .switch input:checked + .track::after { transform: translateX(14px); }
+  .switch input:focus-visible + .track { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .commentary { background: var(--card); border: 1px solid var(--line); border-left: 3px solid var(--accent);
+    border-radius: 10px; padding: 16px 18px; margin-top: 20px; }
+  .commentary .kicker { font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+  .commentary h2 { margin: 4px 0 8px; font-size: 20px; }
+  .commentary p { margin: 0 0 10px; max-width: 72ch; }
+  .commentary .entry b { font-variant-numeric: tabular-nums; }
+  .commentary .signoff { font-style: italic; margin-bottom: 4px; }
+  .commentary details summary { cursor: pointer; color: var(--accent); font-size: 14px; margin: 4px 0 10px; }
+  table.rounds th { cursor: default; }
+  table.rounds tr.group td { background: var(--chip); color: var(--muted); font-size: 12px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: .03em; padding: 5px 10px; }
+  table.rounds tr.all td { font-weight: 700; }
+  .barcol { width: 34%; min-width: 140px; }
+  .bar { position: relative; height: 12px; }
+  .bar .axis { position: absolute; left: 50%; top: -3px; bottom: -3px; width: 1px; background: var(--faint); }
+  .bar .fill { position: absolute; top: 0; bottom: 0; border-radius: 3px; }
+  .bar .fill.pos { background: var(--pos); } .bar .fill.neg { background: var(--neg); }
+  .hit { font-variant-numeric: tabular-nums; }
 </style>
 </head>
 <body>
@@ -108,14 +136,27 @@
         <option value="season">Season</option>
       </select>
     </label>
+    <label class="switch" id="aiToggleWrap" hidden>
+      <input type="checkbox" id="aiToggle" role="switch" checked>
+      <span class="track" aria-hidden="true"></span> AI commentary
+    </label>
   </div>
   <p class="method-note" id="methodNote"></p>
+
+  <section class="commentary" id="commentary" hidden></section>
 
   <h2>Leaderboard</h2>
   <div class="board" id="board"></div>
 
   <h2>Movers</h2>
   <div class="movers" id="movers"></div>
+
+  <h2>Rounds vs Vegas</h2>
+  <p class="note" style="margin:-6px 0 10px">Positive average = picks in that group are beating the bookmakers' lines. Beating the line on more than half your picks is the bar to clear.</p>
+  <div class="tablewrap"><table class="rounds"><thead><tr>
+    <th>Group</th><th class="num">Picks</th><th class="num">Beating line</th><th class="num">Total</th>
+    <th class="num">Avg / pick</th><th class="barcol"></th><th class="num">Change</th><th>Best pick</th>
+  </tr></thead><tbody id="rounds"></tbody></table></div>
 
   <h2>Progress</h2>
   <div class="charts" id="charts"></div>
@@ -386,9 +427,76 @@ function renderTable() {
     <td class="num ${cls(r.delta)}">${fmt(r.delta)}</td></tr>`).join("");
 }
 
+function renderRounds() {
+  const m = state.method, last = timeline.length - 1, base = baselineIndex();
+  const summarise = (label, list) => {
+    const pts = list.map(p => p.series[m][last].pts);
+    const total = pts.reduce((a, b) => a + b, 0);
+    const before = list.reduce((a, p) => a + p.series[m][base].pts, 0);
+    const best = list.reduce((a, b) => (b.series[m][last].pts > a.series[m][last].pts ? b : a));
+    return { label, n: list.length, hits: pts.filter(v => v > 0.05).length, total,
+      avg: total / list.length, delta: total - before, best };
+  };
+  const drafted = picks.filter(p => p.round);
+  const rounds = [...new Set(drafted.map(p => p.round))].sort((a, b) => a - b);
+  const groups = [
+    ["By round", rounds.map(r => summarise(`Round ${r}`, drafted.filter(p => p.round === r)))],
+    ["By side", ["Over", "Under"].map(sd => summarise(`${sd}s`, drafted.filter(p => p.side === sd))).filter(g => g.n)],
+  ];
+  const undrafted = picks.filter(p => !p.round);
+  if (undrafted.length) {
+    groups.push(["Not in the draft", [...new Set(undrafted.map(p => p.name))]
+      .map(n => summarise(n, undrafted.filter(p => p.name === n)))]);
+  }
+  const allRow = summarise("All drafted picks", drafted);
+  const rows = groups.flatMap(([g, list]) => [{ group: g }, ...list]).concat([{ group: "Overall" }, { ...allRow, all: true }]);
+  const maxAbs = Math.max(1, ...rows.filter(r => !r.group).map(r => Math.abs(r.avg)));
+  document.getElementById("rounds").innerHTML = rows.map(r => {
+    if (r.group) return `<tr class="group"><td colspan="8">${r.group}</td></tr>`;
+    const w = (Math.abs(r.avg) / maxAbs) * 50;
+    const bar = `<div class="bar" title="Average ${fmt(r.avg)} per pick"><div class="axis"></div>
+      <div class="fill ${r.avg >= 0 ? "pos" : "neg"}" style="${r.avg >= 0 ? `left:50%` : `left:${50 - w}%`};width:${w}%"></div></div>`;
+    return `<tr class="${r.all ? "all" : ""}"><td>${esc(r.label)}</td><td class="num">${r.n}</td>
+      <td class="num hit">${r.hits}/${r.n} <span class="note">(${Math.round(100 * r.hits / r.n)}%)</span></td>
+      <td class="num pts ${cls(r.total)}">${fmt(r.total)}</td><td class="num ${cls(r.avg)}">${fmt(r.avg, 2)}</td>
+      <td>${bar}</td><td class="num ${cls(r.delta)}">${fmt(r.delta)}</td>
+      <td>${esc(r.best.team)} ${r.best.side} <span class="note">· ${esc(r.best.name)}</span></td></tr>`;
+  }).join("");
+}
+
 function render() {
   document.getElementById("methodNote").textContent = METHOD_NOTES[state.method];
-  renderBoard(); renderMovers(); renderCharts(); renderTable();
+  renderBoard(); renderMovers(); renderRounds(); renderCharts(); renderTable();
+}
+
+// ---------- AI commentary ----------
+function renderCommentary(c) {
+  const sec = document.getElementById("commentary");
+  const when = c.date ? parseDate(c.date).toLocaleDateString(undefined, { day: "numeric", month: "long", year: "numeric" }) : "";
+  const entry = p => `<p class="entry"><b>${p.rank ? p.rank + ". " : ""}${esc(p.name)}${p.total != null ? ` (${fmt(p.total)})` : ""}</b> ${esc(p.text)}</p>`;
+  const top = c.players.slice(0, 3), rest = c.players.slice(3);
+  sec.innerHTML = `
+    <div class="kicker">AI commentary · ${esc(when)}</div>
+    <h2>${esc(c.headline || "This week in over/unders")}</h2>
+    ${c.intro ? `<p>${esc(c.intro)}</p>` : ""}
+    ${top.map(entry).join("")}
+    ${rest.length ? `<details><summary>Read the rest (${rest.length} more)</summary>${rest.map(entry).join("")}</details>` : ""}
+    ${c.signoff ? `<p class="signoff">${esc(c.signoff)}</p>` : ""}
+    <p class="note">Written by AI from the ${esc(c.basis || "Win pace")} standings on that date; scores shown are as at writing.</p>`;
+}
+
+function setupCommentary(c) {
+  if (!c || !Array.isArray(c.players) || !c.players.length) return;
+  renderCommentary(c);
+  const wrap = document.getElementById("aiToggleWrap"), box = document.getElementById("aiToggle");
+  const sec = document.getElementById("commentary");
+  let on = true;
+  try { on = localStorage.getItem("aiCommentary") !== "off"; } catch (e) {}
+  box.checked = on; sec.hidden = !on; wrap.hidden = false;
+  box.onchange = () => {
+    sec.hidden = !box.checked;
+    try { localStorage.setItem("aiCommentary", box.checked ? "on" : "off"); } catch (e) {}
+  };
 }
 
 // ---------- Data loading ----------
@@ -451,10 +559,11 @@ function buildTimeline(history, standings) {
 }
 
 async function init() {
-  const [csv, standings, history] = await Promise.all([
+  const [csv, standings, history, commentary] = await Promise.all([
     fetch("picks.csv", { cache: "no-store" }).then(r => r.text()),
     loadStandings(),
     fetch("data/history.json", { cache: "no-store" }).then(r => r.json()).catch(() => ({ days: [] })),
+    fetch("data/commentary.json", { cache: "no-store" }).then(r => (r.ok ? r.json() : null)).catch(() => null),
   ]);
   picks = parseCSV(csv).map(p => {
     const key = p.Team.toLowerCase();
@@ -500,6 +609,7 @@ async function init() {
     render();
   });
   render();
+  setupCommentary(commentary);
 }
 
 init().catch(err => {

@@ -212,6 +212,7 @@
   /* Potential swing */
   .swing { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; margin-bottom: 12px; }
   .swing h3 { margin: 0 0 2px; }
+  .swing .sub { margin-top: 4px !important; }
   .swing .sub { font-size: 13px; margin: 0 0 12px; }
   .sw-row { display: grid; grid-template-columns: minmax(130px, 170px) 1fr 150px; align-items: center; gap: 12px; padding: 6px 0;
     border-top: 1px solid var(--line); }
@@ -224,9 +225,16 @@
   .sw-bar { position: relative; height: 16px; }
   .sw-bar .axis { position: absolute; top: -3px; bottom: -3px; width: 1px; background: var(--faint); }
   .sw-bar .range { position: absolute; top: 2px; bottom: 2px; border-radius: 4px; min-width: 2px; }
-  .sw-bar .range.pot { top: 0; bottom: 0; }
+  .sw-bar .range.pot { top: 0; bottom: 0; box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--faint) 45%, transparent); }
   .sw-bar .bank { position: absolute; top: 5px; bottom: 5px; border-radius: 2px; }
   .sw-bar .bank.pos { background: var(--pos); } .sw-bar .bank.neg { background: var(--neg); }
+  .sw-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .sw-head h3 { margin: 0; }
+  .sw-bar .nowbar { position: absolute; top: 3px; bottom: 3px; border-radius: 2px; z-index: 1; }
+  .sw-bar .bank { z-index: 2; } .sw-bar .now { z-index: 3; }
+  .sw-bar .nowbar.pos { background: repeating-linear-gradient(135deg, var(--pos) 0 3px, color-mix(in srgb, var(--pos) 45%, transparent) 3px 6px); }
+  .sw-bar .nowbar.neg { background: repeating-linear-gradient(135deg, var(--neg) 0 3px, color-mix(in srgb, var(--neg) 45%, transparent) 3px 6px); }
+  .sw-key .nowkey { width: 18px; height: 8px; background: repeating-linear-gradient(135deg, var(--pos) 0 3px, color-mix(in srgb, var(--pos) 45%, transparent) 3px 6px); }
   .sw-bar .now { position: absolute; top: -2px; bottom: -2px; width: 3px; margin-left: -1.5px; border-radius: 2px;
     background: var(--nba-blue); box-shadow: 0 0 0 1.5px var(--card); }
   @media (prefers-color-scheme: dark) { .sw-bar .now { background: var(--accent); } }
@@ -357,7 +365,8 @@ const AVATARS = {
   "Roscoe the Dog": "avatars/roscoe.jpg",
 };
 
-const state = { method: "pace", period: "7", chartMode: "split", focus: null };
+const state = { method: "pace", period: "7", chartMode: "split", focus: null, swingLive: false };
+try { state.swingLive = localStorage.getItem("swingLive") === "on"; } catch (e) {}
 let picks = [];      // one per pick, with .series[method][dayIndex] = { proj, pts, rec }
 let timeline = [];   // [{ date, teams: Map(lowercase name -> rec) }]
 let players = [];
@@ -972,7 +981,9 @@ function renderSwing() {
   const maxAbs = Math.max(1, ...rows.flatMap(r => [Math.abs(r.lo), Math.abs(r.hi), Math.abs(r.potLo), Math.abs(r.potHi)]));
   const x = v => 50 + (v / maxAbs) * 48;
   const me = document.getElementById("filterName").value;
-  rows.sort((a, b) => (!!(b.left || b.played) - !!(a.left || a.played)) || b.hi - a.hi || b.lo - a.lo);
+  const liveView = state.swingLive && anyLive;
+  rows.sort((a, b) => (!!(b.left || b.played) - !!(a.left || a.played)) ||
+    (liveView ? b.now - a.now : 0) || b.hi - a.hi || b.lo - a.lo);
 
   const row = r => {
     const idle = !r.left && !r.played;
@@ -987,12 +998,17 @@ function renderSwing() {
           : `linear-gradient(90deg, color-mix(in srgb, var(--neg) ${pct}%, transparent) ${z}%, color-mix(in srgb, var(--pos) ${pct}%, transparent) ${z}%)`;
         return `<div class="range${extra}" style="left:${lo}%;width:${hi - lo}%;background:${bg}"></div>`;
       };
-      bar = band(r.potLo, r.potHi, 14, " pot") + (r.left ? band(r.lo, r.hi, 32, "") : "") +
+      bar = band(r.potLo, r.potHi, 26, " pot") + (r.left ? band(r.lo, r.hi, 48, "") : "") +
         (Math.abs(r.banked) > 0.05 ? `<div class="bank ${r.banked > 0 ? "pos" : "neg"}" style="left:${Math.min(x(0), x(r.banked))}%;width:${Math.abs(x(r.banked) - x(0))}%"></div>` : "") +
+        (liveView && r.live && Math.abs(r.now) > 0.05
+          ? `<div class="nowbar ${r.now > 0 ? "pos" : "neg"}" style="left:${Math.min(x(0), x(r.now))}%;width:${Math.abs(x(r.now) - x(0))}%"
+               title="If live games ended now: ${fmt(r.now)}"></div>` : "") +
         (r.live ? `<div class="now" style="left:${x(r.now)}%" title="If live games ended now: ${fmt(r.now)}"></div>` : "");
     }
     const nums = idle ? `<small>—</small>`
       : !r.left ? `<b class="${cls(r.banked)}">${fmt(r.banked)}</b><small>final · range ${fmt(r.potLo)} to ${fmt(r.potHi)}</small>`
+      : liveView ? `<b class="${cls(r.now)}">${fmt(r.now)}</b> <span class="note">now</span>` +
+        `<small>range ${fmt(r.lo)} to ${fmt(r.hi)}</small>`
       : `<b class="${cls(r.lo)}">${fmt(r.lo)}</b> to <b class="${cls(r.hi)}">${fmt(r.hi)}</b>` +
         `<small>${r.live ? `now ${fmt(r.now)}` : r.played ? `${fmt(r.banked)} banked` : "&nbsp;"}</small>`;
     return `<div class="sw-row${idle ? " idle" : ""}${r.name === me ? " me" : ""}">
@@ -1002,14 +1018,24 @@ function renderSwing() {
   };
 
   box.hidden = false;
-  box.innerHTML = `<h3>Potential swing ${day}</h3>
+  box.innerHTML = `<div class="sw-head"><h3>Potential swing ${day}</h3>
+      ${anyLive ? `<label class="switch"><input type="checkbox" id="swingLive" role="switch"${state.swingLive ? " checked" : ""}>
+        <span class="track" aria-hidden="true"></span> If games ended now</label>` : ""}</div>
     <p class="note sub">${allDone ? `Every game's finished, so these are the final swings for ${day}.`
+      : liveView ? `Where everyone would land if the live games ended with the current scores, plus anything already banked. Tied games count for nothing yet.`
       : `The most each person could gain or lose from ${day}'s games, on win pace. Finished games lock in as they end.`}</p>
     ${rows.map(row).join("")}
-    <div class="sw-key"><span><i style="width:18px;height:10px;background:linear-gradient(90deg,color-mix(in srgb,var(--neg) 14%,transparent) 50%,color-mix(in srgb,var(--pos) 14%,transparent) 50%)"></i>Possible at tip-off</span>
-      ${allDone ? "" : `<span><i style="width:18px;height:10px;background:linear-gradient(90deg,color-mix(in srgb,var(--neg) 32%,transparent) 50%,color-mix(in srgb,var(--pos) 32%,transparent) 50%)"></i>Still possible</span>`}
+    <div class="sw-key"><span><i style="width:18px;height:10px;background:linear-gradient(90deg,color-mix(in srgb,var(--neg) 26%,transparent) 50%,color-mix(in srgb,var(--pos) 26%,transparent) 50%);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--faint) 45%,transparent)"></i>Possible at tip-off</span>
+      ${allDone ? "" : `<span><i style="width:18px;height:10px;background:linear-gradient(90deg,color-mix(in srgb,var(--neg) 48%,transparent) 50%,color-mix(in srgb,var(--pos) 48%,transparent) 50%)"></i>Still possible</span>`}
       <span><i style="width:14px;height:6px;background:var(--pos)"></i>Banked from finished games</span>
-      ${anyLive ? `<span><i style="width:3px;height:12px;background:var(--nba-blue)"></i>If live games ended now</span>` : ""}</div>`;
+      ${anyLive ? `<span><i style="width:3px;height:12px;background:var(--nba-blue)"></i>If live games ended now</span>` : ""}
+      ${liveView ? `<span><i class="nowkey"></i>Points as it stands</span>` : ""}</div>`;
+  const tog = document.getElementById("swingLive");
+  if (tog) tog.onchange = () => {
+    state.swingLive = tog.checked;
+    try { localStorage.setItem("swingLive", tog.checked ? "on" : "off"); } catch (e) {}
+    renderSwing();
+  };
 }
 
 function renderGames() {

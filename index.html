@@ -208,6 +208,9 @@
   .fan.good { background: var(--pos-bg); } .fan.bad { background: var(--neg-bg); }
   .fan.me { box-shadow: inset 0 0 0 2px var(--nba-blue); }
   .nofans { font-size: 12px; color: var(--muted); padding: 4px 2px; }
+  .neutral { margin-top: 10px; padding-top: 8px; border-top: 1px dashed var(--line); display: grid; grid-template-columns: 1fr 1fr; gap: 4px 12px; }
+  .neutral .nl { grid-column: 1 / -1; font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+  .neutral .st .note { font-size: 10.5px; font-weight: 500; }
 </style>
 </head>
 <body>
@@ -795,8 +798,19 @@ function gameCard(g, me) {
     if (g.state === "post") { const sw = resultSwing(p, team[sd]); f.swing = f.swing == null || sw == null ? null : f.swing + sw; }
     fans[root].set(p.name, f);
   }
-  const both = [...fans.away.keys()].filter(n => fans.home.has(n));
-  const only = sd => [...fans[sd].keys()].filter(n => !both.includes(n));
+  // Hedged: picks pulling both ways. Combine them into one net figure and put the
+  // person on whichever side's win nets them more; if it's the same either way, they're neutral.
+  const neutral = [];
+  for (const n of [...fans.away.keys()].filter(n => fans.home.has(n))) {
+    const a = fans.away.get(n), h = fans.home.get(n);
+    const ifAway = a.up + h.down, ifHome = h.up + a.down;
+    const merged = { name: n, hedged: true, swing: a.swing == null || h.swing == null ? null : a.swing + h.swing };
+    fans.away.delete(n); fans.home.delete(n);
+    if (Math.abs(ifAway - ifHome) < 0.05) neutral.push({ ...merged, picks: [...a.picks, ...h.picks], up: ifAway, down: ifHome });
+    else if (ifAway > ifHome) fans.away.set(n, { ...merged, picks: [...a.picks, ...h.picks], up: ifAway, down: ifHome });
+    else fans.home.set(n, { ...merged, picks: [...h.picks, ...a.picks], up: ifHome, down: ifAway });
+  }
+  const only = sd => [...fans[sd].keys()];
   const h2h = only("away").length > 0 && only("home").length > 0;
   const winSide = g.state === "post" ? (away.winner ? "away" : home.winner ? "home" : null) : null;
   const started = g.state !== "pre" && away.score != null && home.score != null;
@@ -806,17 +820,27 @@ function gameCard(g, me) {
     : `<span class="status">${esc(new Date(g.date).toLocaleString(undefined, { weekday: "short", hour: "numeric", minute: "2-digit" }))}</span>`;
 
   const fanChip = (f, sd) => {
-    const res = winSide ? (winSide === sd ? "good" : "bad") : "";
-    const nick = team[sd].name;
+    // A hedged player's net can be down even when their side wins, so colour by the actual swing
+    const res = !winSide ? "" : f.swing != null && f.hedged ? (f.swing >= 0 ? "good" : "bad") : winSide === sd ? "good" : "bad";
+    const nick = team[sd].name, net = f.hedged ? " net across both picks" : "";
     const st = winSide
-      ? `<span class="st" title="${esc(`${f.name}: ${f.swing == null ? "" : fmt(f.swing) + " points from this result (win pace)"}`)}">
+      ? `<span class="st" title="${esc(`${f.name}: ${f.swing == null ? "" : fmt(f.swing) + " points from this result" + net + " (win pace)"}`)}">
            ${f.swing == null ? "" : `<span class="${cls(f.swing)}">${fmt(f.swing)}</span>`}<span class="${res === "good" ? "pos" : "neg"}">${res === "good" ? "✓" : "✗"}</span></span>`
-      : `<span class="st" title="${esc(`${f.name}: ${fmt(f.up)} if the ${nick} win, ${fmt(f.down)} if they lose (win pace)`)}">
-           <span class="pos">${fmt(f.up)}</span><span class="neg">${fmt(f.down)}</span></span>`;
+      : `<span class="st" title="${esc(`${f.name}: ${fmt(f.up)} if the ${nick} win, ${fmt(f.down)} if they lose${net} (win pace)`)}">
+           <span class="${cls(f.up)}">${fmt(f.up)}</span><span class="${cls(f.down)}">${fmt(f.down)}</span></span>`;
     return `<div class="fan ${res}${f.name === me ? " me" : ""}">${avatar(f.name, 22)}<div class="fx">
       <span class="n" title="${esc(f.name)}">${esc(f.name.split(" ")[0])}</span>
-      <div class="pk">${f.picks.map(p => `${esc(p.team)} ${p.side}`).join(", ")}${both.includes(f.name) ? " · hedged" : ""}</div></div>${st}</div>`;
+      <div class="pk" title="${esc(f.picks.map(p => `${p.team} ${p.side}`).join(", "))}">${f.hedged ? "Hedged · " : ""}${f.picks.map(p => `${esc(p.team)} ${p.side}`).join(", ")}</div></div>${st}</div>`;
   };
+
+  // Hedged players who end up the same whichever team wins
+  const neutralRow = neutral.length ? `<div class="neutral"><div class="nl">Same result either way</div>${neutral.map(f => {
+    const v = winSide && f.swing != null ? f.swing : f.up;
+    return `<div class="fan${f.name === me ? " me" : ""}">${avatar(f.name, 22)}<div class="fx">
+      <span class="n" title="${esc(f.name)}">${esc(f.name.split(" ")[0])}</span>
+      <div class="pk">${f.picks.map(p => `${esc(p.team)} ${p.side}`).join(", ")}</div></div>
+      <span class="st"><span class="${cls(v)}">${fmt(v)}</span><span class="note">either way</span></span></div>`;
+  }).join("")}</div>` : "";
 
   const col = sd => {
     const t = team[sd], opp = team[other[sd]];
@@ -836,7 +860,7 @@ function gameCard(g, me) {
     <header>${status}${h2h ? `<span class="badge">${pairs.length > 1 ? pairs.length + " head to heads" : "Head to head"}</span>` : ""}</header>
     ${h2h ? `<div class="h2hs">${pairs.map(([a, h]) =>
       `<div class="h2hline">${who(a, "away")}<span class="vs">vs</span>${who(h, "home")}</div>`).join("")}</div>` : ""}
-    <div class="sides">${col("away")}${col("home")}</div></article>`;
+    <div class="sides">${col("away")}${col("home")}</div>${neutralRow}</article>`;
   return { html, h2h, pairs: h2h ? pairs.length : 0 };
 }
 

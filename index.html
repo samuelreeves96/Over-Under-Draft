@@ -6,13 +6,13 @@
 <title>NBA Over/Under Tracker</title>
 <style>
   :root {
-    --bg: #f6f7f9; --card: #ffffff; --text: #16191d; --muted: #646b75;
+    --bg: #f6f7f9; --card: #ffffff; --text: #16191d; --muted: #646b75; --faint: #9aa1aa;
     --line: #e3e6ea; --accent: #2b5fd9; --pos: #1a7f43; --neg: #c0362c;
     --pos-bg: #e6f4ec; --neg-bg: #fbe9e7; --chip: #eef1f5;
   }
   @media (prefers-color-scheme: dark) {
     :root {
-      --bg: #111316; --card: #1a1d21; --text: #e9ecef; --muted: #9aa2ad;
+      --bg: #111316; --card: #1a1d21; --text: #e9ecef; --muted: #9aa2ad; --faint: #6b737d;
       --line: #2b3036; --accent: #7aa2ff; --pos: #5cc98a; --neg: #f07b70;
       --pos-bg: #16301f; --neg-bg: #3a1c19; --chip: #252a30;
     }
@@ -23,9 +23,25 @@
   main { max-width: 1080px; margin: 0 auto; padding: 24px 16px 48px; }
   h1 { font-size: 26px; margin: 0 0 4px; }
   h2 { font-size: 18px; margin: 32px 0 12px; }
+  h3 { font-size: 13px; margin: 0 0 8px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .03em; }
   .sub { color: var(--muted); margin: 0 0 4px; }
   .note { color: var(--muted); font-size: 13px; }
   .banner { background: var(--chip); border-radius: 8px; padding: 10px 14px; margin: 16px 0; font-size: 14px; }
+  .pos { color: var(--pos); } .neg { color: var(--neg); }
+
+  /* Controls */
+  .toolbar { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin: 18px 0 0;
+    position: sticky; top: 0; z-index: 5; background: var(--bg); padding: 8px 0; }
+  .seg { display: inline-flex; background: var(--chip); border-radius: 8px; padding: 3px; }
+  .seg button { font: inherit; font-size: 14px; border: 0; background: transparent; color: var(--muted);
+    padding: 5px 12px; border-radius: 6px; cursor: pointer; }
+  .seg button.on { background: var(--card); color: var(--text); font-weight: 600; box-shadow: 0 1px 2px rgba(0,0,0,.12); }
+  label.ctl { font-size: 14px; color: var(--muted); display: inline-flex; gap: 6px; align-items: center; }
+  select, button.clear { font: inherit; font-size: 14px; padding: 6px 10px; border-radius: 6px; border: 1px solid var(--line);
+    background: var(--card); color: var(--text); }
+  .method-note { font-size: 13px; color: var(--muted); margin: 6px 0 0; }
+
+  /* Leaderboard */
   .board { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; }
   .player { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px;
     cursor: pointer; text-align: left; color: inherit; font: inherit; }
@@ -34,15 +50,34 @@
   .rank { color: var(--muted); font-size: 13px; margin-right: 6px; }
   .pname { font-weight: 600; }
   .total { font-size: 22px; font-weight: 700; font-variant-numeric: tabular-nums; }
-  .best { color: var(--muted); font-size: 12.5px; margin-top: 4px; }
-  .pos { color: var(--pos); } .neg { color: var(--neg); }
+  .meta { color: var(--muted); font-size: 12.5px; margin-top: 4px; display: flex; justify-content: space-between; gap: 8px; }
+  .delta { font-variant-numeric: tabular-nums; font-weight: 600; }
+
+  /* Movers */
+  .movers { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 10px; }
+  .panel { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; }
+  .panel ol { list-style: none; margin: 0; padding: 0; }
+  .panel .delta { white-space: nowrap; flex-shrink: 0; }
+  .panel li { display: flex; justify-content: space-between; gap: 10px; padding: 5px 0; border-top: 1px solid var(--line); font-size: 14px; }
+  .panel li:first-child { border-top: 0; }
+  .panel .who { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .panel .who small { color: var(--muted); }
+  .empty { color: var(--muted); font-size: 13px; }
+
+  /* Charts */
+  .charts { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; }
+  .chart { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px 6px; }
+  .chart .head { display: flex; justify-content: space-between; align-items: baseline; }
+  .chart svg { display: block; width: 100%; height: auto; touch-action: pan-y; }
+  .chart svg text { font: 10px system-ui, sans-serif; fill: var(--muted); font-variant-numeric: tabular-nums; }
+  .chart svg text.tip { fill: var(--text); font-size: 11px; font-weight: 600; }
+
+  /* Table */
   .controls { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-bottom: 10px; }
-  select, button.clear { font: inherit; padding: 6px 10px; border-radius: 6px; border: 1px solid var(--line);
-    background: var(--card); color: var(--text); }
   .tablewrap { overflow-x: auto; background: var(--card); border: 1px solid var(--line); border-radius: 10px; }
   table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
   th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--line); white-space: nowrap; }
-  th { font-size: 12.5px; color: var(--muted); font-weight: 600; cursor: pointer; user-select: none; position: sticky; top: 0; background: var(--card); }
+  th { font-size: 12.5px; color: var(--muted); font-weight: 600; cursor: pointer; user-select: none; background: var(--card); }
   th.num, td.num { text-align: right; }
   tr:last-child td { border-bottom: 0; }
   .tag { display: inline-block; padding: 1px 7px; border-radius: 999px; font-size: 12px; font-weight: 600; }
@@ -59,8 +94,31 @@
   <p class="note" id="updated">Loading…</p>
   <div class="banner" id="banner" hidden></div>
 
+  <div class="toolbar">
+    <div class="seg" id="method" role="group" aria-label="Projection method">
+      <button data-m="pace" class="on">Win pace</button>
+      <button data-m="eff">Efficiency</button>
+    </div>
+    <label class="ctl">Change over
+      <select id="period">
+        <option value="1">Last day</option>
+        <option value="7" selected>Last 7 days</option>
+        <option value="14">Last 14 days</option>
+        <option value="30">Last 30 days</option>
+        <option value="season">Season</option>
+      </select>
+    </label>
+  </div>
+  <p class="method-note" id="methodNote"></p>
+
   <h2>Leaderboard</h2>
   <div class="board" id="board"></div>
+
+  <h2>Movers</h2>
+  <div class="movers" id="movers"></div>
+
+  <h2>Progress</h2>
+  <div class="charts" id="charts"></div>
 
   <h2>Picks</h2>
   <div class="controls">
@@ -76,18 +134,39 @@
   </div>
 
   <footer class="note">
-    Projected wins = current win % × 82 games. Before a team has played, its projection equals its line (0 points).
-    Standings refresh automatically twice a day.
+    <p><b>Win pace</b> = current win % × 82. <b>Efficiency</b> = current wins + remaining games × Pythagorean win %
+    (points scored<sup>14</sup> ÷ (points scored<sup>14</sup> + points allowed<sup>14</sup>)). Before a team has played,
+    its projection equals its line (0 points).</p>
+    <p>Standings load live from ESPN when the page opens. A GitHub Action saves a daily snapshot, which drives the movers and progress charts.</p>
   </footer>
 </main>
 
 <script>
 const SEASON_GAMES = 82;
+const PYTH_EXP = 14;
+const ESPN_URL = "https://site.api.espn.com/apis/v2/sports/basketball/nba/standings";
 // Names in picks.csv that differ from ESPN's team names
 const TEAM_ALIASES = { "blazers": "trail blazers", "wolves": "timberwolves", "76's": "76ers", "sixers": "76ers", "warrior": "warriors" };
+const METHOD_NOTES = {
+  pace: "Win pace: projects each team's current win % over 82 games.",
+  eff: "Efficiency: keeps wins already banked and projects the rest from points scored vs allowed, which rewards teams outplaying their record.",
+};
 
-const fmt = (n, d = 1) => (n > 0 ? "+" : n < 0 ? "−" : "") + Math.abs(n).toFixed(d);
+const state = { method: "pace", period: "7" };
+let picks = [];      // one per pick, with .series[method][dayIndex] = { proj, pts, rec }
+let timeline = [];   // [{ date, teams: Map(lowercase name -> rec) }]
+let players = [];
+
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const fmt = (n, d = 1) => (n > 0.05 ? "+" : n < -0.05 ? "−" : "") + Math.abs(n).toFixed(d);
 const cls = n => (n > 0.05 ? "pos" : n < -0.05 ? "neg" : "");
+const arrow = n => (n > 0.05 ? "▲ " : n < -0.05 ? "▼ " : "");
+const parseDate = s => { const [y, m, d] = s.split("-").map(Number); return new Date(y, m - 1, d); };
+const isoDate = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+const addDays = (s, n) => { const d = parseDate(s); d.setDate(d.getDate() + n); return isoDate(d); };
+const shortDate = s => parseDate(s).toLocaleDateString(undefined, { day: "numeric", month: "short" });
+// US game date: UTC minus 10 hours (matches scripts/fetch_standings.py)
+const gameDateNow = () => new Date(Date.now() - 10 * 3600e3).toISOString().slice(0, 10);
 
 function parseCSV(text) {
   const [header, ...lines] = text.trim().split(/\r?\n/);
@@ -98,52 +177,66 @@ function parseCSV(text) {
   });
 }
 
-function scorePick(p, teams) {
-  const key = p.Team.toLowerCase();
-  const team = teams.get(TEAM_ALIASES[key] || key);
-  const line = parseFloat(p.Line);
-  const wins = team ? team.wins : 0, losses = team ? team.losses : 0;
-  const gp = wins + losses;
-  const projected = gp > 0 ? (wins / gp) * SEASON_GAMES : line;
-  const diff = projected - line;
-  const isOver = p["Over/Under"].toLowerCase() === "over";
-  return {
-    round: p.Round ? +p.Round : null, pick: p.Pick ? +p.Pick : null,
-    name: p.Name, side: isOver ? "Over" : "Under", team: p.Team,
-    line, wins, losses, gp, projected, points: isOver ? diff : -diff, found: !!team,
-  };
+// ---------- Projections ----------
+function project(rec, line, method) {
+  const gp = rec.wins + rec.losses;
+  if (!gp) return line;
+  if (method === "eff" && rec.pf > 0 && rec.pa > 0) {
+    const pyth = 1 / (1 + Math.pow(rec.pa / rec.pf, PYTH_EXP));
+    return rec.wins + Math.max(0, SEASON_GAMES - gp) * pyth;
+  }
+  return (rec.wins / gp) * SEASON_GAMES;
 }
 
-let picks = [], sort = { key: "points", dir: -1 };
-const columns = [
-  { key: "round", label: "Rd", num: true },
-  { key: "pick", label: "Pick", num: true },
-  { key: "name", label: "Player" },
-  { key: "team", label: "Team" },
-  { key: "side", label: "Pick" },
-  { key: "line", label: "Line", num: true },
-  { key: "record", label: "W–L", num: true, sortBy: r => r.wins - r.losses },
-  { key: "projected", label: "Proj. wins", num: true },
-  { key: "points", label: "Points", num: true },
-];
-
-function renderBoard() {
+function computeSeries() {
+  const zero = { wins: 0, losses: 0, pf: 0, pa: 0 };
+  for (const p of picks) {
+    p.series = {};
+    for (const m of ["pace", "eff"]) {
+      p.series[m] = timeline.map(day => {
+        const rec = day.teams.get(p.teamKey) || zero;
+        const proj = project(rec, p.line, m);
+        const diff = proj - p.line;
+        return { proj, pts: p.side === "Over" ? diff : -diff, rec };
+      });
+    }
+    p.found = timeline[timeline.length - 1].teams.has(p.teamKey);
+  }
   const byName = new Map();
   for (const p of picks) {
     if (!byName.has(p.name)) byName.set(p.name, []);
     byName.get(p.name).push(p);
   }
-  const players = [...byName].map(([name, list]) => ({
-    name, total: list.reduce((s, p) => s + p.points, 0),
-    best: list.reduce((a, b) => (b.points > a.points ? b : a)),
-  })).sort((a, b) => b.total - a.total);
+  players = [...byName].map(([name, list]) => ({
+    name, picks: list,
+    totals: Object.fromEntries(["pace", "eff"].map(m =>
+      [m, timeline.map((_, d) => list.reduce((s, p) => s + p.series[m][d].pts, 0))])),
+  }));
+}
 
+// Index of the snapshot to compare against for the chosen period
+function baselineIndex() {
+  if (state.period === "season") return 0;
+  const target = addDays(timeline[timeline.length - 1].date, -Number(state.period));
+  let idx = 0;
+  timeline.forEach((d, i) => { if (d.date <= target) idx = i; });
+  return idx;
+}
+
+// ---------- Rendering ----------
+function renderBoard() {
+  const m = state.method, last = timeline.length - 1, base = baselineIndex();
+  const ranked = players.map(pl => {
+    const best = pl.picks.reduce((a, b) => (b.series[m][last].pts > a.series[m][last].pts ? b : a));
+    return { ...pl, total: pl.totals[m][last], delta: pl.totals[m][last] - pl.totals[m][base], best };
+  }).sort((a, b) => b.total - a.total);
   const active = document.getElementById("filterName").value;
-  document.getElementById("board").innerHTML = players.map((pl, i) => `
-    <button class="player${pl.name === active ? " active" : ""}" data-name="${pl.name}">
-      <div class="top"><span><span class="rank">${i + 1}</span><span class="pname">${pl.name}</span></span>
+  document.getElementById("board").innerHTML = ranked.map((pl, i) => `
+    <button class="player${pl.name === active ? " active" : ""}" data-name="${esc(pl.name)}">
+      <div class="top"><span><span class="rank">${i + 1}</span><span class="pname">${esc(pl.name)}</span></span>
       <span class="total ${cls(pl.total)}">${fmt(pl.total)}</span></div>
-      <div class="best">Best: ${pl.best.team} ${pl.best.side} (${fmt(pl.best.points)})</div>
+      <div class="meta"><span>Best: ${esc(pl.best.team)} ${pl.best.side}</span>
+      <span class="delta ${cls(pl.delta)}" title="Change over selected period">${arrow(pl.delta)}${fmt(pl.delta)}</span></div>
     </button>`).join("");
   document.querySelectorAll(".player").forEach(b => b.onclick = () => {
     const sel = document.getElementById("filterName");
@@ -152,15 +245,123 @@ function renderBoard() {
   });
 }
 
+function renderMovers() {
+  const m = state.method, last = timeline.length - 1, base = baselineIndex();
+  const periodLabel = document.querySelector("#period option:checked").textContent.toLowerCase();
+  const pl = players.map(p => ({ label: esc(p.name), sub: "", d: p.totals[m][last] - p.totals[m][base] }));
+  const pk = picks.map(p => ({ label: `${esc(p.team)} ${p.side}`, sub: esc(p.name), d: p.series[m][last].pts - p.series[m][base].pts }));
+  const top = (list, dir) => list.filter(x => dir * x.d > 0.05).sort((a, b) => dir * (b.d - a.d)).slice(0, 3);
+  const panel = (title, list) => `<div class="panel"><h3>${title}</h3>${list.length
+    ? `<ol>${list.map(x => `<li><span class="who">${x.label}${x.sub ? ` <small>· ${x.sub}</small>` : ""}</span>
+        <span class="delta ${cls(x.d)}">${arrow(x.d)}${fmt(x.d)}</span></li>`).join("")}</ol>`
+    : `<p class="empty">No movement ${periodLabel === "season" ? "this season" : "in the " + periodLabel} yet.</p>`}</div>`;
+  document.getElementById("movers").innerHTML =
+    panel("Players rising", top(pl, 1)) + panel("Players falling", top(pl, -1)) +
+    panel("Picks rising", top(pk, 1)) + panel("Picks falling", top(pk, -1));
+}
+
+// Small multiples: one line chart per player, all on the same y-scale
+const CW = 320, CH = 150, PAD = { l: 34, r: 12, t: 24, b: 22 };
+let chartData = [];
+
+function niceStep(range) {
+  const raw = range / 4, pow = Math.pow(10, Math.floor(Math.log10(raw)));
+  return [1, 2, 2.5, 5, 10].map(s => s * pow).find(s => s >= raw) || 10 * pow;
+}
+
+function renderCharts() {
+  const m = state.method, last = timeline.length - 1;
+  // Ignore the first week's wild swings when sizing the axis (once there's enough data); spikes are clipped
+  const skip = timeline.length > 21 ? 8 : 0;
+  const all = players.flatMap(p => p.totals[m].slice(skip));
+  let lo = Math.min(-2, ...all), hi = Math.max(2, ...all);
+  const step = niceStep(hi - lo);
+  lo = Math.floor(lo / step) * step; hi = Math.ceil(hi / step) * step;
+  const n = timeline.length;
+  const x = i => PAD.l + (n > 1 ? (i / (n - 1)) * (CW - PAD.l - PAD.r) : (CW - PAD.l - PAD.r) / 2);
+  const y = v => PAD.t + ((hi - v) / (hi - lo)) * (CH - PAD.t - PAD.b);
+  const ticks = [];
+  for (let v = lo; v <= hi + 1e-9; v += step) ticks.push(+v.toFixed(6));
+
+  const ordered = [...players].sort((a, b) => b.totals[m][last] - a.totals[m][last]);
+  chartData = ordered.map(p => ({ name: p.name, values: p.totals[m], x, y }));
+  document.getElementById("charts").innerHTML = ordered.map((p, ci) => {
+    const vals = p.totals[m];
+    const path = vals.map((v, i) => `${i ? "L" : "M"}${x(i).toFixed(1)},${y(v).toFixed(1)}`).join("");
+    const grid = ticks.map(t => `<line x1="${PAD.l}" x2="${CW - PAD.r}" y1="${y(t)}" y2="${y(t)}"
+        stroke="${t === 0 ? "var(--faint)" : "var(--line)"}" stroke-width="1"/>
+      <text x="${PAD.l - 6}" y="${y(t) + 3}" text-anchor="end">${t > 0 ? "+" : ""}${t}</text>`).join("");
+    const xl = n > 1
+      ? `<text x="${x(0)}" y="${CH - 6}">${shortDate(timeline[0].date)}</text>
+         <text x="${x(n - 1)}" y="${CH - 6}" text-anchor="end">${shortDate(timeline[n - 1].date)}</text>`
+      : `<text x="${x(0)}" y="${CH - 6}" text-anchor="middle">${shortDate(timeline[0].date)}</text>`;
+    const cur = vals[last];
+    return `<div class="chart">
+      <div class="head"><span class="pname">${esc(p.name)}</span><span class="delta ${cls(cur)}">${fmt(cur)}</span></div>
+      <svg viewBox="0 0 ${CW} ${CH}" role="img" aria-label="${esc(p.name)} total points over time, now ${fmt(cur)}" data-ci="${ci}">
+        <clipPath id="clip${ci}"><rect x="${PAD.l}" y="${PAD.t - 4}" width="${CW - PAD.l - PAD.r + 6}" height="${CH - PAD.t - PAD.b + 8}"/></clipPath>
+        ${grid}${xl}
+        <g clip-path="url(#clip${ci})">
+        ${n > 1 ? `<path d="${path}" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>` : ""}
+        <circle cx="${x(last)}" cy="${y(cur)}" r="4" fill="var(--accent)" stroke="var(--card)" stroke-width="2"/>
+        </g>
+        <g class="hover" visibility="hidden">
+          <line y1="${PAD.t}" y2="${CH - PAD.b}" stroke="var(--faint)" stroke-width="1"/>
+          <circle r="4" fill="var(--accent)" stroke="var(--card)" stroke-width="2"/>
+          <text class="tip" y="12"></text>
+        </g>
+        <rect x="${PAD.l}" y="0" width="${CW - PAD.l - PAD.r}" height="${CH}" fill="transparent"/>
+      </svg></div>`;
+  }).join("");
+
+  document.querySelectorAll(".chart svg").forEach(svg => {
+    const d = chartData[+svg.dataset.ci], g = svg.querySelector(".hover");
+    const move = e => {
+      const r = svg.getBoundingClientRect();
+      const px = ((e.clientX - r.left) / r.width) * CW;
+      const i = n > 1 ? Math.max(0, Math.min(n - 1, Math.round(((px - PAD.l) / (CW - PAD.l - PAD.r)) * (n - 1)))) : 0;
+      const cx = d.x(i), cy = Math.max(PAD.t, Math.min(CH - PAD.b, d.y(d.values[i])));
+      g.querySelector("line").setAttribute("x1", cx); g.querySelector("line").setAttribute("x2", cx);
+      g.querySelector("circle").setAttribute("cx", cx); g.querySelector("circle").setAttribute("cy", cy);
+      const t = g.querySelector("text");
+      t.textContent = `${shortDate(timeline[i].date)}  ${fmt(d.values[i])}`;
+      const right = cx > CW / 2;
+      t.setAttribute("x", right ? cx - 6 : cx + 6); t.setAttribute("text-anchor", right ? "end" : "start");
+      g.setAttribute("visibility", "visible");
+    };
+    svg.addEventListener("pointermove", move);
+    svg.addEventListener("pointerdown", move);
+    svg.addEventListener("pointerleave", () => g.setAttribute("visibility", "hidden"));
+  });
+}
+
+let sort = { key: "points", dir: -1 };
+const columns = [
+  { key: "round", label: "Rd", num: true },
+  { key: "pick", label: "Pick", num: true },
+  { key: "name", label: "Player" },
+  { key: "team", label: "Team" },
+  { key: "side", label: "Pick" },
+  { key: "line", label: "Line", num: true },
+  { key: "record", label: "W–L", num: true },
+  { key: "projected", label: "Proj. wins", num: true },
+  { key: "points", label: "Points", num: true },
+  { key: "delta", label: "Change", num: true },
+];
+
 function renderTable() {
+  const m = state.method, last = timeline.length - 1, base = baselineIndex();
   const name = document.getElementById("filterName").value;
   const round = document.getElementById("filterRound").value;
-  const col = columns.find(c => c.key === sort.key);
-  const val = r => (col.sortBy ? col.sortBy(r) : r[sort.key]);
   const rows = picks
     .filter(p => (!name || p.name === name) && (!round || String(p.round) === round))
+    .map(p => {
+      const s = p.series[m][last];
+      return { ...p, wins: s.rec.wins, losses: s.rec.losses, record: s.rec.wins - s.rec.losses,
+        projected: s.proj, points: s.pts, delta: s.pts - p.series[m][base].pts };
+    })
     .sort((a, b) => {
-      const x = val(a), y = val(b);
+      const x = a[sort.key], y = b[sort.key];
       if (x === null) return 1; if (y === null) return -1;
       return (typeof x === "string" ? x.localeCompare(y) : x - y) * sort.dir;
     });
@@ -168,34 +369,109 @@ function renderTable() {
   document.getElementById("head").innerHTML = columns.map(c =>
     `<th class="${c.num ? "num" : ""}" data-key="${c.key}">${c.label}${c.key === sort.key ? (sort.dir > 0 ? " ▲" : " ▼") : ""}</th>`).join("");
   document.querySelectorAll("th").forEach(th => th.onclick = () => {
-    sort = th.dataset.key === sort.key ? { key: sort.key, dir: -sort.dir }
-      : { key: th.dataset.key, dir: ["points", "projected", "line", "record"].includes(th.dataset.key) ? -1 : 1 };
+    const k = th.dataset.key;
+    sort = k === sort.key ? { key: k, dir: -sort.dir }
+      : { key: k, dir: ["points", "projected", "line", "record", "delta"].includes(k) ? -1 : 1 };
     renderTable();
   });
 
   document.getElementById("rows").innerHTML = rows.map(r => `<tr>
     <td class="num">${r.round ?? ""}</td><td class="num">${r.pick ?? ""}</td>
-    <td>${r.name}</td><td>${r.team}${r.found ? "" : " ⚠"}</td>
+    <td>${esc(r.name)}</td><td>${esc(r.team)}${r.found ? "" : " ⚠"}</td>
     <td><span class="tag ${r.side.toLowerCase()}">${r.side}</span></td>
     <td class="num">${r.line.toFixed(1)}</td>
     <td class="num">${r.wins}–${r.losses}</td>
     <td class="num">${r.projected.toFixed(1)}</td>
-    <td class="num pts ${cls(r.points)}">${fmt(r.points)}</td></tr>`).join("");
+    <td class="num pts ${cls(r.points)}">${fmt(r.points)}</td>
+    <td class="num ${cls(r.delta)}">${fmt(r.delta)}</td></tr>`).join("");
 }
 
-function render() { renderBoard(); renderTable(); }
+function render() {
+  document.getElementById("methodNote").textContent = METHOD_NOTES[state.method];
+  renderBoard(); renderMovers(); renderCharts(); renderTable();
+}
+
+// ---------- Data loading ----------
+async function fetchLiveStandings() {
+  const res = await fetch(ESPN_URL, { cache: "no-store" });
+  if (!res.ok) throw new Error("ESPN " + res.status);
+  const data = await res.json();
+  const entries = [];
+  (function walk(node) {
+    if (Array.isArray(node)) return node.forEach(walk);
+    if (node && typeof node === "object") {
+      if (node.standings && Array.isArray(node.standings.entries)) entries.push(...node.standings.entries);
+      Object.values(node).forEach(walk);
+    }
+  })(data);
+  const stat = (e, ...keys) => {
+    for (const k of keys) {
+      const s = (e.stats || []).find(s => s.name === k || s.type === k);
+      if (s && s.value != null && !isNaN(+s.value)) return +s.value;
+    }
+    return null;
+  };
+  const teams = new Map();
+  for (const e of entries) {
+    const name = e.team && (e.team.name || e.team.shortDisplayName);
+    if (!name) continue;
+    const wins = Math.round(stat(e, "wins") || 0), losses = Math.round(stat(e, "losses") || 0), gp = wins + losses;
+    const pf = stat(e, "pointsFor") ?? (stat(e, "avgPointsFor") || 0) * gp;
+    const pa = stat(e, "pointsAgainst") ?? (stat(e, "avgPointsAgainst") || 0) * gp;
+    teams.set(name, { name, wins, losses, pointsFor: pf, pointsAgainst: pa });
+  }
+  if (teams.size < 30) throw new Error("incomplete standings");
+  return { updated: new Date().toISOString(), live: true, teams: [...teams.values()] };
+}
+
+async function loadStandings() {
+  try {
+    return await fetchLiveStandings();
+  } catch (err) {
+    console.warn("Live standings unavailable, using saved copy:", err);
+    return fetch("data/standings.json", { cache: "no-store" }).then(r => r.json());
+  }
+}
+
+const toRec = t => ({ wins: t.wins, losses: t.losses, pf: t.pointsFor || 0, pa: t.pointsAgainst || 0 });
+
+function buildTimeline(history, standings) {
+  const days = (history.days || []).map(d => ({
+    date: d.date,
+    teams: new Map(Object.entries(d.teams).map(([k, [w, l, pf, pa]]) => [k.toLowerCase(), { wins: w, losses: l, pf, pa }])),
+  }));
+  // Today's numbers come from the freshest standings available
+  const lastSaved = days.length ? days[days.length - 1].date : "";
+  const today = { date: lastSaved > gameDateNow() ? lastSaved : gameDateNow(), teams: new Map(standings.teams.map(t => [t.name.toLowerCase(), toRec(t)])) };
+  const rest = days.filter(d => d.date < today.date);
+  const tl = [...rest, today];
+  // Season starts at zero points for everyone
+  tl.unshift({ date: addDays(tl[0].date, -1), teams: new Map() });
+  return tl;
+}
 
 async function init() {
-  const [csv, standings] = await Promise.all([
+  const [csv, standings, history] = await Promise.all([
     fetch("picks.csv", { cache: "no-store" }).then(r => r.text()),
-    fetch("data/standings.json", { cache: "no-store" }).then(r => r.json()),
+    loadStandings(),
+    fetch("data/history.json", { cache: "no-store" }).then(r => r.json()).catch(() => ({ days: [] })),
   ]);
-  const teams = new Map(standings.teams.map(t => [t.name.toLowerCase(), t]));
-  picks = parseCSV(csv).map(p => scorePick(p, teams));
+  picks = parseCSV(csv).map(p => {
+    const key = p.Team.toLowerCase();
+    return {
+      round: p.Round ? +p.Round : null, pick: p.Pick ? +p.Pick : null, name: p.Name, team: p.Team,
+      side: p["Over/Under"].toLowerCase() === "over" ? "Over" : "Under",
+      line: parseFloat(p.Line), teamKey: TEAM_ALIASES[key] || key,
+    };
+  });
+  timeline = buildTimeline(history, standings);
+  computeSeries();
 
-  document.getElementById("updated").textContent = standings.updated
-    ? `Standings updated ${new Date(standings.updated).toLocaleString()}`
-    : "Standings not fetched yet";
+  document.getElementById("updated").textContent = standings.live
+    ? "Live standings from ESPN"
+    : standings.updated
+      ? `Standings updated ${new Date(standings.updated).toLocaleString()}`
+      : "Standings not fetched yet";
   const banner = document.getElementById("banner");
   const missing = [...new Set(picks.filter(p => !p.found).map(p => p.team))];
   if (standings.sample) {
@@ -207,20 +483,27 @@ async function init() {
   }
 
   const fill = (id, values) => document.getElementById(id).insertAdjacentHTML("beforeend",
-    values.map(v => `<option value="${v}">${id === "filterRound" ? "Round " + v : v}</option>`).join(""));
-  fill("filterName", [...new Set(picks.map(p => p.name))]);
+    values.map(v => `<option value="${esc(v)}">${id === "filterRound" ? "Round " + v : esc(v)}</option>`).join(""));
+  fill("filterName", players.map(p => p.name));
   fill("filterRound", [...new Set(picks.filter(p => p.round).map(p => p.round))].sort((a, b) => a - b));
-  document.getElementById("filterName").onchange = render;
+  document.getElementById("filterName").onchange = () => { renderBoard(); renderTable(); };
   document.getElementById("filterRound").onchange = renderTable;
   document.getElementById("clear").onclick = () => {
     document.getElementById("filterName").value = "";
     document.getElementById("filterRound").value = "";
-    render();
+    renderBoard(); renderTable();
   };
+  document.getElementById("period").onchange = e => { state.period = e.target.value; render(); };
+  document.querySelectorAll("#method button").forEach(b => b.onclick = () => {
+    state.method = b.dataset.m;
+    document.querySelectorAll("#method button").forEach(x => x.classList.toggle("on", x === b));
+    render();
+  });
   render();
 }
 
 init().catch(err => {
+  console.error(err);
   document.getElementById("updated").textContent = "Couldn't load data: " + err.message;
 });
 </script>

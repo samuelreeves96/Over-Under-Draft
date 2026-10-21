@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NBA Over/Under Tracker</title>
+<style>
+  :root {
+    --bg: #f6f7f9; --card: #ffffff; --text: #16191d; --muted: #646b75;
+    --line: #e3e6ea; --accent: #2b5fd9; --pos: #1a7f43; --neg: #c0362c;
+    --pos-bg: #e6f4ec; --neg-bg: #fbe9e7; --chip: #eef1f5;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #111316; --card: #1a1d21; --text: #e9ecef; --muted: #9aa2ad;
+      --line: #2b3036; --accent: #7aa2ff; --pos: #5cc98a; --neg: #f07b70;
+      --pos-bg: #16301f; --neg-bg: #3a1c19; --chip: #252a30;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+    font: 15px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 1080px; margin: 0 auto; padding: 24px 16px 48px; }
+  h1 { font-size: 26px; margin: 0 0 4px; }
+  h2 { font-size: 18px; margin: 32px 0 12px; }
+  .sub { color: var(--muted); margin: 0 0 4px; }
+  .note { color: var(--muted); font-size: 13px; }
+  .banner { background: var(--chip); border-radius: 8px; padding: 10px 14px; margin: 16px 0; font-size: 14px; }
+  .board { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; }
+  .player { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px;
+    cursor: pointer; text-align: left; color: inherit; font: inherit; }
+  .player.active { outline: 2px solid var(--accent); }
+  .player .top { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+  .rank { color: var(--muted); font-size: 13px; margin-right: 6px; }
+  .pname { font-weight: 600; }
+  .total { font-size: 22px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .best { color: var(--muted); font-size: 12.5px; margin-top: 4px; }
+  .pos { color: var(--pos); } .neg { color: var(--neg); }
+  .controls { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-bottom: 10px; }
+  select, button.clear { font: inherit; padding: 6px 10px; border-radius: 6px; border: 1px solid var(--line);
+    background: var(--card); color: var(--text); }
+  .tablewrap { overflow-x: auto; background: var(--card); border: 1px solid var(--line); border-radius: 10px; }
+  table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+  th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--line); white-space: nowrap; }
+  th { font-size: 12.5px; color: var(--muted); font-weight: 600; cursor: pointer; user-select: none; position: sticky; top: 0; background: var(--card); }
+  th.num, td.num { text-align: right; }
+  tr:last-child td { border-bottom: 0; }
+  .tag { display: inline-block; padding: 1px 7px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+  .tag.over { background: var(--pos-bg); color: var(--pos); }
+  .tag.under { background: var(--neg-bg); color: var(--neg); }
+  .pts { font-weight: 700; }
+  footer { margin-top: 28px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>NBA Over/Under Tracker</h1>
+  <p class="sub">Points = how far each team's projected wins finish above (Over) or below (Under) the line.</p>
+  <p class="note" id="updated">Loading…</p>
+  <div class="banner" id="banner" hidden></div>
+
+  <h2>Leaderboard</h2>
+  <div class="board" id="board"></div>
+
+  <h2>Picks</h2>
+  <div class="controls">
+    <select id="filterName"><option value="">All players</option></select>
+    <select id="filterRound"><option value="">All rounds</option></select>
+    <button class="clear" id="clear">Clear filters</button>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr id="head"></tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </div>
+
+  <footer class="note">
+    Projected wins = current win % × 82 games. Before a team has played, its projection equals its line (0 points).
+    Standings refresh automatically twice a day.
+  </footer>
+</main>
+
+<script>
+const SEASON_GAMES = 82;
+// Names in picks.csv that differ from ESPN's team names
+const TEAM_ALIASES = { "blazers": "trail blazers", "wolves": "timberwolves", "76's": "76ers", "sixers": "76ers", "warrior": "warriors" };
+
+const fmt = (n, d = 1) => (n > 0 ? "+" : n < 0 ? "−" : "") + Math.abs(n).toFixed(d);
+const cls = n => (n > 0.05 ? "pos" : n < -0.05 ? "neg" : "");
+
+function parseCSV(text) {
+  const [header, ...lines] = text.trim().split(/\r?\n/);
+  const keys = header.split(",").map(s => s.trim());
+  return lines.filter(Boolean).map(line => {
+    const vals = line.split(",");
+    return Object.fromEntries(keys.map((k, i) => [k, (vals[i] ?? "").trim()]));
+  });
+}
+
+function scorePick(p, teams) {
+  const key = p.Team.toLowerCase();
+  const team = teams.get(TEAM_ALIASES[key] || key);
+  const line = parseFloat(p.Line);
+  const wins = team ? team.wins : 0, losses = team ? team.losses : 0;
+  const gp = wins + losses;
+  const projected = gp > 0 ? (wins / gp) * SEASON_GAMES : line;
+  const diff = projected - line;
+  const isOver = p["Over/Under"].toLowerCase() === "over";
+  return {
+    round: p.Round ? +p.Round : null, pick: p.Pick ? +p.Pick : null,
+    name: p.Name, side: isOver ? "Over" : "Under", team: p.Team,
+    line, wins, losses, gp, projected, points: isOver ? diff : -diff, found: !!team,
+  };
+}
+
+let picks = [], sort = { key: "points", dir: -1 };
+const columns = [
+  { key: "round", label: "Rd", num: true },
+  { key: "pick", label: "Pick", num: true },
+  { key: "name", label: "Player" },
+  { key: "team", label: "Team" },
+  { key: "side", label: "Pick" },
+  { key: "line", label: "Line", num: true },
+  { key: "record", label: "W–L", num: true, sortBy: r => r.wins - r.losses },
+  { key: "projected", label: "Proj. wins", num: true },
+  { key: "points", label: "Points", num: true },
+];
+
+function renderBoard() {
+  const byName = new Map();
+  for (const p of picks) {
+    if (!byName.has(p.name)) byName.set(p.name, []);
+    byName.get(p.name).push(p);
+  }
+  const players = [...byName].map(([name, list]) => ({
+    name, total: list.reduce((s, p) => s + p.points, 0),
+    best: list.reduce((a, b) => (b.points > a.points ? b : a)),
+  })).sort((a, b) => b.total - a.total);
+
+  const active = document.getElementById("filterName").value;
+  document.getElementById("board").innerHTML = players.map((pl, i) => `
+    <button class="player${pl.name === active ? " active" : ""}" data-name="${pl.name}">
+      <div class="top"><span><span class="rank">${i + 1}</span><span class="pname">${pl.name}</span></span>
+      <span class="total ${cls(pl.total)}">${fmt(pl.total)}</span></div>
+      <div class="best">Best: ${pl.best.team} ${pl.best.side} (${fmt(pl.best.points)})</div>
+    </button>`).join("");
+  document.querySelectorAll(".player").forEach(b => b.onclick = () => {
+    const sel = document.getElementById("filterName");
+    sel.value = sel.value === b.dataset.name ? "" : b.dataset.name;
+    render();
+  });
+}
+
+function renderTable() {
+  const name = document.getElementById("filterName").value;
+  const round = document.getElementById("filterRound").value;
+  const col = columns.find(c => c.key === sort.key);
+  const val = r => (col.sortBy ? col.sortBy(r) : r[sort.key]);
+  const rows = picks
+    .filter(p => (!name || p.name === name) && (!round || String(p.round) === round))
+    .sort((a, b) => {
+      const x = val(a), y = val(b);
+      if (x === null) return 1; if (y === null) return -1;
+      return (typeof x === "string" ? x.localeCompare(y) : x - y) * sort.dir;
+    });
+
+  document.getElementById("head").innerHTML = columns.map(c =>
+    `<th class="${c.num ? "num" : ""}" data-key="${c.key}">${c.label}${c.key === sort.key ? (sort.dir > 0 ? " ▲" : " ▼") : ""}</th>`).join("");
+  document.querySelectorAll("th").forEach(th => th.onclick = () => {
+    sort = th.dataset.key === sort.key ? { key: sort.key, dir: -sort.dir }
+      : { key: th.dataset.key, dir: ["points", "projected", "line", "record"].includes(th.dataset.key) ? -1 : 1 };
+    renderTable();
+  });
+
+  document.getElementById("rows").innerHTML = rows.map(r => `<tr>
+    <td class="num">${r.round ?? ""}</td><td class="num">${r.pick ?? ""}</td>
+    <td>${r.name}</td><td>${r.team}${r.found ? "" : " ⚠"}</td>
+    <td><span class="tag ${r.side.toLowerCase()}">${r.side}</span></td>
+    <td class="num">${r.line.toFixed(1)}</td>
+    <td class="num">${r.wins}–${r.losses}</td>
+    <td class="num">${r.projected.toFixed(1)}</td>
+    <td class="num pts ${cls(r.points)}">${fmt(r.points)}</td></tr>`).join("");
+}
+
+function render() { renderBoard(); renderTable(); }
+
+async function init() {
+  const [csv, standings] = await Promise.all([
+    fetch("picks.csv", { cache: "no-store" }).then(r => r.text()),
+    fetch("data/standings.json", { cache: "no-store" }).then(r => r.json()),
+  ]);
+  const teams = new Map(standings.teams.map(t => [t.name.toLowerCase(), t]));
+  picks = parseCSV(csv).map(p => scorePick(p, teams));
+
+  document.getElementById("updated").textContent = standings.updated
+    ? `Standings updated ${new Date(standings.updated).toLocaleString()}`
+    : "Standings not fetched yet";
+  const banner = document.getElementById("banner");
+  const missing = [...new Set(picks.filter(p => !p.found).map(p => p.team))];
+  if (standings.sample) {
+    banner.hidden = false;
+    banner.textContent = "Showing placeholder 0–0 records. Run the “Update standings” action on GitHub to load live standings.";
+  } else if (missing.length) {
+    banner.hidden = false;
+    banner.textContent = `Couldn't match these teams to the standings: ${missing.join(", ")}. Add them to TEAM_ALIASES in index.html.`;
+  }
+
+  const fill = (id, values) => document.getElementById(id).insertAdjacentHTML("beforeend",
+    values.map(v => `<option value="${v}">${id === "filterRound" ? "Round " + v : v}</option>`).join(""));
+  fill("filterName", [...new Set(picks.map(p => p.name))]);
+  fill("filterRound", [...new Set(picks.filter(p => p.round).map(p => p.round))].sort((a, b) => a - b));
+  document.getElementById("filterName").onchange = render;
+  document.getElementById("filterRound").onchange = renderTable;
+  document.getElementById("clear").onclick = () => {
+    document.getElementById("filterName").value = "";
+    document.getElementById("filterRound").value = "";
+    render();
+  };
+  render();
+}
+
+init().catch(err => {
+  document.getElementById("updated").textContent = "Couldn't load data: " + err.message;
+});
+</script>
+</body>
+</html>

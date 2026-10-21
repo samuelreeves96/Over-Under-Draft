@@ -1,0 +1,217 @@
+{
+  "updated": null,
+  "source": "placeholder",
+  "sample": true,
+  "teams": [
+    {
+      "name": "76ers",
+      "fullName": "76ers",
+      "abbr": "",
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "name": "Bucks",
+      "fullName": "Bucks",
+      "abbr": "",
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "name": "Bulls",
+      "fullName": "Bulls",
+      "abbr": "",
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "name": "Cavaliers",
+      "fullName": "Cavaliers",
+      "abbr": "",
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "name": "Celtics",
+      "fullName": "Celtics",
+      "abbr": "",
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "name": "Clippers",
+      "fullName": "Clippers",
+      "abbr": "",
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "name": "Grizzlies",
+      "fullName": "Grizzlies",
+      "abbr": "",
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "name": "Hawks",
+      "fullName": "Hawks",
+      "abbr": "",
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "name": "Heat",
+      "fullName": "Heat",
+      "abbr": "",
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "name": "Hornets",
+      "fullName": "Hornets",
+      "abbr": "",
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "name": "Jazz",
+      "fullName": "Jazz",
+      "abbr": "",
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "name": "Kings",
+      "fullName": "Kings",
+      "abbr": "",
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "name": "Knicks",
+      "fullName": "Knicks",
+      "abbr": "",
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "name": "Lakers",
+      "fullName": "Lakers",
+      "abbr": "",
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "name": "Magic",
+      "fullName": "Magic",
+      "abbr": "",
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "name": "Mavericks",
+      "fullName": "Mavericks",
+      "abbr": "",
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "name": "Nets",
+      "fullName": "Nets",
+      "abbr": "",
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "name": "Nuggets",
+      "fullName": "Nuggets",
+      "abbr": "",
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "name": "Pacers",
+      "fullName": "Pacers",
+      "abbr": "",
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "name": "Pelicans",
+      "fullName": "Pelicans",
+      "abbr": "",
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "name": "Pistons",
+      "fullName": "Pistons",
+      "abbr": "",
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "name": "Raptors",
+      "fullName": "Raptors",
+      "abbr": "",
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "name": "Rockets",
+      "fullName": "Rockets",
+      "abbr": "",
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "name": "Spurs",
+      "fullName": "Spurs",
+      "abbr": "",
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "name": "Suns",
+      "fullName": "Suns",
+      "abbr": "",
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "name": "Thunder",
+      "fullName": "Thunder",
+      "abbr": "",
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "name": "Timberwolves",
+      "fullName": "Timberwolves",
+      "abbr": "",
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "name": "Trail Blazers",
+      "fullName": "Trail Blazers",
+      "abbr": "",
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "name": "Warriors",
+      "fullName": "Warriors",
+      "abbr": "",
+      "wins": 0,
+      "losses": 0
+    },
+    {
+      "name": "Wizards",
+      "fullName": "Wizards",
+      "abbr": "",
+      "wins": 0,
+      "losses": 0
+    }
+  ]
+}

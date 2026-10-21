@@ -1,0 +1,61 @@
+Round,Pick,Name,Over/Under,Team,Line
+1,1,Nic,Under,Blazers,42.5
+2,16,Nic,Over,Celtics,51.5
+3,17,Nic,Over,Thunder,62.5
+4,32,Nic,Under,Bucks,25.5
+5,33,Nic,Under,Knicks,52.5
+6,48,Nic,Under,Kings,21.5
+1,2,Pos,Under,Hawks,43.5
+2,15,Pos,Under,Grizzlies,29.5
+3,18,Pos,Over,Heat,46.5
+4,31,Pos,Under,Jazz,37.5
+5,34,Pos,Over,Kings,21.5
+6,47,Pos,Under,Spurs,59.5
+1,3,Sam,Under,76ers,50.5
+2,14,Sam,Over,Pacers,44.5
+3,19,Sam,Over,Knicks,52.5
+4,30,Sam,Under,Bulls,29.5
+5,35,Sam,Over,Bucks,25.5
+6,46,Sam,Under,Hornets,39.5
+1,4,Dan,Under,Clippers,30.5
+2,13,Dan,Over,Spurs,59.5
+3,20,Dan,Under,Suns,40.5
+4,29,Dan,Over,76ers,50.5
+5,36,Dan,Over,Bulls,29.5
+6,45,Dan,Under,Lakers,46.5
+1,5,Harry,Under,Mavericks,34.5
+2,12,Harry,Over,Wizards,34.5
+3,21,Harry,Over,Clippers,30.5
+4,28,Harry,Over,Magic,43.5
+5,37,Harry,Under,Wolves,48.5
+6,44,Harry,Under,Celtics,51.5
+1,6,Marco,Over,Cavaliers,47.5
+2,11,Marco,Over,Wolves,48.5
+3,22,Marco,Under,Wizards,34.5
+4,27,Marco,Over,Hornets,39.5
+5,38,Marco,Over,Mavericks,34.5
+6,43,Marco,Over,Nuggets,49.5
+1,7,Leon,Over,Jazz,37.5
+2,10,Leon,Over,Pistons,49.5
+3,23,Leon,Over,Rockets,47.5
+4,26,Leon,Over,Blazers,42.5
+5,39,Leon,Over,Grizzlies,29.5
+6,42,Leon,Over,Nets,24.5
+1,8,Angus,Over,Raptors,45.5
+2,9,Angus,Under,Warriors,40.5
+3,24,Angus,Under,Pelicans,27.5
+4,25,Angus,Over,Lakers,46.5
+5,40,Angus,Over,Suns,40.5
+6,41,Angus,Under,Pacers,44.5
+,,Roscoe the Dog,Over,Warriors,40.5
+,,Roscoe the Dog,Under,Nuggets,49.5
+,,Roscoe the Dog,Over,Pelicans,27.5
+,,Roscoe the Dog,Under,Raptors,46.5
+,,Roscoe the Dog,Over,Hawks,43.5
+,,Roscoe the Dog,Under,Heat,46.5
+,,Ned,Under,Thunder,62.5
+,,Ned,Under,Pistons,49.5
+,,Ned,Under,Cavaliers,47.5
+,,Ned,Under,Rockets,47.5
+,,Ned,Under,Magic,43.5
+,,Ned,Under,Nets,24.5

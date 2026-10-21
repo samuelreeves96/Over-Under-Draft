@@ -190,20 +190,20 @@
   .sides { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
   .side { min-width: 0; }
   .team-hd { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; min-width: 0; }
-  .abbr { min-width: 34px; height: 34px; padding: 0 4px; border-radius: 8px; display: grid; place-items: center; flex-shrink: 0;
-    font-family: "Barlow Condensed", "Arial Narrow", sans-serif; font-weight: 700; font-size: 14px; }
-  .tinfo { min-width: 0; }
-  .tname { font-weight: 600; line-height: 1.15; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .abbr { min-width: 30px; height: 30px; padding: 0 3px; border-radius: 7px; display: grid; place-items: center; flex-shrink: 0;
+    font-family: "Barlow Condensed", "Arial Narrow", sans-serif; font-weight: 700; font-size: 13px; }
+  .tinfo { min-width: 0; flex: 1; }
+  .tname { font-weight: 600; font-size: 14px; line-height: 1.15; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .trec { font-size: 12px; color: var(--muted); }
-  .score { margin-left: auto; font-family: "Barlow Condensed", "Arial Narrow", sans-serif; font-size: 28px; font-weight: 700;
+  .score { margin-left: auto; font-family: "Barlow Condensed", "Arial Narrow", sans-serif; font-size: 24px; font-weight: 700;
     line-height: 1; font-variant-numeric: tabular-nums; }
   .score.trail { color: var(--muted); font-weight: 600; }
   .fans { display: flex; flex-direction: column; gap: 4px; }
   .fan { display: flex; align-items: center; gap: 7px; padding: 4px 8px 4px 4px; border-radius: 8px; background: var(--chip); min-width: 0; }
   .fan .fx { min-width: 0; flex: 1; }
-  .fan .r1 { display: flex; justify-content: space-between; gap: 6px; font-size: 13px; }
-  .fan .n { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .fan .st { font-size: 12px; font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .fan .n { display: block; font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .fan .st { flex-shrink: 0; display: flex; flex-direction: column; align-items: flex-end; line-height: 1.25;
+    font-size: 12px; font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
   .fan .pk { font-size: 11.5px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .fan.good { background: var(--pos-bg); } .fan.bad { background: var(--neg-bg); }
   .fan.me { box-shadow: inset 0 0 0 2px var(--nba-blue); }
@@ -758,6 +758,22 @@ function stakes(p) {
   return p.side === "Over" ? { up: ifWin, down: ifLoss } : { up: ifLoss, down: ifWin };
 }
 
+// Points a finished game actually moved a pick (win pace). Works backwards from the
+// team's post-game record on the scoreboard, so it's right whether or not the
+// standings have caught up with the result yet.
+function resultSwing(p, t) {
+  const m = /^(\d+)-(\d+)/.exec(t.record || "");
+  const rec = p.series.pace[timeline.length - 1].rec;
+  const w = m ? +m[1] : rec.wins, l = m ? +m[2] : rec.losses;
+  const before = t.winner ? [w - 1, l] : [w, l - 1];
+  if (before[0] < 0 || before[1] < 0) return null;
+  const pts = (W, L) => {
+    const proj = W + L ? (W / (W + L)) * SEASON_GAMES : p.line;
+    return p.side === "Over" ? proj - p.line : p.line - proj;
+  };
+  return pts(w, l) - pts(before[0], before[1]);
+}
+
 function teamColours(hex) {
   const c = /^[0-9a-f]{6}$/i.test(hex || "") ? hex : "17408B";
   const [r, g, b] = [0, 2, 4].map(i => parseInt(c.slice(i, i + 2), 16) / 255);
@@ -774,8 +790,9 @@ function gameCard(g, me) {
     if (!team[sd].name || p.teamKey !== keyOf(team[sd].name)) continue;
     const root = p.side === "Over" ? sd : other[sd];     // Over wants a win, Under wants a loss
     const st = stakes(p);
-    const f = fans[root].get(p.name) || { name: p.name, picks: [], up: 0, down: 0 };
+    const f = fans[root].get(p.name) || { name: p.name, picks: [], up: 0, down: 0, swing: 0 };
     f.picks.push(p); f.up += st.up; f.down += st.down;
+    if (g.state === "post") { const sw = resultSwing(p, team[sd]); f.swing = f.swing == null || sw == null ? null : f.swing + sw; }
     fans[root].set(p.name, f);
   }
   const both = [...fans.away.keys()].filter(n => fans.home.has(n));
@@ -792,12 +809,13 @@ function gameCard(g, me) {
     const res = winSide ? (winSide === sd ? "good" : "bad") : "";
     const nick = team[sd].name;
     const st = winSide
-      ? `<span class="st ${res === "good" ? "pos" : "neg"}">${res === "good" ? "✓ Got it" : "✗ Missed"}</span>`
-      : `<span class="st" title="${esc(`${fmt(f.up)} if the ${nick} win, ${fmt(f.down)} if they lose (win pace)`)}">
-           <span class="pos">${fmt(f.up)}</span> / <span class="neg">${fmt(f.down)}</span></span>`;
+      ? `<span class="st" title="${esc(`${f.name}: ${f.swing == null ? "" : fmt(f.swing) + " points from this result (win pace)"}`)}">
+           ${f.swing == null ? "" : `<span class="${cls(f.swing)}">${fmt(f.swing)}</span>`}<span class="${res === "good" ? "pos" : "neg"}">${res === "good" ? "✓" : "✗"}</span></span>`
+      : `<span class="st" title="${esc(`${f.name}: ${fmt(f.up)} if the ${nick} win, ${fmt(f.down)} if they lose (win pace)`)}">
+           <span class="pos">${fmt(f.up)}</span><span class="neg">${fmt(f.down)}</span></span>`;
     return `<div class="fan ${res}${f.name === me ? " me" : ""}">${avatar(f.name, 22)}<div class="fx">
-      <div class="r1"><span class="n">${esc(f.name)}</span>${st}</div>
-      <div class="pk">${f.picks.map(p => `${esc(p.team)} ${p.side}`).join(", ")}${both.includes(f.name) ? " · hedged" : ""}</div></div></div>`;
+      <span class="n" title="${esc(f.name)}">${esc(f.name.split(" ")[0])}</span>
+      <div class="pk">${f.picks.map(p => `${esc(p.team)} ${p.side}`).join(", ")}${both.includes(f.name) ? " · hedged" : ""}</div></div>${st}</div>`;
   };
 
   const col = sd => {
@@ -812,7 +830,7 @@ function gameCard(g, me) {
 
   // One row per pairing of opposing players
   const who = (n, sd) => `<span class="grp${winSide ? (winSide === sd ? " won" : " lost") : ""}">${
-    sd === "away" ? `<span>${esc(n)}</span>${avatar(n, 22)}` : `${avatar(n, 22)}<span>${esc(n)}</span>`}</span>`;
+    sd === "away" ? `<span title="${esc(n)}">${esc(n.split(" ")[0])}</span>${avatar(n, 22)}` : `${avatar(n, 22)}<span title="${esc(n)}">${esc(n.split(" ")[0])}</span>`}</span>`;
   const pairs = only("away").flatMap(a => only("home").map(h => [a, h]));
   const html = `<article class="game${h2h ? " h2h" : ""}">
     <header>${status}${h2h ? `<span class="badge">${pairs.length > 1 ? pairs.length + " head to heads" : "Head to head"}</span>` : ""}</header>
@@ -837,7 +855,7 @@ function renderGames() {
     .map(g => gameCard(g, me));
   const h2h = cards.reduce((s, c) => s + c.pairs, 0), n = cards.length;
   note.textContent = n
-    ? `${n} game${n === 1 ? "" : "s"} · ${h2h} head-to-head${h2h === 1 ? "" : "s"}. Numbers are what a result is worth to each person on win pace.` +
+    ? `${n} game${n === 1 ? "" : "s"} · ${h2h} head-to-head${h2h === 1 ? "" : "s"}. Numbers show what a result is worth to each person on win pace (or what it was worth, once the game's over).` +
       (gamesData.live ? "" : " Showing the saved schedule; live scores aren't available.")
     : "No games on this day.";
   box.innerHTML = cards.map(c => c.html).join("");

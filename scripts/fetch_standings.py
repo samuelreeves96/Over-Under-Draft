@@ -14,6 +14,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 URL = "https://site.api.espn.com/apis/v2/sports/basketball/nba/standings"
+SCOREBOARD_URL = "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard"
 DATA = Path(__file__).resolve().parent.parent / "data"
 
 
@@ -39,6 +40,44 @@ def stat(entry, *keys):
                 except (TypeError, ValueError):
                     pass
     return None
+
+
+def fetch_scoreboard():
+    """Today's games, saved as a backup in case the site can't reach ESPN live."""
+    try:
+        req = urllib.request.Request(SCOREBOARD_URL, headers={"User-Agent": "Mozilla/5.0"})
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            data = json.load(resp)
+    except Exception as e:  # the standings still matter more than the schedule
+        print("Scoreboard unavailable:", e)
+        return None
+    events = []
+    for ev in data.get("events", []):
+        comp = (ev.get("competitions") or [{}])[0]
+        st = (ev.get("status") or comp.get("status") or {}).get("type", {})
+        teams = []
+        for c in comp.get("competitors", []):
+            t = c.get("team", {})
+            score = c.get("score")
+            if isinstance(score, dict):
+                score = score.get("value")
+            records = c.get("records") or []
+            teams.append({
+                "homeAway": c.get("homeAway", ""),
+                "name": t.get("name") or t.get("shortDisplayName", ""),
+                "abbr": t.get("abbreviation", ""),
+                "color": t.get("color", ""),
+                "score": float(score) if score not in (None, "") else None,
+                "winner": bool(c.get("winner")),
+                "record": records[0].get("summary", "") if records else "",
+            })
+        teams.sort(key=lambda t: 0 if t["homeAway"] == "away" else 1)
+        events.append({
+            "id": ev.get("id"), "date": ev.get("date", ""),
+            "state": st.get("state", "pre"), "detail": st.get("shortDetail") or st.get("detail", ""),
+            "completed": bool(st.get("completed")), "teams": teams,
+        })
+    return {"date": (data.get("day") or {}).get("date", ""), "events": events}
 
 
 def main():
@@ -77,11 +116,30 @@ def main():
 
     now = datetime.now(timezone.utc)
     DATA.mkdir(parents=True, exist_ok=True)
-    (DATA / "standings.json").write_text(json.dumps({
+    out = {
         "updated": now.isoformat(timespec="minutes"),
         "source": "ESPN",
         "teams": sorted(teams.values(), key=lambda t: t["name"]),
-    }, indent=2) + "\n")
+    }
+    scoreboard = fetch_scoreboard()
+    if scoreboard:
+        out["scoreboard"] = scoreboard
+
+    # Injuries (kept in this file so the existing workflow commits them). Keeps the
+    # previous copy if ESPN's injury report can't be read, so returns aren't lost.
+    previous = {}
+    try:
+        previous = json.loads((DATA / "standings.json").read_text()).get("injuries") or {}
+    except (FileNotFoundError, json.JSONDecodeError):
+        pass
+    try:
+        from injuries import update_injuries
+        out["injuries"] = update_injuries(teams, previous)
+    except Exception as e:
+        print("Injuries unavailable:", e)
+        if previous:
+            out["injuries"] = previous
+    (DATA / "standings.json").write_text(json.dumps(out, indent=2) + "\n")
 
     # History: one row per US game date (UTC minus 10h lands on the night's games).
     day = (now - timedelta(hours=10)).date().isoformat()

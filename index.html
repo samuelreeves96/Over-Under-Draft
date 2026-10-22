@@ -611,7 +611,8 @@ function injuryEntries(method = state.method) {
     const gp = rec.wins + rec.losses, remaining = Math.max(0, SEASON_GAMES - gp), line = teamLines.get(key);
     // Box BPM plus the team adjustment: the team's rating shared across its five players on court
     const teamRating = line != null ? blendedMargin(rec, line) : (gp ? (rec.pf - rec.pa) / gp : 0);
-    const bpm = p.bpm == null ? null : p.bpm + teamRating / 5;
+    // No NBA stats (e.g. a rookie): treat as replacement level, so missing him changes nothing
+    const bpm = p.noStats ? REPLACEMENT_BPM : p.bpm == null ? null : p.bpm + teamRating / 5;
     const star = bpm == null ? 1 : Math.min(1.2, 1 + 0.03 * Math.max(0, bpm - 3));   // stars are worth more than linear
     const perGame = bpm == null ? null : (bpm - REPLACEMENT_BPM) * ((p.mpg || 0) / 48) * star * WINS_PER_POINT / SEASON_GAMES;
     const aPast = p.teamGp ? Math.min(1, (p.gp || 0) / p.teamGp) : HEALTHY_AVAIL;
@@ -1067,6 +1068,7 @@ function renderInjuries() {
   const filt = state.injFilter;
   const cards = entries.filter(e => e.status !== "dtd")
     .filter(e => filt === "all" || (filt === "returned" ? e.status === "returned" : e.status !== "returned"))
+    .filter(e => !e.noStats)
     .filter(e => e.impact == null ? (e.mpg || 0) >= 15 : Math.abs(e.impact) >= 0.05 || e.status === "season")
     .sort((a, b) => Math.abs(b.impact || 0) - Math.abs(a.impact || 0));
   const card = e => {
@@ -1084,7 +1086,7 @@ function renderInjuries() {
     const line = linesByTeam.get(e.key), base = project(e.rec, line, m);
     const after = Math.min(e.rec.wins + e.remaining, Math.max(e.rec.wins, base + (e.impact || 0)));
     const impact = e.impact == null
-      ? `<div class="inj-impact"><span class="big" style="color:var(--muted)">—</span><span class="proj">Player stats arrive with the next standings update</span></div>`
+      ? `<div class="inj-impact"><span class="big" style="color:var(--muted)">—</span><span class="proj">Waiting for this player's BPM rating from the next standings update</span></div>`
       : `<div class="inj-impact"><span class="big ${cls(e.impact)}">${fmt(e.impact)}</span><span class="proj">wins · ${esc(t(e.team))} projection ${base.toFixed(1)} → <b>${after.toFixed(1)}</b> (line ${line.toFixed(1)})</span></div>`;
     const pk = picks.filter(p => p.teamKey === e.key).map(p => {
       const d = e.impact == null ? null : pickDelta(p, e);
@@ -1099,7 +1101,7 @@ function renderInjuries() {
       <div class="inj-hd"><span class="abbr" style="${teamColours(teamInfo.color)}">${esc(abbr)}</span>
         <div style="min-width:0"><div class="inj-name">${esc(e.name)}</div><div class="inj-sub">${esc(t(e.team))}${e.pos ? " · " + esc(e.pos) : ""}</div></div>${pill}</div>
       <p class="inj-when">${when}</p>
-      <div class="inj-stats">${e.bpmAdj == null ? `<span class="inj-stat">BPM updating</span>`
+      <div class="inj-stats">${e.bpmAdj == null ? `<span class="inj-stat" title="Upload the latest scripts/injuries.py and run the Update standings action">Rating updating</span>`
         : `<span class="inj-stat" title="Box plus/minus: points per 100 possessions above an average player, estimated from ESPN box-score stats (${esc(e.basis || "")})">est. BPM <b>${e.bpmAdj >= 0 ? "+" : "−"}${Math.abs(e.bpmAdj).toFixed(1)}</b></span>`}
         ${e.mpg ? `<span class="inj-stat"><b>${e.mpg.toFixed(1)}</b> min/g</span>` : ""}
         ${e.teamGp ? `<span class="inj-stat">Played <b>${e.gp || 0} of ${e.teamGp}</b></span>` : ""}</div>

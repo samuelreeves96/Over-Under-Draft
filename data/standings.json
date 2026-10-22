@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-22T23:38+00:00",
+  "updated": "2026-10-22T23:44+00:00",
   "source": "ESPN",
   "teams": [
     {
@@ -280,7 +280,7 @@
         "id": "401909093",
         "date": "2026-10-22T23:00Z",
         "state": "in",
-        "detail": "1:18 - 1st",
+        "detail": "0.0 - 1st",
         "completed": false,
         "teams": [
           {
@@ -288,7 +288,7 @@
             "name": "Cavaliers",
             "abbr": "CLE",
             "color": "860038",
-            "score": 30.0,
+            "score": 35.0,
             "winner": false,
             "record": "0-0"
           },
@@ -297,7 +297,7 @@
             "name": "76ers",
             "abbr": "PHI",
             "color": "1d428a",
-            "score": 16.0,
+            "score": 18.0,
             "winner": false,
             "record": "1-0"
           }
@@ -333,7 +333,7 @@
     ]
   },
   "injuries": {
-    "updated": "2026-10-22T23:39+00:00",
+    "updated": "2026-10-22T23:45+00:00",
     "season": 2027,
     "players": {
       "4712863": {
@@ -349,7 +349,7 @@
         "since": "2026-10-19",
         "returnDate": "2026-11-20",
         "teamGp": 1,
-        "ws48": 0.098,
+        "bpm": -1.9,
         "mpg": 15.3,
         "gp": 0,
         "basis": "last season"
@@ -360,14 +360,15 @@
         "short": "H. Veesaar",
         "pos": "C",
         "team": "Hawks",
-        "status": "out",
+        "status": "season",
         "label": "Out",
         "injury": "Right Knee",
         "comment": "Veesaar was diagnosed with a torn right ACL and is expected to miss the 2026-27 season, the Hawks announced Monday.",
         "since": "2026-09-21",
         "returnDate": "2027-07-01",
         "teamGp": 1,
-        "ws48": null
+        "bpm": null,
+        "noStats": true
       },
       "4433188": {
         "id": "4433188",
@@ -382,7 +383,7 @@
         "since": "2026-10-18",
         "returnDate": "2026-11-08",
         "teamGp": 1,
-        "ws48": 0.057,
+        "bpm": -1.4,
         "mpg": 18.4,
         "gp": 0,
         "basis": "last season"
@@ -400,7 +401,8 @@
         "since": "2026-10-22",
         "returnDate": "2026-10-24",
         "teamGp": 1,
-        "ws48": null
+        "bpm": null,
+        "noStats": true
       },
       "4066218": {
         "id": "4066218",
@@ -415,7 +417,7 @@
         "since": "2026-10-22",
         "returnDate": "2026-10-24",
         "teamGp": 1,
-        "ws48": 0.125,
+        "bpm": -1.2,
         "mpg": 19.8,
         "gp": 0,
         "basis": "last season"
@@ -433,7 +435,7 @@
         "since": "2026-10-22",
         "returnDate": "2026-10-24",
         "teamGp": 1,
-        "ws48": 0.083,
+        "bpm": 0.9,
         "mpg": 25.0,
         "gp": 0,
         "basis": "last season"
@@ -451,7 +453,7 @@
         "since": "2026-10-22",
         "returnDate": "2026-10-24",
         "teamGp": 1,
-        "ws48": 0.114,
+        "bpm": 1.9,
         "mpg": 31.5,
         "gp": 0,
         "basis": "last season"
@@ -469,7 +471,8 @@
         "since": "2026-10-20",
         "returnDate": "2026-11-02",
         "teamGp": 1,
-        "ws48": null
+        "bpm": null,
+        "noStats": true
       },
       "4848625": {
         "id": "4848625",
@@ -484,7 +487,8 @@
         "since": "2026-10-22",
         "returnDate": "2026-10-23",
         "teamGp": 1,
-        "ws48": null
+        "bpm": null,
+        "noStats": true
       },
       "4683750": {
         "id": "4683750",
@@ -499,7 +503,7 @@
         "since": "2026-10-22",
         "returnDate": "2026-10-23",
         "teamGp": 1,
-        "ws48": -0.032,
+        "bpm": -5.5,
         "mpg": 13.6,
         "gp": 0,
         "basis": "last season"
@@ -517,7 +521,7 @@
         "since": "2026-10-22",
         "returnDate": "2026-10-23",
         "teamGp": 1,
-        "ws48": 0.146,
+        "bpm": 0.7,
         "mpg": 9.0,
         "gp": 1,
         "basis": "blend"
@@ -535,7 +539,7 @@
         "since": "2026-10-22",
         "returnDate": "2026-10-23",
         "teamGp": 1,
-        "ws48": 0.35,
+        "bpm": 9.6,
         "mpg": 14.0,
         "gp": 1,
         "basis": "this season"
@@ -553,7 +557,7 @@
         "since": "2026-10-22",
         "returnDate": "2026-10-23",
         "teamGp": 1,
-        "ws48": 0.183,
+        "bpm": 3.5,
         "mpg": 24.0,
         "gp": 1,
         "basis": "blend"
@@ -571,7 +575,7 @@
         "since": "2026-10-19",
         "returnDate": "2026-11-04",
         "teamGp": 1,
-        "ws48": 0.168,
+        "bpm": 0.8,
         "mpg": 27.8,
         "gp": 0,
         "basis": "last season"
@@ -589,7 +593,7 @@
         "since": "2026-10-22",
         "returnDate": "2026-10-23",
         "teamGp": 1,
-        "ws48": 0.069,
+        "bpm": -2.7,
         "mpg": 12.6,
         "gp": 0,
         "basis": "last season"
@@ -607,7 +611,7 @@
         "since": "2026-10-22",
         "returnDate": "2026-10-24",
         "teamGp": 1,
-        "ws48": 0.075,
+        "bpm": -3.7,
         "mpg": 14.8,
         "gp": 0,
         "basis": "last season"
@@ -625,7 +629,7 @@
         "since": "2026-10-22",
         "returnDate": "2026-10-24",
         "teamGp": 1,
-        "ws48": 0.103,
+        "bpm": 1.5,
         "mpg": 27.9,
         "gp": 0,
         "basis": "last season"
@@ -643,7 +647,8 @@
         "since": "2026-10-22",
         "returnDate": "2026-10-24",
         "teamGp": 1,
-        "ws48": null
+        "bpm": null,
+        "noStats": true
       },
       "4683688": {
         "id": "4683688",
@@ -658,7 +663,7 @@
         "since": "2026-10-22",
         "returnDate": "2026-10-26",
         "teamGp": 1,
-        "ws48": 0.186,
+        "bpm": -1.5,
         "mpg": 16.4,
         "gp": 0,
         "basis": "last season"
@@ -676,7 +681,7 @@
         "since": "2026-10-21",
         "returnDate": "2026-10-22",
         "teamGp": 0,
-        "ws48": 0.09,
+        "bpm": -3.9,
         "mpg": 22.1,
         "gp": 0,
         "basis": "last season"
@@ -694,7 +699,7 @@
         "since": "2026-10-17",
         "returnDate": "2026-11-29",
         "teamGp": 0,
-        "ws48": 0.054,
+        "bpm": -2.2,
         "mpg": 15.1,
         "gp": 0,
         "basis": "last season"
@@ -712,7 +717,7 @@
         "since": "2026-10-22",
         "returnDate": "2026-10-23",
         "teamGp": 1,
-        "ws48": 0.052,
+        "bpm": -2.4,
         "mpg": 23.5,
         "gp": 0,
         "basis": "last season"
@@ -730,7 +735,7 @@
         "since": "2026-10-22",
         "returnDate": "2026-10-23",
         "teamGp": 1,
-        "ws48": 0.116,
+        "bpm": 0.5,
         "mpg": 28.5,
         "gp": 0,
         "basis": "last season"
@@ -748,7 +753,7 @@
         "since": "2026-10-22",
         "returnDate": "2026-10-23",
         "teamGp": 1,
-        "ws48": 0.199,
+        "bpm": 1.5,
         "mpg": 11.8,
         "gp": 0,
         "basis": "last season"
@@ -766,7 +771,7 @@
         "since": "2026-10-21",
         "returnDate": "2026-12-01",
         "teamGp": 1,
-        "ws48": 0.12,
+        "bpm": 3.6,
         "mpg": 24.0,
         "gp": 0,
         "basis": "last season"
@@ -784,7 +789,7 @@
         "since": "2026-10-16",
         "returnDate": "2026-12-01",
         "teamGp": 1,
-        "ws48": 0.078,
+        "bpm": 0.1,
         "mpg": 25.7,
         "gp": 0,
         "basis": "last season"
@@ -802,7 +807,7 @@
         "since": "2026-10-16",
         "returnDate": "2027-01-02",
         "teamGp": 1,
-        "ws48": 0.262,
+        "bpm": 6.0,
         "mpg": 31.1,
         "gp": 0,
         "basis": "last season"
@@ -820,7 +825,7 @@
         "since": "2026-10-22",
         "returnDate": "2026-10-23",
         "teamGp": 1,
-        "ws48": 0.173,
+        "bpm": -3.2,
         "mpg": 22.8,
         "gp": 0,
         "basis": "last season"
@@ -838,7 +843,7 @@
         "since": "2026-10-22",
         "returnDate": "2026-10-23",
         "teamGp": 1,
-        "ws48": 0.07,
+        "bpm": 1.5,
         "mpg": 16.0,
         "gp": 1,
         "basis": "blend"
@@ -856,7 +861,7 @@
         "since": "2026-10-22",
         "returnDate": "2026-10-23",
         "teamGp": 1,
-        "ws48": 0.081,
+        "bpm": -3.5,
         "mpg": 12.0,
         "gp": 1,
         "basis": "blend"
@@ -874,7 +879,7 @@
         "since": "2026-10-22",
         "returnDate": "2026-10-23",
         "teamGp": 1,
-        "ws48": 0.032,
+        "bpm": -3.2,
         "mpg": 29.7,
         "gp": 0,
         "basis": "last season"
@@ -892,7 +897,7 @@
         "since": "2026-10-22",
         "returnDate": "2026-10-25",
         "teamGp": 1,
-        "ws48": 0.235,
+        "bpm": 3.6,
         "mpg": 17.2,
         "gp": 0,
         "basis": "last season"
@@ -910,7 +915,7 @@
         "since": "2026-02-09",
         "returnDate": "2027-01-02",
         "teamGp": 1,
-        "ws48": 0.056,
+        "bpm": -4.4,
         "mpg": 18.4,
         "gp": 0,
         "basis": "last season"
@@ -928,7 +933,7 @@
         "since": "2026-10-15",
         "returnDate": "2026-11-08",
         "teamGp": 1,
-        "ws48": -0.05,
+        "bpm": -9.1,
         "mpg": 20.2,
         "gp": 0,
         "basis": "last season"
@@ -946,7 +951,7 @@
         "since": "2026-10-05",
         "returnDate": "2026-11-08",
         "teamGp": 1,
-        "ws48": 0.1,
+        "bpm": -0.9,
         "mpg": 24.0,
         "gp": 0,
         "basis": "last season"
@@ -964,7 +969,7 @@
         "since": "2026-09-28",
         "returnDate": "2026-11-08",
         "teamGp": 1,
-        "ws48": 0.121,
+        "bpm": -3.2,
         "mpg": 10.3,
         "gp": 0,
         "basis": "last season"
@@ -982,7 +987,7 @@
         "since": "2026-09-28",
         "returnDate": "2026-11-08",
         "teamGp": 1,
-        "ws48": 0.043,
+        "bpm": 0.5,
         "mpg": 33.8,
         "gp": 0,
         "basis": "last season"
@@ -1000,7 +1005,7 @@
         "since": "2026-08-26",
         "returnDate": "2027-03-02",
         "teamGp": 1,
-        "ws48": 0.132,
+        "bpm": -0.6,
         "mpg": 22.1,
         "gp": 0,
         "basis": "last season"
@@ -1018,7 +1023,7 @@
         "since": "2026-10-22",
         "returnDate": "2026-10-23",
         "teamGp": 1,
-        "ws48": 0.095,
+        "bpm": -2.1,
         "mpg": 18.0,
         "gp": 1,
         "basis": "blend"
@@ -1036,7 +1041,7 @@
         "since": "2026-10-22",
         "returnDate": "2026-10-23",
         "teamGp": 1,
-        "ws48": 0.075,
+        "bpm": -4.6,
         "mpg": 6.0,
         "gp": 0,
         "basis": "last season"
@@ -1054,7 +1059,7 @@
         "since": "2026-10-22",
         "returnDate": "2026-10-23",
         "teamGp": 1,
-        "ws48": 0.104,
+        "bpm": 1.3,
         "mpg": 23.7,
         "gp": 0,
         "basis": "last season"
@@ -1072,7 +1077,8 @@
         "since": "2026-10-22",
         "returnDate": "2026-10-23",
         "teamGp": 1,
-        "ws48": null
+        "bpm": null,
+        "noStats": true
       },
       "4432810": {
         "id": "4432810",
@@ -1087,7 +1093,7 @@
         "since": "2026-10-22",
         "returnDate": "2026-10-23",
         "teamGp": 1,
-        "ws48": 0.097,
+        "bpm": -2.0,
         "mpg": 22.7,
         "gp": 0,
         "basis": "last season"
@@ -1105,7 +1111,7 @@
         "since": "2026-10-05",
         "returnDate": "2027-04-02",
         "teamGp": 1,
-        "ws48": 0.107,
+        "bpm": -0.4,
         "mpg": 30.4,
         "gp": 0,
         "basis": "last season"
@@ -1123,7 +1129,7 @@
         "since": "2026-10-21",
         "returnDate": "2026-10-26",
         "teamGp": 1,
-        "ws48": 0.075,
+        "bpm": -6.4,
         "mpg": 16.0,
         "gp": 0,
         "basis": "last season"
@@ -1141,7 +1147,8 @@
         "since": "2026-10-21",
         "returnDate": "2026-10-26",
         "teamGp": 1,
-        "ws48": null
+        "bpm": null,
+        "noStats": true
       },
       "5106270": {
         "id": "5106270",
@@ -1156,7 +1163,8 @@
         "since": "2026-10-15",
         "returnDate": "2027-07-01",
         "teamGp": 1,
-        "ws48": null
+        "bpm": null,
+        "noStats": true
       },
       "4712849": {
         "id": "4712849",
@@ -1171,7 +1179,7 @@
         "since": "2026-10-22",
         "returnDate": "2026-10-25",
         "teamGp": 1,
-        "ws48": 0.058,
+        "bpm": -0.9,
         "mpg": 29.8,
         "gp": 0,
         "basis": "last season"
@@ -1189,7 +1197,7 @@
         "since": "2026-10-22",
         "returnDate": "2026-10-25",
         "teamGp": 1,
-        "ws48": 0.072,
+        "bpm": -3.3,
         "mpg": 10.0,
         "gp": 0,
         "basis": "last season"
@@ -1207,7 +1215,7 @@
         "since": "2026-10-17",
         "returnDate": "2026-11-18",
         "teamGp": 1,
-        "ws48": 0.087,
+        "bpm": -2.8,
         "mpg": 12.8,
         "gp": 0,
         "basis": "last season"
@@ -1225,7 +1233,8 @@
         "since": "2026-09-28",
         "returnDate": "2026-11-18",
         "teamGp": 1,
-        "ws48": null
+        "bpm": null,
+        "noStats": true
       },
       "3912848": {
         "id": "3912848",
@@ -1240,7 +1249,7 @@
         "since": "2026-10-22",
         "returnDate": "2026-10-24",
         "teamGp": 1,
-        "ws48": 0.118,
+        "bpm": -1.7,
         "mpg": 22.3,
         "gp": 0,
         "basis": "last season"
@@ -1258,7 +1267,8 @@
         "since": "2026-10-21",
         "returnDate": "2026-10-24",
         "teamGp": 1,
-        "ws48": null
+        "bpm": null,
+        "noStats": true
       },
       "4870562": {
         "id": "4870562",
@@ -1273,7 +1283,7 @@
         "since": "2026-10-19",
         "returnDate": "2026-11-02",
         "teamGp": 1,
-        "ws48": 0.107,
+        "bpm": -2.4,
         "mpg": 23.8,
         "gp": 0,
         "basis": "last season"
@@ -1291,7 +1301,7 @@
         "since": "2026-10-06",
         "returnDate": "2027-10-01",
         "teamGp": 1,
-        "ws48": 0.117,
+        "bpm": -4.9,
         "mpg": 9.2,
         "gp": 0,
         "basis": "last season"
@@ -1309,7 +1319,7 @@
         "since": "2026-10-22",
         "returnDate": "2026-10-24",
         "teamGp": 1,
-        "ws48": 0.151,
+        "bpm": -0.6,
         "mpg": 21.5,
         "gp": 0,
         "basis": "last season"
@@ -1327,7 +1337,7 @@
         "since": "2026-10-22",
         "returnDate": "2026-10-24",
         "teamGp": 1,
-        "ws48": 0.137,
+        "bpm": -1.9,
         "mpg": 15.0,
         "gp": 1,
         "basis": "blend"
@@ -1345,7 +1355,7 @@
         "since": "2026-09-11",
         "returnDate": "2027-02-03",
         "teamGp": 1,
-        "ws48": 0.169,
+        "bpm": 0.5,
         "mpg": 23.6,
         "gp": 0,
         "basis": "last season"
@@ -1363,7 +1373,7 @@
         "since": "2026-10-22",
         "returnDate": "2026-10-23",
         "teamGp": 1,
-        "ws48": 0.095,
+        "bpm": 1.2,
         "mpg": 11.6,
         "gp": 0,
         "basis": "last season"
@@ -1381,7 +1391,7 @@
         "since": "2026-10-22",
         "returnDate": "2026-10-23",
         "teamGp": 1,
-        "ws48": 0.078,
+        "bpm": -2.7,
         "mpg": 5.4,
         "gp": 0,
         "basis": "last season"
@@ -1399,7 +1409,7 @@
         "since": "2026-08-24",
         "returnDate": "2027-03-02",
         "teamGp": 1,
-        "ws48": -0.05,
+        "bpm": -1.1,
         "mpg": 29.4,
         "gp": 0,
         "basis": "last season"
@@ -1417,7 +1427,7 @@
         "since": "2026-10-22",
         "returnDate": "2026-10-23",
         "teamGp": 1,
-        "ws48": 0.064,
+        "bpm": -0.3,
         "mpg": 22.0,
         "gp": 0,
         "basis": "last season"
@@ -1435,7 +1445,8 @@
         "since": "2026-10-21",
         "returnDate": "2027-10-01",
         "teamGp": 1,
-        "ws48": null
+        "bpm": null,
+        "noStats": true
       },
       "4433174": {
         "id": "4433174",
@@ -1450,7 +1461,7 @@
         "since": "2026-10-15",
         "returnDate": "2026-11-02",
         "teamGp": 1,
-        "ws48": 0.177,
+        "bpm": -2.4,
         "mpg": 20.6,
         "gp": 0,
         "basis": "last season"
@@ -1468,7 +1479,7 @@
         "since": "2026-10-15",
         "returnDate": "2026-11-02",
         "teamGp": 1,
-        "ws48": 0.083,
+        "bpm": -2.1,
         "mpg": 26.5,
         "gp": 0,
         "basis": "last season"
@@ -1486,7 +1497,7 @@
         "since": "2026-10-22",
         "returnDate": "2026-10-23",
         "teamGp": 1,
-        "ws48": 0.14,
+        "bpm": 1.9,
         "mpg": 32.0,
         "gp": 1,
         "basis": "blend"
@@ -1504,7 +1515,7 @@
         "since": "2026-10-22",
         "returnDate": "2026-10-23",
         "teamGp": 1,
-        "ws48": 0.099,
+        "bpm": -0.0,
         "mpg": 20.0,
         "gp": 1,
         "basis": "blend"
@@ -1522,7 +1533,7 @@
         "since": "2026-10-22",
         "returnDate": "2026-10-24",
         "teamGp": 1,
-        "ws48": 0.091,
+        "bpm": -0.2,
         "mpg": 27.7,
         "gp": 0,
         "basis": "last season"
@@ -1540,7 +1551,8 @@
         "since": "2026-10-05",
         "returnDate": "2026-12-03",
         "teamGp": 1,
-        "ws48": null
+        "bpm": null,
+        "noStats": true
       },
       "4432586": {
         "id": "4432586",
@@ -1555,7 +1567,8 @@
         "since": "2026-10-20",
         "returnDate": "2026-10-28",
         "teamGp": 1,
-        "ws48": null
+        "bpm": null,
+        "noStats": true
       },
       "4433268": {
         "id": "4433268",
@@ -1570,7 +1583,7 @@
         "since": "2026-10-22",
         "returnDate": "2026-10-25",
         "teamGp": 1,
-        "ws48": 0.082,
+        "bpm": -0.9,
         "mpg": 12.3,
         "gp": 0,
         "basis": "last season"
@@ -1588,7 +1601,7 @@
         "since": "2026-10-22",
         "returnDate": "2026-10-23",
         "teamGp": 1,
-        "ws48": 0.126,
+        "bpm": -5.0,
         "mpg": 11.0,
         "gp": 0,
         "basis": "last season"
@@ -1606,7 +1619,7 @@
         "since": "2026-10-07",
         "returnDate": "2026-11-04",
         "teamGp": 1,
-        "ws48": 0.151,
+        "bpm": 1.4,
         "mpg": 26.4,
         "gp": 0,
         "basis": "last season"
@@ -1624,7 +1637,8 @@
         "since": "2026-10-22",
         "returnDate": "2026-10-23",
         "teamGp": 1,
-        "ws48": null
+        "bpm": null,
+        "noStats": true
       },
       "5142718": {
         "id": "5142718",
@@ -1639,7 +1653,8 @@
         "since": "2026-10-22",
         "returnDate": "2026-10-24",
         "teamGp": 1,
-        "ws48": null
+        "bpm": null,
+        "noStats": true
       },
       "4997537": {
         "id": "4997537",
@@ -1654,7 +1669,7 @@
         "since": "2026-10-01",
         "returnDate": "2026-11-02",
         "teamGp": 1,
-        "ws48": 0.048,
+        "bpm": 1.4,
         "mpg": 13.7,
         "gp": 0,
         "basis": "last season"
@@ -1672,7 +1687,7 @@
         "since": "2026-07-30",
         "returnDate": "2027-04-02",
         "teamGp": 1,
-        "ws48": 0.072,
+        "bpm": -2.3,
         "mpg": 20.6,
         "gp": 0,
         "basis": "last season"
@@ -1692,8 +1707,9 @@
         "since": "2026-10-21",
         "returnDate": "2026-10-24",
         "teamGp": 0,
-        "ws48": null,
-        "returnedOn": "2026-10-22"
+        "returnedOn": "2026-10-22",
+        "bpm": null,
+        "noStats": true
       },
       "5106268": {
         "id": "5106268",
@@ -1708,11 +1724,11 @@
         "since": "2026-10-20",
         "returnDate": "2026-11-16",
         "teamGp": 0,
-        "ws48": 0.085,
         "mpg": 15.7,
         "gp": 0,
         "basis": "last season",
-        "returnedOn": "2026-10-22"
+        "returnedOn": "2026-10-22",
+        "bpm": -2.6
       }
     },
     "schedules": {
@@ -4294,6 +4310,14 @@
         "name": "Nae'Qwan Tomlin",
         "short": "N. Tomlin",
         "team": "Cavaliers"
+      },
+      {
+        "date": "2026-10-22",
+        "kind": "season",
+        "id": "5105571",
+        "name": "Henri Veesaar",
+        "short": "H. Veesaar",
+        "team": "Hawks"
       }
     ]
   }

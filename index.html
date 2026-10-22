@@ -1005,7 +1005,7 @@ function gameCard(g, me) {
 // Per player, for the day on show: points banked from finished games, best/worst case
 // from games still to play, and where they'd land if live games ended now.
 function daySwing() {
-  const rows = new Map(players.map(p => [p.name, { name: p.name, banked: 0, lo: 0, hi: 0, potLo: 0, potHi: 0, now: 0, left: 0, played: 0, live: 0 }]));
+  const rows = new Map(players.map(p => [p.name, { name: p.name, banked: 0, lo: 0, hi: 0, potLo: 0, potHi: 0, now: 0, left: 0, played: 0, live: 0, locked: 0 }]));
   for (const g of gamesData.events) {
     const away = g.teams.find(t => t.homeAway === "away") || g.teams[0] || {};
     const home = g.teams.find(t => t.homeAway === "home") || g.teams[1] || {};
@@ -1033,6 +1033,9 @@ function daySwing() {
       if (winSide) {
         const v = o.swing != null ? o.swing : o[winSide];
         r.banked += v; r.lo += v; r.hi += v; r.now += v; r.played++;
+      } else if (Math.abs(o.away - o.home) < 0.05) {
+        // Same result whichever team wins, so it's certain: bank it now
+        r.banked += o.away; r.lo += o.away; r.hi += o.away; r.now += o.away; r.locked++;
       } else {
         r.lo += Math.min(o.away, o.home); r.hi += Math.max(o.away, o.home); r.left++;
         if (g.state === "in") { r.live++; if (lead) r.now += o[lead]; }
@@ -1046,18 +1049,18 @@ function renderSwing() {
   const box = document.getElementById("swing");
   if (!gamesData || !gamesData.events.length) { box.hidden = true; return; }
   const rows = daySwing();
-  const anyLive = rows.some(r => r.live), allDone = rows.every(r => !r.left);
+  const anyLive = rows.some(r => r.live), allDone = rows.every(r => !r.left) && !gamesData.events.some(g => g.state !== "post");
   const day = { "-1": "yesterday", "0": "today", "1": "tomorrow" }[state.gameDay] || "today";
   const maxAbs = Math.max(1, ...rows.flatMap(r => [Math.abs(r.lo), Math.abs(r.hi), Math.abs(r.potLo), Math.abs(r.potHi)]));
   const x = v => 50 + (v / maxAbs) * 48;
   const me = document.getElementById("filterName").value;
   const liveView = state.swingLive && anyLive;
-  rows.sort((a, b) => (!!(b.left || b.played) - !!(a.left || a.played)) ||
+  rows.sort((a, b) => (!!(b.left || b.played || b.locked) - !!(a.left || a.played || a.locked)) ||
     (liveView ? b.now - a.now : 0) || b.hi - a.hi || b.lo - a.lo);
 
   const row = r => {
-    const idle = !r.left && !r.played;
-    const meta = idle ? "No games" : [r.played ? `${r.played} done` : "", r.live ? `${r.live} live` : "", r.left - r.live ? `${r.left - r.live} to play` : ""].filter(Boolean).join(" · ");
+    const idle = !r.left && !r.played && !r.locked;
+    const meta = idle ? "No games" : [r.played ? `${r.played} done` : "", r.locked ? `${r.locked} locked in` : "", r.live ? `${r.live} live` : "", r.left - r.live ? `${r.left - r.live} to play` : ""].filter(Boolean).join(" · ");
     let bar = "";
     if (!idle) {
       // Red-to-green band between two values, split at zero
@@ -1076,11 +1079,12 @@ function renderSwing() {
         (r.live ? `<div class="now" style="left:${x(r.now)}%" title="If live games ended now: ${fmt(r.now)}"></div>` : "");
     }
     const nums = idle ? `<small>—</small>`
-      : !r.left ? `<b class="${cls(r.banked)}">${fmt(r.banked)}</b><small>final · range ${fmt(r.potLo)} to ${fmt(r.potHi)}</small>`
+      : !r.left ? `<b class="${cls(r.banked)}">${fmt(r.banked)}</b><small>${r.locked ? "locked in" : "final"}${
+          Math.abs(r.potHi - r.potLo) > 0.05 ? ` · range ${fmt(r.potLo)} to ${fmt(r.potHi)}` : ""}</small>`
       : liveView ? `<b class="${cls(r.now)}">${fmt(r.now)}</b> <span class="note">now</span>` +
         `<small>range ${fmt(r.lo)} to ${fmt(r.hi)}</small>`
       : `<b class="${cls(r.lo)}">${fmt(r.lo)}</b> to <b class="${cls(r.hi)}">${fmt(r.hi)}</b>` +
-        `<small>${r.live ? `now ${fmt(r.now)}` : r.played ? `${fmt(r.banked)} banked` : "&nbsp;"}</small>`;
+        `<small>${r.live ? `now ${fmt(r.now)}` : r.played || r.locked ? `${fmt(r.banked)} banked` : "&nbsp;"}</small>`;
     return `<div class="sw-row${idle ? " idle" : ""}${r.name === me ? " me" : ""}">
       <div class="sw-who">${avatar(r.name, 28)}<div style="min-width:0"><div class="n">${esc(r.name)}</div><div class="m">${meta}</div></div></div>
       <div class="sw-bar"><div class="axis" style="left:${x(0)}%"></div>${bar}</div>
@@ -1093,11 +1097,11 @@ function renderSwing() {
         <span class="track" aria-hidden="true"></span> If games ended now</label>` : ""}</div>
     <p class="note sub">${allDone ? `Every game's finished, so these are the final swings for ${day}.`
       : liveView ? `Where everyone would land if the live games ended with the current scores, plus anything already banked. Tied games count for nothing yet.`
-      : `The most each person could gain or lose from ${day}'s games, on win pace. Finished games lock in as they end.`}</p>
+      : `The most each person could gain or lose from ${day}'s games, on win pace. Finished games lock in as they end, and anything that's the same whichever team wins is banked straight away.`}</p>
     ${rows.map(row).join("")}
     <div class="sw-key"><span><i style="width:18px;height:10px;background:linear-gradient(90deg,color-mix(in srgb,var(--neg) 26%,transparent) 50%,color-mix(in srgb,var(--pos) 26%,transparent) 50%);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--faint) 45%,transparent)"></i>Possible at tip-off</span>
       ${allDone ? "" : `<span><i style="width:18px;height:10px;background:linear-gradient(90deg,color-mix(in srgb,var(--neg) 48%,transparent) 50%,color-mix(in srgb,var(--pos) 48%,transparent) 50%)"></i>Still possible</span>`}
-      <span><i style="width:14px;height:6px;background:var(--pos)"></i>Banked from finished games</span>
+      <span><i style="width:14px;height:6px;background:var(--pos)"></i>Banked (finished, or the same result either way)</span>
       ${anyLive ? `<span><i style="width:3px;height:12px;background:var(--nba-blue)"></i>If live games ended now</span>` : ""}
       ${liveView ? `<span><i class="nowkey"></i>Points as it stands</span>` : ""}</div>`;
   const tog = document.getElementById("swingLive");

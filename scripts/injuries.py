@@ -1,13 +1,14 @@
 """Injury tracking for the over/under tracker.
 
 Pulls ESPN's NBA injury report, each listed player's season stats and their team's
-remaining schedule, and estimates win shares per 48 minutes (WS/48) from box-score
+remaining schedule, and estimates each player's box plus/minus (BPM) from box-score
 stats. Called from fetch_standings.py; the result is saved inside data/standings.json.
 
-The WS/48 estimate follows the structure of Basketball-Reference's Win Shares
-(offensive + defensive win shares, divided by marginal points per win) but uses
-simplified possession and points-produced formulas, so it lands close to their
-figures without matching exactly. Uses only the Python standard library.
+The BPM estimate uses the published Basketball-Reference BPM 2.0 regression
+(per-100-possession box-score terms with position and offensive-role interpolation),
+with league-average team context in place of each team's actual totals. The final
+team adjustment (each team's rating shared across its players) is applied in the page,
+using the team's current rating. Uses only the Python standard library.
 """
 import json
 import re
@@ -20,13 +21,14 @@ SCHEDULE_URL = "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/tea
 CORE = "https://sports.core.api.espn.com/v2/sports/basketball/leagues/nba"
 STATS_URL = CORE + "/seasons/{season}/types/2/athletes/{aid}/statistics"
 
-# League constants (recent seasons)
-LG_PPG = 115.0
-LG_PPP = 1.139             # points per possession, possessions = FGM + 0.75 missed FGA + 0.44 FTA + TOV
-PACE = 100.0
-MPW = 0.32 * LG_PPG        # marginal points per win
 PRIOR_MINUTES = 800        # how much last season counts while this season's sample is small
-SEASON_RE = re.compile(r"(rest|remainder) of the (season|year)|season[- ]ending|out for the season", re.I)
+SEASON_RE = re.compile(r"(rest|remainder) of the (season|year)|season[- ]ending|(miss|out for) the (\d{4}-\d{2} )?season", re.I)
+
+# League-average team context, per game (recent seasons) and pace of ~100 possessions
+PACE = 100.0
+TEAM = dict(trb=44.0, stl=8.0, pf=19.0, ast=27.0, blk=5.0, pts=115.0, fga=89.0, fta=22.0)
+_THRESH = TEAM["pts"] / (TEAM["fga"] + 0.44 * TEAM["fta"]) - 0.33
+_TEAM_THRESH_PTS = TEAM["pts"] - _THRESH * (TEAM["fga"] + 0.44 * TEAM["fta"])
 
 
 def get_json(url, timeout=30):
@@ -73,44 +75,61 @@ def core_stats(js):
         avg = "avg" + name[0].upper() + name[1:]
         return out.get(avg, 0.0) * gp
 
-    keys = ["minutes", "points", "fieldGoalsMade", "fieldGoalsAttempted", "freeThrowsMade", "freeThrowsAttempted",
-            "offensiveRebounds", "defensiveRebounds", "assists", "steals", "blocks", "turnovers"]
+    keys = ["minutes", "points", "threePointFieldGoalsMade", "fieldGoalsAttempted", "freeThrowsAttempted",
+            "offensiveRebounds", "defensiveRebounds", "assists", "steals", "blocks", "turnovers", "fouls"]
     return {"gp": gp, **{k: tot(k) for k in keys}}
 
 
-def win_shares(s, team_drtg):
-    """Estimated offensive + defensive win shares from season totals."""
+def _lerp(a, b, t):
+    return a + (b - a) * t
+
+
+def raw_bpm(s):
+    """BPM 2.0 box-score terms with league-average team context (no team adjustment)."""
     mins = s["minutes"]
     if mins <= 0:
         return None
-    fg_pts = s["points"] - s["freeThrowsMade"]
-    # Points produced: scorers give up part of assisted baskets to passers (~60% of baskets are
-    # assisted) and offensive rebounds get credit for extending possessions. Weights are set so a
-    # team's points produced add up to its actual points.
-    pprod = s["points"] - 0.3 * fg_pts + 0.85 * s["assists"] + 0.57 * s["offensiveRebounds"]
-    # Possessions used: a missed shot only costs 75% of one, since teams rebound about a quarter of misses
-    misses = max(0.0, s["fieldGoalsAttempted"] - s["fieldGoalsMade"])
-    poss = s["fieldGoalsMade"] + 0.75 * misses + 0.44 * s["freeThrowsAttempted"] + s["turnovers"]
-    ows = (pprod - 0.92 * LG_PPP * poss) / MPW
-    # Defence: team defensive rating, nudged by the player's stops per 48 vs a typical player
-    stops48 = (s["steals"] + 0.7 * s["blocks"] + 0.25 * s["defensiveRebounds"]) * 48 / mins
-    drtg = team_drtg - max(-8.0, min(8.0, (stops48 - 3.75) * 1.0))
-    dws = mins * PACE / 240 * (1.08 * LG_PPP - drtg / 100) / MPW
-    return ows + dws
+    k = 48.0 / mins * (100.0 / PACE)   # per 100 team possessions while on court
+    pts, tpm, ast = s["points"] * k, s["threePointFieldGoalsMade"] * k, s["assists"] * k
+    tov, orb, drb = s["turnovers"] * k, s["offensiveRebounds"] * k, s["defensiveRebounds"] * k
+    stl, blk, pf = s["steals"] * k, s["blocks"] * k, s["fouls"] * k
+    fga, fta = s["fieldGoalsAttempted"] * k, s["freeThrowsAttempted"] * k
+    # Position (1 = point guard ... 5 = centre) and offensive role (1 = creator ... 5 = receiver),
+    # each blended with 50 minutes of a neutral value for small samples
+    pos = (2.130 + 8.668 * (orb + drb) / TEAM["trb"] - 2.486 * stl / TEAM["stl"] + 0.992 * pf / TEAM["pf"]
+           - 3.536 * ast / TEAM["ast"] + 1.667 * blk / TEAM["blk"])
+    pos = min(5.0, max(1.0, (pos * mins + 3.0 * 50) / (mins + 50)))
+    thresh_pts = pts - _THRESH * (fga + 0.44 * fta)
+    role = 6.00 - 6.642 * ast / TEAM["ast"] - 8.544 * thresh_pts / _TEAM_THRESH_PTS
+    role = min(5.0, max(1.0, (role * mins + 4.0 * 50) / (mins + 50)))
+    tp, tr = (pos - 1) / 4, (role - 1) / 4
+    b = (0.860 * pts + 0.389 * tpm + _lerp(0.580, 1.034, tp) * ast - 0.964 * tov + _lerp(0.613, 0.181, tp) * orb
+         + _lerp(0.116, 0.181, tp) * drb + _lerp(1.369, 1.008, tp) * stl + _lerp(1.327, 0.703, tp) * blk - 0.367 * pf
+         + _lerp(-0.560, -0.780, tr) * fga + _lerp(-0.246, -0.343, tr) * fta)
+    b += -0.818 * max(0.0, (3 - pos) / 2) + 2.774 * (role - 3) / 2
+    return b + BPM_CALIBRATION
 
 
-def estimate(aid, season, team_drtg, log):
-    """Blend this season's estimate with last season's while the sample is small."""
+# Shift so a league-average stat line (one fifth of an average team) comes out at 0
+BPM_CALIBRATION = 0.0
+_avg = {k: v * 82 for k, v in dict(minutes=48, points=23, threePointFieldGoalsMade=2.6, assists=5.4, turnovers=2.8,
+        offensiveRebounds=2.2, defensiveRebounds=6.6, steals=1.6, blocks=1.0, fouls=3.8,
+        fieldGoalsAttempted=17.8, freeThrowsAttempted=4.4).items()}
+BPM_CALIBRATION = -raw_bpm(_avg)
+
+
+def estimate(aid, season, log):
+    """Box BPM, blended with last season's while this season's sample is small."""
     parts = []
-    for yr, drtg in ((season, team_drtg), (season - 1, 100 * LG_PPP)):
+    for yr in (season, season - 1):
         try:
             s = core_stats(get_json(STATS_URL.format(season=yr, aid=aid)))
         except Exception as e:
             log(f"  stats {aid} {yr}: {e}")
             continue
-        ws = win_shares(s, drtg)
-        if ws is not None:
-            parts.append((yr, s, ws))
+        b = raw_bpm(s)
+        if b is not None:
+            parts.append((yr, s, b))
         if yr == season and s["minutes"] >= 1500:
             break  # plenty of this-season data
         time.sleep(0.15)
@@ -122,16 +141,12 @@ def estimate(aid, season, team_drtg, log):
     w_prev = min(prev[1]["minutes"], PRIOR_MINUTES) if prev else 0.0
     if w_cur + w_prev <= 0:
         return None
-    ws48 = 0.0
-    if cur:
-        ws48 += cur[2] / cur[1]["minutes"] * 48 * w_cur
-    if prev:
-        ws48 += prev[2] / prev[1]["minutes"] * 48 * w_prev
-    ws48 = max(-0.05, min(0.35, ws48 / (w_cur + w_prev)))  # cap small-sample extremes
+    bpm = ((cur[2] * w_cur if cur else 0.0) + (prev[2] * w_prev if prev else 0.0)) / (w_cur + w_prev)
+    bpm = max(-10.0, min(15.0, bpm))  # cap small-sample extremes
     src = cur if cur and cur[1]["gp"] > 0 else prev
     mpg = src[1]["minutes"] / src[1]["gp"] if src and src[1]["gp"] else 0.0
     return {
-        "ws48": round(ws48, 3),
+        "bpm": round(bpm, 1),
         "mpg": round(mpg, 1),
         "gp": int(cur[1]["gp"]) if cur else 0,
         "basis": "this season" if not prev or w_prev == 0 else ("last season" if not cur or w_cur == 0 else "blend"),
@@ -205,20 +220,18 @@ def update_injuries(teams, previous, log=print):
             del returned[aid]  # hurt again
 
     # Stats for everyone we're tracking
-    def team_drtg(team):
-        t = teams.get(team, {})
-        gp = t.get("wins", 0) + t.get("losses", 0)
-        return 100 * (t.get("pointsAgainst", 0) / gp) / PACE if gp else 100 * LG_PPP
-
     for group in (current, returned):
         for aid, p in list(group.items()):
-            est = estimate(aid, season, team_drtg(p["team"]), log)
+            est = estimate(aid, season, log)
             t = teams.get(p["team"], {})
             p["teamGp"] = t.get("wins", 0) + t.get("losses", 0)
+            p.pop("ws48", None)
             if est:
                 p.update(est)
+                p.pop("noStats", None)
             else:
-                p.setdefault("ws48", None)
+                p["bpm"] = None
+                p["noStats"] = True   # e.g. a rookie with no NBA minutes yet
             time.sleep(0.1)
 
     # Drop returns whose effect has worn off (they've now played nearly every game)

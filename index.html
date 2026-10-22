@@ -1126,8 +1126,12 @@ function renderInjuries() {
 }
 
 function updateInjUI() {
-  const any = injuryEntries().some(e => e.impact != null && Math.abs(e.impact) >= 0.05);
-  document.getElementById("injToggleWrap").hidden = !any && !state.injuries;
+  // Show the switch whenever there's injury data, even before player ratings have arrived
+  const wrap = document.getElementById("injToggleWrap");
+  const counted = injuryEntries().some(e => e.impact != null);
+  wrap.hidden = !injuriesData;
+  wrap.title = counted ? "Adjust projections for confirmed injuries and returning players"
+    : "Player ratings arrive with the next standings update; until then this has no effect";
   document.getElementById("injToggle").checked = state.injuries;
   document.getElementById("injPill").hidden = !state.injuries;
 }

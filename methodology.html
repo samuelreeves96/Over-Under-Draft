@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tracker Methodology</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false})"></script>
+<style>
+  :root {
+    --nba-blue: #17408B; --nba-red: #C9082A; --nba-navy: #0B1D3F;
+    --bg: #f3f5f9; --card: #ffffff; --text: #111827; --muted: #5d6676; --faint: #a3abb9;
+    --line: #e1e5ec; --accent: #17408B; --pos: #12784a; --neg: #C9082A; --chip: #e9eef6;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0a1426; --card: #111e36; --text: #e8edf5; --muted: #9aa6ba; --faint: #5d6a82;
+      --line: #22304b; --accent: #6f9bff; --pos: #4fd08f; --neg: #ff6680; --chip: #1a2843;
+    }
+  }
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .masthead { background: var(--nba-navy); color: #fff; border-bottom: 4px solid var(--nba-red); }
+  .masthead .inner { max-width: 880px; margin: 0 auto; padding: 22px 16px 18px; display: flex; align-items: center; gap: 14px; }
+  .masthead .mark { width: 44px; height: 44px; flex-shrink: 0; }
+  .masthead h1 { font-family: "Barlow Condensed", "Arial Narrow", sans-serif; font-weight: 800; font-size: 34px; line-height: 1;
+    letter-spacing: .01em; text-transform: uppercase; margin: 0; }
+  .masthead p { margin: 4px 0 0; color: #c3cde0; font-size: 14px; }
+  .masthead a { color: #fff; }
+  main { max-width: 880px; margin: 0 auto; padding: 16px 16px 64px; }
+  .back { display: inline-block; margin: 6px 0 4px; font-size: 14px; color: var(--accent); text-decoration: none; }
+  .back:hover { text-decoration: underline; }
+  h2 { font-family: "Barlow Condensed", "Arial Narrow", sans-serif; font-weight: 700; font-size: 26px; text-transform: uppercase;
+    letter-spacing: .02em; margin: 44px 0 10px; display: flex; align-items: center; gap: 10px; scroll-margin-top: 16px; }
+  h2::before { content: ""; width: 5px; height: 22px; background: var(--nba-red); border-radius: 2px; flex-shrink: 0; }
+  h2 .num { color: var(--muted); font-weight: 600; }
+  h3 { font-size: 17px; margin: 28px 0 6px; scroll-margin-top: 16px; }
+  p, li { max-width: 72ch; }
+  a { color: var(--accent); }
+  code { font: 13.5px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; background: var(--chip); border-radius: 4px; padding: 1px 5px; }
+  .lede { font-size: 17px; color: var(--muted); max-width: 70ch; }
+  .panel { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 14px 18px; margin: 14px 0; }
+  .plain { background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--nba-blue); border-radius: 10px;
+    padding: 12px 16px; margin: 16px 0; }
+  .plain b:first-child { display: block; font-size: 12px; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); margin-bottom: 2px; }
+  .caveat { border-left-color: var(--nba-red); }
+  .katex-display { overflow-x: auto; overflow-y: hidden; padding: 6px 0; }
+  .eq { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 4px 16px; margin: 12px 0; }
+  .toc { columns: 2; column-gap: 28px; padding-left: 20px; margin: 8px 0 0; }
+  .toc li { margin: 3px 0; break-inside: avoid; }
+  .tablewrap { overflow-x: auto; background: var(--card); border: 1px solid var(--line); border-radius: 10px; margin: 12px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; font-variant-numeric: tabular-nums; }
+  th, td { padding: 7px 12px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-size: 12px; color: #fff; background: var(--nba-navy); text-transform: uppercase; letter-spacing: .04em; font-weight: 600; }
+  @media (prefers-color-scheme: dark) { th { background: #0d1a33; } }
+  td.num, th.num { text-align: right; }
+  tr:last-child td { border-bottom: 0; }
+  .worked td:first-child { color: var(--muted); }
+  .worked tr.total td { font-weight: 700; }
+  .neg { color: var(--neg); } .pos { color: var(--pos); }
+  footer { margin-top: 48px; color: var(--muted); font-size: 13px; }
+  @media (max-width: 640px) {
+    .toc { columns: 1; }
+    .masthead h1 { font-size: 28px; }
+  }
+</style>
+</head>
+<body>
+<header class="masthead"><div class="inner">
+  <svg class="mark" viewBox="0 0 44 44" aria-hidden="true">
+    <circle cx="22" cy="22" r="20" fill="#E8762B" stroke="#fff" stroke-width="2"/>
+    <path d="M2 22h40M22 2v40M8 8c8 6 8 22 0 28M36 8c-8 6-8 22 0 28" fill="none" stroke="#3a1a08" stroke-width="1.6"/>
+  </svg>
+  <div><h1>How the numbers work</h1>
+  <p>Methodology for the Over/Under Tracker · <a href="index.html">back to the tracker</a></p></div>
+</div></header>
+
+<main>
+  <a class="back" href="index.html">← Back to the tracker</a>
+  <p class="lede">Every number on the tracker comes from a small set of formulas: how a team's season is projected, how a projection turns into points, what each game is worth, and how injuries move things. This page sets them all out, with the constants the app uses.</p>
+
+  <section class="panel">
+    <b>Contents</b>
+    <ol class="toc">
+      <li><a href="#scoring">Scoring</a></li>
+      <li><a href="#data">Data and updates</a></li>
+      <li><a href="#pace">Win pace</a></li>
+      <li><a href="#eff">Efficiency</a></li>
+      <li><a href="#blend">Blended</a></li>
+      <li><a href="#tracking">Leaderboard, movers and rounds</a></li>
+      <li><a href="#games">Games and head-to-heads</a></li>
+      <li><a href="#swing">Potential swing</a></li>
+      <li><a href="#live">If games ended now</a></li>
+      <li><a href="#injuries">Injuries</a></li>
+      <li><a href="#bpm">Player rating (BPM)</a></li>
+      <li><a href="#impact">From rating to wins</a></li>
+      <li><a href="#example">Worked example</a></li>
+      <li><a href="#limits">Assumptions and limits</a></li>
+      <li><a href="#constants">Constants</a></li>
+    </ol>
+  </section>
+
+  <!-- ===================================================== -->
+  <h2 id="scoring"><span class="num">1</span> Scoring</h2>
+  <p>Each pick is a team, a line \(L\) (the bookmakers' season win total) and a side. At any point in the season a pick scores the gap between the team's projected wins \(\hat W\) and the line, signed by the side you took:</p>
+  <div class="eq">$$\text{Points}_{\text{Over}} = \hat W - L \qquad\qquad \text{Points}_{\text{Under}} = L - \hat W$$</div>
+  <p>A player's total is the sum over their six picks. At the end of the season \(\hat W\) is simply the team's actual wins, so the final score is exactly how far each team finished above or below its line. Before then, the tracker needs a projection, and there are three to choose from.</p>
+  <div class="plain"><b>In plain English</b>Take the Over on a 44.5 line and the team is on track for 50 wins: you're on +5.5. If it's on track for 40, you're on −4.5.</div>
+
+  <!-- ===================================================== -->
+  <h2 id="data"><span class="num">2</span> Data and updates</h2>
+  <ul>
+    <li><b>Standings</b> (wins, losses, points scored \(PF\) and allowed \(PA\)) load live from ESPN each time the page opens. A GitHub Action also saves a copy twice a day as a fallback.</li>
+    <li><b>History:</b> the Action saves one snapshot of every team's record per US game day. Movers, Progress charts and period changes are all built from these snapshots.</li>
+    <li><b>Games:</b> the day's scoreboard loads live from ESPN and refreshes every minute while games are on.</li>
+    <li><b>Injuries:</b> the Action reads ESPN's injury report, each listed player's season stats and his team's remaining schedule, and saves them with the standings.</li>
+  </ul>
+  <p>Below, a team's record is \(w\) wins and \(\ell\) losses from \(g = w + \ell\) games, with \(R = 82 - g\) games remaining.</p>
+
+  <!-- ===================================================== -->
+  <h2 id="pace"><span class="num">3</span> Win pace</h2>
+  <p>The simplest projection: assume the team keeps winning at its current rate.</p>
+  <div class="eq">$$\hat W_{\text{pace}} = \frac{w}{g}\times 82 \qquad (\hat W = L \text{ when } g = 0)$$</div>
+  <p>It's easy to follow but very noisy early on: a 1–0 team projects to 82 wins.</p>
+
+  <!-- ===================================================== -->
+  <h2 id="eff"><span class="num">4</span> Efficiency</h2>
+  <p>Point margin predicts future results better than win–loss record, because close games are close to coin flips. Efficiency keeps the wins already banked and projects the rest from the Pythagorean expectation:</p>
+  <div class="eq">$$p_{\text{pyth}} = \frac{PF^{\,14}}{PF^{\,14} + PA^{\,14}} \qquad\qquad \hat W_{\text{eff}} = w + R\,p_{\text{pyth}}$$</div>
+  <p>The exponent of 14 is the value that best fits NBA results historically (Daryl Morey's estimate was about 13.91). A team outscoring opponents but losing close games projects above its win pace, and vice versa.</p>
+
+  <!-- ===================================================== -->
+  <h2 id="blend"><span class="num">5</span> Blended</h2>
+  <p>Both methods above ignore the most informative number available in October: the preseason line, which already reflects rosters, schedules and known injuries. Blended treats the line as a prior and updates it with the point margin actually played.</p>
+
+  <h3>Step 1: the line as a point margin</h3>
+  <p>Over a season, each point of average margin is worth about 2.7 wins (\(\beta = 2.7\)), so a line implies a per-game margin:</p>
+  <div class="eq">$$m_0 = \frac{L - 41}{\beta}$$</div>
+
+  <h3>Step 2: shrink toward what's been played</h3>
+  <p>The observed margin is \(m_{\text{obs}} = (PF - PA)/g\). The estimate of the team's true margin is a weighted average, with the line counting as \(k = 17\) games of evidence:</p>
+  <div class="eq">$$\hat m = \frac{k\,m_0 + g\,m_{\text{obs}}}{k + g}$$</div>
+  <p>This is the standard normal–normal shrinkage estimate. The weight \(k\) is the ratio of game-to-game noise to how far a team's true level typically sits from its line:</p>
+  <div class="eq">$$k \approx \frac{\sigma^2_{\text{game}}}{\sigma^2_{\text{line}}} \approx \frac{12.5^2}{3^2} \approx 17$$</div>
+  <p>where a single game's margin varies by about 12.5 points around a team's true level, and preseason lines miss a team's true margin by about 3 points. After 17 games the line and the results carry equal weight; by the end of the season the results dominate.</p>
+
+  <h3>Step 3: margin to wins</h3>
+  <div class="eq">$$\hat p = \operatorname{clip}\!\left(0.5 + \frac{\beta\,\hat m}{82},\ 0.05,\ 0.95\right) \qquad\qquad \hat W_{\text{blend}} = w + R\,\hat p$$</div>
+  <div class="plain"><b>In plain English</b>A team with a 44.5 line that starts 5–4 with a +3.1 margin: the line implies +1.3 a game, 9 games of +3.1 pull that up to \(\hat m = (17\times1.3 + 9\times3.1)/26 \approx 1.9\), and the projection lands at 46.1 wins. Win pace says 45.6 and Efficiency 49.0. Blended moves, but it doesn't overreact.</div>
+
+  <!-- ===================================================== -->
+  <h2 id="tracking"><span class="num">6</span> Leaderboard, movers and rounds</h2>
+  <p><b>Leaderboard</b> totals are the sum of a player's pick points on the selected method. <b>Change</b> compares today with the snapshot at the start of the chosen period (last day, 7, 14 or 30 days, or season):</p>
+  <div class="eq">$$\Delta = \text{Points}_{\text{today}} - \text{Points}_{\text{start of period}}$$</div>
+  <p><b>Movers</b> rank players and individual picks by \(\Delta\). <b>Rounds vs Vegas</b> groups picks (by draft round, by Over/Under, and the undrafted entries) and reports:</p>
+  <div class="eq">$$\text{hit rate} = \frac{\#\{\text{picks with Points} > 0\}}{n} \qquad\qquad \text{avg} = \frac{1}{n}\sum \text{Points}$$</div>
+  <p>A hit rate above 50% and a positive average mean the group is beating the bookmakers. Progress charts plot each player's total from every saved snapshot.</p>
+
+  <!-- ===================================================== -->
+  <h2 id="games"><span class="num">7</span> Games and head-to-heads</h2>
+  <h3>Who needs which result</h3>
+  <p>An Over pick needs its team to win; an Under pick needs it to lose. So in a game between teams A and B, a player is backing A if they have A Over or B Under, and backing B if they have B Over or A Under. Two players backing opposite sides form a <b>head-to-head</b>; each pairing is shown on its own row.</p>
+
+  <h3>What a result is worth</h3>
+  <p>Stakes use win pace, so they're easy to read. If a team is \(w\)–\(\ell\) after \(g\) games, a win and a loss move its projection to</p>
+  <div class="eq">$$\hat W_{\text{win}} = \frac{w+1}{g+1}\times 82 \qquad\qquad \hat W_{\text{loss}} = \frac{w}{g+1}\times 82$$</div>
+  <p>and each pick's points change by the difference from its current projection. An Over gains \(\hat W_{\text{win}} - \hat W\) on a win; an Under gains \(\hat W - \hat W_{\text{loss}}\) on a loss. Early in the season these swings are large because one game moves the pace a lot.</p>
+
+  <h3>Hedged players</h3>
+  <p>A player with picks pulling both ways in the same game is combined into one net figure. With \(u\) and \(d\) the gain and loss for the picks backing each side:</p>
+  <div class="eq">$$\text{net if A wins} = u_A + d_B \qquad\qquad \text{net if B wins} = u_B + d_A$$</div>
+  <p>The player is placed on whichever side nets them more, and can then form a head-to-head. If the two nets are equal (within 0.05), the result is the same either way and they appear under <i>Same result either way</i>.</p>
+
+  <h3>Finished games</h3>
+  <p>Once a game is final, each pick shows what the result actually did. The tracker works back from the team's post-game record on the scoreboard (\(w', \ell'\)) to its pre-game record, so the swing is right whether or not the standings have caught up:</p>
+  <div class="eq">$$\text{swing} = \text{Points}(w', \ell') - \text{Points}(w' - \mathbb{1}_{\text{won}},\ \ell' - \mathbb{1}_{\text{lost}})$$</div>
+
+  <!-- ===================================================== -->
+  <h2 id="swing"><span class="num">8</span> Potential swing</h2>
+  <p>For each player and day, each game \(j\) they have a stake in has two possible nets, \(n_j^A\) and \(n_j^B\). Games are sorted into three groups:</p>
+  <ul>
+    <li><b>Banked:</b> finished games contribute their actual swing, and so do games where \(n_j^A = n_j^B\), because that result is certain.</li>
+    <li><b>Still to play:</b> everything else.</li>
+    <li><b>Live:</b> games under way, which are still to play but have a current leader.</li>
+  </ul>
+  <div class="eq">$$\text{worst} = B + \sum_{j\,\in\,\text{open}} \min(n_j^A, n_j^B) \qquad \text{best} = B + \sum_{j\,\in\,\text{open}} \max(n_j^A, n_j^B)$$</div>
+  <p>where \(B\) is the banked total. The faded "possible at tip-off" band is the same calculation using every game's pre-game nets, so it stays fixed all day. The blue marker, and the "If games ended now" figure, use the current leader of each live game (tied games count as 0):</p>
+  <div class="eq">$$\text{now} = B + \sum_{j\,\in\,\text{live}} n_j^{\text{leader}}$$</div>
+
+  <!-- ===================================================== -->
+  <h2 id="live"><span class="num">9</span> If games ended now</h2>
+  <p>With this switch on, every live game is added to the standings as if it finished with the current score: the leader gets a win, the trailing team a loss, and both teams' \(PF\) and \(PA\) take on the current scores. Tied games are skipped. A finished game that ESPN's standings haven't absorbed yet (the scoreboard record shows more games than the standings) is added the same way. Every projection, total and chart then recalculates. Game cards and the swing panel keep using the official standings, so their stakes aren't counted twice.</p>
+
+  <!-- ===================================================== -->
+  <h2 id="injuries"><span class="num">10</span> Injuries</h2>
+  <p>The injury model answers one question: <i>given who is out and who is coming back, how many wins should be added to or taken off each team's projection?</i> It works in three steps: rate the player, convert his rating into wins per game, and multiply by how much more or less he'll play than the projection already assumes.</p>
+  <ul>
+    <li><b>Out</b> with a return date, <b>out for the season</b>, and <b>out with no date</b> come from ESPN's report. Season-ending wording ("rest of the season", "miss the 2026-27 season") is detected from ESPN's notes.</li>
+    <li><b>Day-to-day</b>, questionable and doubtful players count as short-term.</li>
+    <li>A player who was out and drops off the report is logged as <b>returned</b>.</li>
+    <li>Every new out, season-ending ruling and return is logged with its date and shown as a dot on the Progress charts.</li>
+  </ul>
+  <p><b>Adjust for injuries</b> adds each team's total injury adjustment to today's projection on whichever method is selected. Saved history is not changed.</p>
+
+  <!-- ===================================================== -->
+  <h2 id="bpm"><span class="num">11</span> Player rating (BPM)</h2>
+  <p>Players are rated with box plus/minus (BPM): points per 100 possessions a player adds above an average player. The tracker estimates it from ESPN box-score stats using Basketball-Reference's published BPM 2.0 regression.</p>
+
+  <h3>Per-100-possession inputs</h3>
+  <p>Each season total \(s\) (points, threes made, assists, turnovers, offensive and defensive rebounds, steals, blocks, fouls, field-goal and free-throw attempts) is converted to a rate per 100 team possessions while the player is on court, assuming a pace of 100:</p>
+  <div class="eq">$$x = s \times \frac{48}{MP} \times \frac{100}{\text{pace}}$$</div>
+
+  <h3>Position and offensive role</h3>
+  <p>The regression weights depend on position (1 = point guard … 5 = centre) and offensive role (1 = creator … 5 = receiver), both estimated from the player's share of a typical team's per-game totals (\(T\): 44 rebounds, 8 steals, 19 fouls, 27 assists, 5 blocks, 115 points on 89 field-goal and 22 free-throw attempts):</p>
+  <div class="eq">$$\text{pos} = 2.130 + 8.668\,\tfrac{x_{TRB}}{T_{TRB}} - 2.486\,\tfrac{x_{STL}}{T_{STL}} + 0.992\,\tfrac{x_{PF}}{T_{PF}} - 3.536\,\tfrac{x_{AST}}{T_{AST}} + 1.667\,\tfrac{x_{BLK}}{T_{BLK}}$$</div>
+  <div class="eq">$$\text{role} = 6.00 - 6.642\,\tfrac{x_{AST}}{T_{AST}} - 8.544\,\tfrac{x_{\text{thresh}}}{T_{\text{thresh}}}$$</div>
+  <p>Threshold points are points scored above a bar 0.33 below a typical team's points per true-shot attempt (\(TSA = FGA + 0.44\,FTA\)):</p>
+  <div class="eq">$$x_{\text{thresh}} = x_{PTS} - \left(\frac{T_{PTS}}{T_{TSA}} - 0.33\right) x_{TSA}$$</div>
+  <p>For small samples each is blended with 50 minutes at a neutral value (position 3, role 4), then clamped to \([1, 5]\).</p>
+
+  <h3>The regression</h3>
+  <p>Coefficients that differ by position or role are interpolated linearly between their 1 and 5 values, with \(t_p = (\text{pos}-1)/4\) and \(t_r = (\text{role}-1)/4\):</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Input (per 100)</th><th class="num">At 1</th><th class="num">At 5</th><th>Varies with</th></tr></thead>
+    <tbody>
+      <tr><td>Points</td><td class="num">0.860</td><td class="num">0.860</td><td>—</td></tr>
+      <tr><td>Threes made</td><td class="num">0.389</td><td class="num">0.389</td><td>—</td></tr>
+      <tr><td>Assists</td><td class="num">0.580</td><td class="num">1.034</td><td>position</td></tr>
+      <tr><td>Turnovers</td><td class="num">−0.964</td><td class="num">−0.964</td><td>—</td></tr>
+      <tr><td>Offensive rebounds</td><td class="num">0.613</td><td class="num">0.181</td><td>position</td></tr>
+      <tr><td>Defensive rebounds</td><td class="num">0.116</td><td class="num">0.181</td><td>position</td></tr>
+      <tr><td>Steals</td><td class="num">1.369</td><td class="num">1.008</td><td>position</td></tr>
+      <tr><td>Blocks</td><td class="num">1.327</td><td class="num">0.703</td><td>position</td></tr>
+      <tr><td>Fouls</td><td class="num">−0.367</td><td class="num">−0.367</td><td>—</td></tr>
+      <tr><td>Field-goal attempts</td><td class="num">−0.560</td><td class="num">−0.780</td><td>role</td></tr>
+      <tr><td>Free-throw attempts</td><td class="num">−0.246</td><td class="num">−0.343</td><td>role</td></tr>
+    </tbody>
+  </table></div>
+  <div class="eq">$$\text{BPM}_{\text{box}} = \sum_i c_i(t_p, t_r)\,x_i \;-\; 0.818\max\!\left(0, \tfrac{3-\text{pos}}{2}\right) \;+\; 2.774\,\tfrac{\text{role}-3}{2} \;+\; c_0$$</div>
+  <p>The calibration constant \(c_0 \approx -12.6\) is set so that a league-average stat line (one fifth of an average team) rates exactly 0. Checks against typical seasons: an MVP-level centre comes out around +14, an MVP-level guard about +11, an all-star big about +6, an average starter about −1 and a bench guard about −5.</p>
+
+  <h3>Small samples and team context</h3>
+  <p>Early in the season this season's rating is blended with last season's, with last season capped at 800 minutes of weight:</p>
+  <div class="eq">$$\text{BPM}_{\text{box}} = \frac{b_{\text{now}}\,MP_{\text{now}} + b_{\text{last}}\min(MP_{\text{last}}, 800)}{MP_{\text{now}} + \min(MP_{\text{last}}, 800)}, \quad \text{clamped to } [-10, 15]$$</div>
+  <p>Basketball-Reference's final step adds a team adjustment so a team's ratings add up to how good the team is. Without the whole roster's stats, the tracker uses the version that applies when the rest of the roster is average: each player gets a fifth of his team's rating, using the blended margin \(\hat m\) from section 5:</p>
+  <div class="eq">$$\text{BPM} = \text{BPM}_{\text{box}} + \frac{\hat m}{5}$$</div>
+  <p>Players with no NBA stats yet (usually rookies) are treated as replacement level, so their absence changes nothing.</p>
+
+  <!-- ===================================================== -->
+  <h2 id="impact"><span class="num">12</span> From rating to wins</h2>
+  <h3>Value per game</h3>
+  <p>Replacement level is \(-2\) BPM: roughly the bench player who absorbs the minutes. A player's share of minutes is \(\text{MPG}/48\), and each point of margin is worth \(\beta/82\) wins per game, so his value over replacement is</p>
+  <div class="eq">$$v = (\text{BPM} + 2)\times\frac{\text{MPG}}{48}\times s \times \frac{\beta}{82} \quad\text{wins per game}$$</div>
+  <p>Stars are worth more than a linear model suggests, because teammates get less efficient when they take on a star's load, so the star factor \(s\) adds 3% per BPM point above +3, up to 20%:</p>
+  <div class="eq">$$s = \min\!\big(1.2,\ 1 + 0.03\max(0, \text{BPM} - 3)\big)$$</div>
+  <p>Over a full season this matches Basketball-Reference's wins over replacement, \(\text{VORP}\times 2.7\), with the star boost on top.</p>
+
+  <h3>Availability</h3>
+  <p>The impact depends on how much more or less a player will play than the projection already assumes. Three availabilities (shares of games played) are involved:</p>
+  <div class="eq">$$a_{\text{past}} = \frac{\text{games he's played}}{\text{team games}} \qquad a_{\text{future}} = \frac{R - G_{\text{out}}}{R}\times 0.92 \qquad a_{\text{line}} = 0.92$$</div>
+  <p>The 0.92 reflects that even healthy players miss about 8% of games to rest and knocks. A player out for the season has \(a_{\text{future}} = 0\). \(G_{\text{out}}\), the games he's expected to miss from here, is set as follows:</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Status</th><th>Games missed \(G_{\text{out}}\)</th></tr></thead>
+    <tbody>
+      <tr><td>Out with a return date</td><td>The team's scheduled games before that date (about 0.48 games a day if the schedule isn't available)</td></tr>
+      <tr><td>Out for the season</td><td>All \(R\) remaining games</td></tr>
+      <tr><td>Out, no return date</td><td>A typical layoff for that injury: Achilles/ACL the season; fracture or surgery 20; hamstring, calf, groin, foot or knee 6; shoulder, hip, hand, back and similar 4; ankle 4; concussion 3; illness 1; otherwise 4</td></tr>
+      <tr><td>Day-to-day, questionable, doubtful</td><td>0.5</td></tr>
+      <tr><td>Returned</td><td>0</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>What the projection already assumes</h3>
+  <p>Win pace and Efficiency are built purely from results, so they assume he keeps playing as often as he has (\(a_{\text{past}}\)). Blended mixes the line and results with the same weights as section 5, so its assumption mixes too:</p>
+  <div class="eq">$$a_{\text{assumed}} = \begin{cases} a_{\text{past}} & \text{win pace, efficiency} \\[4pt] \dfrac{k}{k+g}\,a_{\text{line}} + \dfrac{g}{k+g}\,a_{\text{past}} & \text{blended} \end{cases}$$</div>
+  <p>If the injury happened before the lines were set (before <code>LINE_DATE</code>, 20 October), the line already priced it in, so \(a_{\text{line}}\) is set to \(a_{\text{future}}\) and that part contributes nothing.</p>
+
+  <h3>The adjustment</h3>
+  <div class="eq">$$\Delta W = v \times R \times \big(a_{\text{future}} - a_{\text{assumed}}\big)$$</div>
+  <p>A team's adjustment is the sum over its players, and the adjusted projection is kept within what's still possible:</p>
+  <div class="eq">$$\hat W_{\text{adj}} = \operatorname{clip}\!\Big(\hat W + \sum_{\text{players}} \Delta W,\ \ w,\ \ w + R\Big)$$</div>
+  <p>Each pick then moves by \(+\Delta W\) for an Over and \(-\Delta W\) for an Under. That's what <b>Impact on the comp</b> adds up for each player.</p>
+  <div class="plain"><b>In plain English</b>A returning star adds wins because the projection was built partly on games he missed. A star ruled out adds a loss for every game the projection still expected him to play. Injuries everyone knew about before the season mostly wash out in Blended, because the line had already accounted for them.</div>
+
+  <!-- ===================================================== -->
+  <h2 id="example"><span class="num">13</span> Worked example</h2>
+  <p>A guard on a 5–4 team (line 44.5, +3.1 margin) is ruled out for the season after playing 7 of the team's 9 games. He averages 34 minutes and his estimated BPM, including the team adjustment, is +8.1.</p>
+  <div class="tablewrap"><table class="worked">
+    <tbody>
+      <tr><td>Star factor</td><td>\(s = 1 + 0.03\times(8.1 - 3) = 1.153\)</td></tr>
+      <tr><td>Value per game</td><td>\(v = 10.1 \times \tfrac{34}{48} \times 1.153 \times \tfrac{2.7}{82} = 0.272\) wins</td></tr>
+      <tr><td>Games left</td><td>\(R = 82 - 9 = 73\)</td></tr>
+      <tr><td>Availability</td><td>\(a_{\text{future}} = 0,\ a_{\text{past}} = 7/9 = 0.778,\ a_{\text{line}} = 0.92\)</td></tr>
+      <tr><td>Blended assumption</td><td>\(a_{\text{assumed}} = \tfrac{17}{26}(0.92) + \tfrac{9}{26}(0.778) = 0.871\)</td></tr>
+      <tr class="total"><td>Impact (Blended)</td><td><span class="neg">\(\Delta W = 0.272 \times 73 \times (0 - 0.871) = -17.3\) wins</span></td></tr>
+      <tr class="total"><td>Impact (Win pace)</td><td><span class="neg">\(\Delta W = 0.272 \times 73 \times (0 - 0.778) = -15.4\) wins</span></td></tr>
+    </tbody>
+  </table></div>
+  <p>With <b>Adjust for injuries</b> on, the team's Blended projection drops from 46.1 to 28.8. The Over holder loses 17.3 points and the Under holder gains 17.3. That's a big swing, but it's the scale real teams show: when Paul George broke his leg in 2014, the Pacers went from 56 wins to 38.</p>
+
+  <!-- ===================================================== -->
+  <h2 id="limits"><span class="num">14</span> Assumptions and limits</h2>
+  <div class="plain caveat"><b>Worth knowing</b>These are estimates built from free public data. They're designed to be sensible and transparent, not to beat the bookmakers.</div>
+  <ul>
+    <li><b>Point margin</b> includes garbage time, which flatters teams that win big and lose close. Services like Cleaning the Glass filter it out; ESPN's totals can't.</li>
+    <li><b>The 2.7 wins per point</b> and the 17-game prior are long-run averages, not fitted to this season.</li>
+    <li><b>BPM</b> is estimated with league-average team context and a simplified team adjustment, so it's close to Basketball-Reference's figures but won't match them exactly. Box-score metrics also under-rate defenders whose impact doesn't show up as steals, blocks or rebounds.</li>
+    <li><b>Replacement level</b> is one number for everyone. In reality the minutes go to specific teammates, some better than replacement and some worse.</li>
+    <li><b>Return dates</b> are ESPN's estimates. Players often return later than first announced, and typical layoffs are rough averages.</li>
+    <li><b>Projections ignore schedule</b>: strength of remaining opponents, home and away, back-to-backs and rest.</li>
+    <li><b>Projections are not probabilities.</b> A pick on +3 isn't certain to land. A game-by-game season simulation could turn these into chances, e.g. "31% to finish over".</li>
+  </ul>
+
+  <!-- ===================================================== -->
+  <h2 id="constants"><span class="num">15</span> Constants</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Symbol</th><th>Meaning</th><th class="num">Value</th><th>Where</th></tr></thead>
+    <tbody>
+      <tr><td>—</td><td>Games in a season</td><td class="num">82</td><td><code>SEASON_GAMES</code></td></tr>
+      <tr><td>—</td><td>Pythagorean exponent</td><td class="num">14</td><td><code>PYTH_EXP</code></td></tr>
+      <tr><td>\(\beta\)</td><td>Wins per point of average margin (season)</td><td class="num">2.7</td><td><code>WINS_PER_POINT</code></td></tr>
+      <tr><td>\(k\)</td><td>Games of evidence the line is worth</td><td class="num">17</td><td><code>PRIOR_GAMES</code></td></tr>
+      <tr><td>—</td><td>Replacement-level BPM</td><td class="num">−2.0</td><td><code>REPLACEMENT_BPM</code></td></tr>
+      <tr><td>—</td><td>Healthy availability</td><td class="num">0.92</td><td><code>HEALTHY_AVAIL</code></td></tr>
+      <tr><td>—</td><td>Date the lines were set</td><td class="num">20 Oct 2026</td><td><code>LINE_DATE</code></td></tr>
+      <tr><td>—</td><td>Star factor: per BPM above +3 / cap</td><td class="num">3% / 20%</td><td><code>injuryEntries()</code></td></tr>
+      <tr><td>—</td><td>Day-to-day games missed</td><td class="num">0.5</td><td><code>injuryEntries()</code></td></tr>
+      <tr><td>—</td><td>Last-season weight cap (minutes)</td><td class="num">800</td><td><code>PRIOR_MINUTES</code> (injuries.py)</td></tr>
+      <tr><td>\(c_0\)</td><td>BPM calibration constant</td><td class="num">≈ −12.6</td><td><code>BPM_CALIBRATION</code> (injuries.py)</td></tr>
+      <tr><td>—</td><td>Pace (possessions per game)</td><td class="num">100</td><td><code>PACE</code> (injuries.py)</td></tr>
+    </tbody>
+  </table></div>
+  <p>Constants without a file named are in <code>index.html</code>.</p>
+
+  <footer>
+    <p>Sources: Basketball-Reference, <a href="https://www.basketball-reference.com/about/bpm2.html">Box Plus/Minus 2.0</a> (published method and coefficients; no data is taken from the site). Pythagorean expectation after Bill James and Daryl Morey. Game data from ESPN.</p>
+    <p><a href="index.html">← Back to the tracker</a></p>
+  </footer>
+</main>
+</body>
+</html>

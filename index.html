@@ -108,6 +108,10 @@
   .legend button .v { color: var(--muted); font-variant-numeric: tabular-nums; }
   .combined svg { display: block; width: 100%; height: auto; touch-action: pan-y; }
   .combined svg text { font: 11px system-ui, sans-serif; fill: var(--muted); font-variant-numeric: tabular-nums; }
+  .chart { position: relative; }
+  .tipbox .evs { border-top: 1px solid var(--line); margin-top: 6px; padding-top: 4px; }
+  .tipbox .ev { font-size: 12px; margin-top: 3px; line-height: 1.3; }
+  .chart .tipbox { min-width: 120px; max-width: 240px; }
   .tipbox { position: absolute; pointer-events: none; background: var(--card); border: 1px solid var(--line); border-radius: 8px;
     box-shadow: 0 4px 14px rgba(0,0,0,.14); padding: 8px 10px; font-size: 12.5px; min-width: 150px; z-index: 3; }
   .tipbox .d { font-weight: 700; margin-bottom: 4px; }
@@ -233,6 +237,61 @@
   .livepill::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #fff;
     margin-right: 6px; vertical-align: 1px; animation: pulse 1.4s ease-in-out infinite; }
   @media (prefers-reduced-motion: reduce) { .livepill::before { animation: none; } }
+  .injpill { font-family: system-ui, sans-serif; font-size: 11px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase;
+    background: var(--nba-blue); color: #fff; border-radius: 999px; padding: 3px 9px; }
+  @media (prefers-color-scheme: dark) { .injpill { background: var(--accent); color: #0a1426; } }
+
+  /* Injuries */
+  .inj-imp { display: grid; grid-template-columns: 160px 1fr 60px minmax(0, 300px); align-items: center; gap: 12px; padding: 6px 0; border-top: 1px solid var(--line); }
+  .inj-imp:first-of-type { border-top: 0; }
+  .inj-imp.me { background: var(--chip); border-radius: 8px; padding-left: 6px; padding-right: 6px; }
+  .inj-who { display: flex; align-items: center; gap: 8px; font-weight: 600; min-width: 0; }
+  .inj-who span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .inj-bar { position: relative; height: 12px; }
+  .inj-bar .axis { position: absolute; left: 50%; top: -3px; bottom: -3px; width: 1px; background: var(--faint); }
+  .inj-bar .fill { position: absolute; top: 0; bottom: 0; border-radius: 3px; }
+  .inj-bar .fill.pos { background: var(--pos); } .inj-bar .fill.neg { background: var(--neg); }
+  .inj-val { text-align: right; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .inj-drv { font-size: 12px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .inj-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 10px; margin-top: 10px; }
+  .inj-card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; min-width: 0; }
+  .inj-card.out { border-top: 3px solid var(--neg); }
+  .inj-card.back { border-top: 3px solid var(--pos); }
+  .inj-card.tbd { border-top: 3px solid var(--faint); }
+  .inj-hd { display: flex; align-items: center; gap: 10px; }
+  .inj-name { font-weight: 700; line-height: 1.2; }
+  .inj-sub { font-size: 12px; color: var(--muted); }
+  .inj-pill { margin-left: auto; font-size: 11px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; border-radius: 999px;
+    padding: 2px 8px; white-space: nowrap; }
+  .inj-pill.out { background: var(--neg-bg); color: var(--neg); }
+  .inj-pill.season { background: var(--neg); color: #fff; }
+  .inj-pill.back { background: var(--pos-bg); color: var(--pos); }
+  .inj-pill.tbd { background: var(--chip); color: var(--muted); }
+  .inj-pill.dtd { background: color-mix(in srgb, #e8a33d 22%, transparent); color: #9a5a00; margin-left: 6px; }
+  @media (prefers-color-scheme: dark) { .inj-pill.dtd { color: #f2b45c; } }
+  .inj-when { font-size: 13px; margin: 8px 0 6px; }
+  .inj-stats { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+  .inj-stat { background: var(--chip); border-radius: 6px; padding: 3px 8px; font-size: 12px; font-variant-numeric: tabular-nums; }
+  .inj-impact { display: flex; align-items: baseline; gap: 10px; padding: 8px 10px; border-radius: 8px; background: var(--chip); margin-bottom: 8px; }
+  .inj-impact .big { font-family: "Barlow Condensed", "Arial Narrow", sans-serif; font-weight: 700; font-size: 26px; line-height: 1;
+    font-variant-numeric: tabular-nums; }
+  .inj-impact .proj { font-size: 12.5px; color: var(--muted); }
+  .inj-picks { display: flex; flex-direction: column; gap: 4px; }
+  .inj-pick { display: flex; align-items: center; gap: 7px; font-size: 13px; padding: 3px 8px 3px 4px; border-radius: 8px; background: var(--chip); }
+  .inj-pick.good { background: var(--pos-bg); } .inj-pick.bad { background: var(--neg-bg); }
+  .inj-pick.me { box-shadow: inset 0 0 0 2px var(--nba-blue); }
+  .inj-pick .t { color: var(--muted); font-size: 12px; flex: 1; }
+  .inj-pick .v { font-weight: 700; font-variant-numeric: tabular-nums; }
+  .inj-more summary { cursor: pointer; color: var(--accent); font-size: 14px; margin: 10px 0 0; }
+  .inj-short { margin-top: 10px; font-size: 13px; }
+  .inj-short ul { margin: 0; padding-left: 18px; }
+  .inj-short li { display: list-item; margin: 4px 0; padding: 0; border: 0; font-size: 13px; }
+  .inj-method { margin-top: 12px; }
+  @media (max-width: 640px) {
+    .inj-imp { grid-template-columns: 1fr auto; gap: 4px 10px; }
+    .inj-imp .inj-bar { grid-column: 1 / -1; grid-row: 2; }
+    .inj-imp .inj-drv { grid-column: 1 / -1; grid-row: 3; }
+  }
   .sw-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
   .sw-head h3 { margin: 0; }
   .sw-bar .nowbar { position: absolute; top: 3px; bottom: 3px; border-radius: 2px; z-index: 1; }
@@ -284,6 +343,10 @@
         <option value="season">Season</option>
       </select>
     </label>
+    <label class="switch" id="injToggleWrap" hidden title="Adjust projections for confirmed injuries and returning players">
+      <input type="checkbox" id="injToggle" role="switch">
+      <span class="track" aria-hidden="true"></span> Adjust for injuries
+    </label>
     <label class="switch" id="liveToggleWrap" hidden title="Count live games as if they ended with the current scores">
       <input type="checkbox" id="liveToggle" role="switch">
       <span class="track" aria-hidden="true"></span> If games ended now
@@ -297,7 +360,7 @@
 
   <section class="commentary" id="commentary" hidden></section>
 
-  <h2>Leaderboard <span class="livepill" id="livePill" hidden>As it stands</span></h2>
+  <h2>Leaderboard <span class="livepill" id="livePill" hidden>As it stands</span><span class="injpill" id="injPill" hidden>Injury-adjusted</span></h2>
   <div class="board" id="board"></div>
 
   <h2>Games
@@ -308,6 +371,14 @@
   <p class="note" id="gamesNote" style="margin:-6px 0 10px">Loading games…</p>
   <section class="swing" id="swing" hidden></section>
   <div class="games" id="games"></div>
+
+  <h2>Injuries
+    <span class="seg" id="injFilter" role="group" aria-label="Injury filter">
+      <button data-f="all" class="on">All</button><button data-f="out">Out</button><button data-f="returned">Returning</button>
+    </span>
+  </h2>
+  <p class="note" id="injNote" style="margin:-6px 0 10px"></p>
+  <div id="injuries"></div>
 
   <h2>Movers</h2>
   <div class="movers" id="movers"></div>
@@ -376,6 +447,8 @@ const AVATARS = {
 
 const state = { method: "pace", period: "7", chartMode: "split", focus: null, swingLive: false };
 try { state.swingLive = localStorage.getItem("swingLive") === "on"; } catch (e) {}
+state.injuries = false; state.injFilter = "all";
+try { state.injuries = localStorage.getItem("injAdj") === "on"; } catch (e) {}
 let picks = [];      // one per pick, with .series[method][dayIndex] = { proj, pts, rec }
 let timeline = [];   // [{ date, teams: Map(lowercase name -> rec) }]
 let players = [];
@@ -472,15 +545,75 @@ function setLiveMode(on) {
   render();
 }
 
+// ---------- Injuries ----------
+let injuriesData = null;
+// Team codes and primary colours, for badges when a team isn't on today's scoreboard
+const TEAM_INFO = {
+  "hawks": ["ATL", "c8102e"], "celtics": ["BOS", "008348"], "nets": ["BKN", "000000"], "hornets": ["CHA", "008ca8"],
+  "bulls": ["CHI", "ce1141"], "cavaliers": ["CLE", "860038"], "mavericks": ["DAL", "0064b1"], "nuggets": ["DEN", "0e2240"],
+  "pistons": ["DET", "c8102e"], "warriors": ["GS", "1d428a"], "rockets": ["HOU", "ce1141"], "pacers": ["IND", "002d62"],
+  "clippers": ["LAC", "c8102e"], "lakers": ["LAL", "552583"], "grizzlies": ["MEM", "5d76a9"], "heat": ["MIA", "98002e"],
+  "bucks": ["MIL", "00471b"], "timberwolves": ["MIN", "0c2340"], "pelicans": ["NO", "0c2340"], "knicks": ["NY", "1d428a"],
+  "thunder": ["OKC", "007ac1"], "magic": ["ORL", "0077c0"], "76ers": ["PHI", "1d428a"], "suns": ["PHX", "1d1160"],
+  "trail blazers": ["POR", "e03a3e"], "kings": ["SAC", "5a2d81"], "spurs": ["SA", "000000"], "raptors": ["TOR", "ce1141"],
+  "jazz": ["UTAH", "4e008e"], "wizards": ["WSH", "002b5c"],
+};
+const REPLACEMENT_WS48 = 0.045;   // roughly what a replacement-level fill-in produces
+
+// Games a team plays before a date (from the saved schedule, or estimated at ~0.48 games a day)
+function gamesBefore(team, isoDate, remaining) {
+  const nowIso = new Date().toISOString().slice(0, 16);
+  const sched = injuriesData && injuriesData.schedules && injuriesData.schedules[team];
+  let n;
+  if (sched && sched.length) n = sched.filter(d => d >= nowIso && d.slice(0, 10) < isoDate).length;
+  else n = Math.round(Math.max(0, (new Date(isoDate) - Date.now()) / 864e5) * 0.48);
+  return Math.min(n, remaining);
+}
+
+// Every tracked player with their estimated effect on their team's projected wins.
+// Win pace already reflects how often a player has played so far, so the effect is his value
+// per game x games left x (share of the rest he'll play - share he's played so far).
+function injuryEntries() {
+  if (!injuriesData) return [];
+  const last = timeline[timeline.length - 1];
+  const all = [...Object.values(injuriesData.players || {}), ...Object.values(injuriesData.returned || {})];
+  return all.map(p => {
+    const key = keyOf(p.team), rec = last.teams.get(key) || { wins: 0, losses: 0 };
+    const remaining = Math.max(0, SEASON_GAMES - rec.wins - rec.losses);
+    const perGame = p.ws48 == null ? null : ((p.ws48 - REPLACEMENT_WS48) * (p.mpg || 0)) / 48;
+    const fPast = p.teamGp ? Math.min(1, (p.gp || 0) / p.teamGp) : 1;
+    let gamesOut = null;
+    if (p.status === "season") gamesOut = remaining;
+    else if (p.status === "returned") gamesOut = 0;
+    else if (p.status === "dtd") gamesOut = Math.min(1, remaining);
+    else if (p.status === "out" && p.returnDate) gamesOut = gamesBefore(p.team, p.returnDate, remaining);
+    const tbd = p.status === "out" && !p.returnDate;
+    const fFuture = gamesOut == null || !remaining ? null : (remaining - gamesOut) / remaining;
+    const impact = perGame == null || fFuture == null ? null : perGame * remaining * (fFuture - fPast);
+    return { ...p, key, rec, remaining, perGame, fPast, gamesOut, tbd, impact };
+  });
+}
+
+function injuryTeamAdj() {
+  const adj = new Map();
+  for (const e of injuryEntries()) if (e.impact != null) adj.set(e.key, (adj.get(e.key) || 0) + e.impact);
+  return adj;
+}
+
 function computeSeries() {
   const zero = { wins: 0, losses: 0, pf: 0, pa: 0 };
+  const injAdj = state.injuries ? injuryTeamAdj() : null, lastIdx = timeline.length - 1;
   const baseLast = baseTimeline.length ? baseTimeline[baseTimeline.length - 1] : timeline[timeline.length - 1];
   for (const p of picks) {
     p.series = {};
     for (const m of ["pace", "eff"]) {
-      p.series[m] = timeline.map(day => {
+      p.series[m] = timeline.map((day, d) => {
         const rec = day.teams.get(p.teamKey) || zero;
-        const proj = project(rec, p.line, m);
+        let proj = project(rec, p.line, m);
+        if (injAdj && d === lastIdx && injAdj.has(p.teamKey)) {   // today only; history stays as it was
+          const left = Math.max(0, SEASON_GAMES - rec.wins - rec.losses);
+          proj = Math.min(rec.wins + left, Math.max(rec.wins, proj + injAdj.get(p.teamKey)));
+        }
         const diff = proj - p.line;
         return { proj, pts: p.side === "Over" ? diff : -diff, rec };
       });
@@ -595,6 +728,7 @@ function renderCombinedChart() {
   if (overflow > 0) ends.forEach(e => (e.ty -= overflow));
   for (let i = ends.length - 2; i >= 0; i--) ends[i].ty = Math.min(ends[i].ty, ends[i + 1].ty - GAP);
 
+  const evs = timelineEvents();
   const pathFor = p => p.totals[m].map((v, i) => `${i ? "L" : "M"}${x(i).toFixed(1)},${y(v).toFixed(1)}`).join("");
   const grid = ticks.map(t => `<line x1="${P.l}" x2="${W - P.r}" y1="${y(t)}" y2="${y(t)}" stroke="${t === 0 ? "var(--faint)" : "var(--line)"}"/>
     <text x="${P.l - 8}" y="${y(t) + 4}" text-anchor="end">${t > 0 ? "+" : ""}${t}</text>`).join("");
@@ -629,11 +763,16 @@ function renderCombinedChart() {
       <g clip-path="url(#plotclip)">${lines}${focusLine}</g>
       <clipPath id="plotclip"><rect x="${P.l}" y="${P.t - 6}" width="${W - P.l - P.r + 6}" height="${H - P.t - P.b + 12}"/></clipPath>
       ${labels}
+      ${[...evs].map(([i, list]) => {
+        const out = list.some(e => e.kind !== "returned"), back = list.some(e => e.kind === "returned");
+        const col = out && back ? "var(--faint)" : out ? "var(--neg)" : "var(--pos)";
+        return `<circle cx="${x(i)}" cy="${H - P.b + 8}" r="4" fill="${col}" stroke="var(--card)" stroke-width="1.5"><title>${esc(list.map(e => `${e.short} (${evTeam(e)}) ${evWord(e)}`).join("; "))}</title></circle>`;
+      }).join("")}
       <g class="hover" visibility="hidden"><line y1="${P.t}" y2="${H - P.b}" stroke="var(--faint)"/></g>
       <rect class="hit" x="${P.l}" y="0" width="${W - P.l - P.r}" height="${H}" fill="transparent"/>
     </svg>
     <div class="tipbox" hidden></div>
-    <p class="note" style="margin:6px 0 0">Tap a name to highlight their line. Hover or drag across the chart to compare everyone on a date.</p>`;
+    <p class="note" style="margin:6px 0 0">Tap a name to highlight their line. Hover or drag across the chart to compare everyone on a date. Dots under the chart mark injuries (red) and returns (green).</p>`;
 
   const setFocus = name => { state.focus = state.focus === name ? null : name; renderCombinedChart(); };
   box.querySelectorAll(".legend button, g.end").forEach(el => el.onclick = () => setFocus(el.dataset.name));
@@ -648,7 +787,8 @@ function renderCombinedChart() {
     g.setAttribute("visibility", "visible");
     const rows = [...players].map(p => ({ n: p.name, v: p.totals[m][i] })).sort((a, b) => b.v - a.v);
     tip.innerHTML = `<div class="d">${shortDate(timeline[i].date)}</div>` + rows.map(r =>
-      `<div class="r${r.n === focus ? " hl" : ""}"><span>${esc(r.n)}</span><span class="${cls(r.v)}">${fmt(r.v)}</span></div>`).join("");
+      `<div class="r${r.n === focus ? " hl" : ""}"><span>${esc(r.n)}</span><span class="${cls(r.v)}">${fmt(r.v)}</span></div>`).join("") +
+      (evs.has(i) ? `<div class="evs">${evs.get(i).map(e => `<div class="ev ${e.kind === "returned" ? "pos" : "neg"}">${e.kind === "returned" ? "▲" : "▼"} ${esc(e.short)} (${esc(evTeam(e))}) ${evWord(e)}</div>`).join("")}</div>` : "");
     tip.hidden = false;
     const bx = box.getBoundingClientRect(), sx = (vx / W) * r.width + (r.left - bx.left);
     const left = sx + 14 + tip.offsetWidth > bx.width ? sx - 14 - tip.offsetWidth : sx + 14;
@@ -661,6 +801,28 @@ function renderCombinedChart() {
   hit.addEventListener("pointerleave", () => { g.setAttribute("visibility", "hidden"); tip.hidden = true; });
 }
 
+// Injury news placed on the timeline: index -> events that touch at least one pick
+function timelineEvents() {
+  const out = new Map(), n = timeline.length;
+  for (const e of (injuriesData && injuriesData.events) || []) {
+    const key = keyOf(e.team), affected = picks.filter(p => p.teamKey === key);
+    if (!affected.length || !e.date) continue;
+    let i = timeline.findIndex(d => d.date >= e.date);
+    if (i < 0) i = n - 1;
+    if (!out.has(i)) out.set(i, []);
+    out.get(i).push({ ...e, key, affected });
+  }
+  return out;
+}
+const evWord = e => e.kind === "returned" ? "back from injury" : e.kind === "season" ? "out for the season" : "out injured";
+const evTeam = e => (e.affected[0] && e.affected[0].team) || e.team;
+// +1 if the news helps this person's picks, -1 if it hurts, 0 if mixed or unaffected
+function evEffect(e, name) {
+  let sum = 0;
+  for (const p of e.affected) if (p.name === name) sum += (p.side === "Over" ? 1 : -1) * (e.kind === "returned" ? 1 : -1);
+  return Math.sign(sum);
+}
+
 function renderSplitCharts() {
   const m = state.method, last = timeline.length - 1;
   const { lo, hi, ticks } = chartScale(m);
@@ -668,8 +830,16 @@ function renderSplitCharts() {
   const x = i => PAD.l + (n > 1 ? (i / (n - 1)) * (CW - PAD.l - PAD.r) : (CW - PAD.l - PAD.r) / 2);
   const y = v => PAD.t + ((hi - v) / (hi - lo)) * (CH - PAD.t - PAD.b);
   const ordered = [...players].sort((a, b) => b.totals[m][last] - a.totals[m][last]);
+  const evs = timelineEvents();
   chartData = ordered.map(p => ({ name: p.name, values: p.totals[m], x, y }));
   document.getElementById("charts").innerHTML = ordered.map((p, ci) => {
+    const marks = [...evs].map(([i, list]) => {
+      const mine = list.filter(e => e.affected.some(q => q.name === p.name));
+      if (!mine.length) return "";
+      const eff = Math.sign(mine.reduce((s, e) => s + evEffect(e, p.name), 0));
+      const col = eff > 0 ? "var(--pos)" : eff < 0 ? "var(--neg)" : "var(--faint)";
+      return `<circle cx="${x(i)}" cy="${CH - PAD.b + 6}" r="3.2" fill="${col}" stroke="var(--card)" stroke-width="1.2"/>`;
+    }).join("");
     const vals = p.totals[m];
     const path = vals.map((v, i) => `${i ? "L" : "M"}${x(i).toFixed(1)},${y(v).toFixed(1)}`).join("");
     const grid = ticks.map(t => `<line x1="${PAD.l}" x2="${CW - PAD.r}" y1="${y(t)}" y2="${y(t)}"
@@ -689,13 +859,13 @@ function renderSplitCharts() {
         ${n > 1 ? `<path d="${path}" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>` : ""}
         <circle cx="${x(last)}" cy="${y(cur)}" r="4" fill="var(--accent)" stroke="var(--card)" stroke-width="2"/>
         </g>
+        ${marks}
         <g class="hover" visibility="hidden">
           <line y1="${PAD.t}" y2="${CH - PAD.b}" stroke="var(--faint)" stroke-width="1"/>
           <circle r="4" fill="var(--accent)" stroke="var(--card)" stroke-width="2"/>
-          <text class="tip" y="12"></text>
         </g>
         <rect x="${PAD.l}" y="0" width="${CW - PAD.l - PAD.r}" height="${CH}" fill="transparent"/>
-      </svg></div>`;
+      </svg><div class="tipbox" hidden></div></div>`;
   }).join("");
 
   document.querySelectorAll(".chart svg").forEach(svg => {
@@ -707,15 +877,24 @@ function renderSplitCharts() {
       const cx = d.x(i), cy = Math.max(PAD.t, Math.min(CH - PAD.b, d.y(d.values[i])));
       g.querySelector("line").setAttribute("x1", cx); g.querySelector("line").setAttribute("x2", cx);
       g.querySelector("circle").setAttribute("cx", cx); g.querySelector("circle").setAttribute("cy", cy);
-      const t = g.querySelector("text");
-      t.textContent = `${shortDate(timeline[i].date)}  ${fmt(d.values[i])}`;
-      const right = cx > CW / 2;
-      t.setAttribute("x", right ? cx - 6 : cx + 6); t.setAttribute("text-anchor", right ? "end" : "start");
       g.setAttribute("visibility", "visible");
+      // Tooltip: date, score, and any injury news that touches this person's picks
+      const mine = (evs.get(i) || []).filter(e => e.affected.some(q => q.name === d.name));
+      tip.innerHTML = `<div class="d">${shortDate(timeline[i].date)} <span class="${cls(d.values[i])}" style="float:right">${fmt(d.values[i])}</span></div>` +
+        (mine.length ? `<div class="evs">${mine.map(e => {
+          const eff = evEffect(e, d.name), mp = e.affected.filter(q => q.name === d.name).map(q => `${q.team} ${q.side}`).join(", ");
+          return `<div class="ev ${eff > 0 ? "pos" : eff < 0 ? "neg" : ""}">${e.kind === "returned" ? "▲" : "▼"} ${esc(e.short)} ${evWord(e)} · ${esc(mp)}</div>`;
+        }).join("")}</div>` : "");
+      tip.hidden = false;
+      const wrap = svg.parentElement.getBoundingClientRect(), sx = (cx / CW) * r.width + (r.left - wrap.left);
+      const left = sx + 12 + tip.offsetWidth > wrap.width - 4 ? sx - 12 - tip.offsetWidth : sx + 12;
+      tip.style.left = Math.max(4, left) + "px";
+      tip.style.top = (r.top - wrap.top + 6) + "px";
     };
+    const tip = svg.parentElement.querySelector(".tipbox");
     svg.addEventListener("pointermove", move);
     svg.addEventListener("pointerdown", move);
-    svg.addEventListener("pointerleave", () => g.setAttribute("visibility", "hidden"));
+    svg.addEventListener("pointerleave", () => { g.setAttribute("visibility", "hidden"); tip.hidden = true; });
   });
 }
 
@@ -807,9 +986,121 @@ function renderRounds() {
   }).join("");
 }
 
+const ws48Text = v => (v < 0 ? "−" : "") + Math.abs(v).toFixed(3).replace(/^0/, "");
+const dayText = iso => iso ? parseDate(iso.slice(0, 10)).toLocaleDateString(undefined, { day: "numeric", month: "short" }) : "";
+
+function renderInjuries() {
+  const box = document.getElementById("injuries"), note = document.getElementById("injNote");
+  if (!injuriesData) {
+    box.innerHTML = "";
+    note.textContent = "Injury data arrives with the next standings update, which runs twice a day.";
+    return;
+  }
+  const m = state.method, me = document.getElementById("filterName").value;
+  const linesByTeam = new Map(picks.map(p => [p.teamKey, p.line]));
+  const entries = injuryEntries().filter(e => linesByTeam.has(e.key));
+  const pickDelta = (p, e) => (p.side === "Over" ? e.impact : -e.impact);
+  note.innerHTML = `Confirmed injuries from ESPN's report, updated ${esc(new Date(injuriesData.updated).toLocaleString(undefined, { day: "numeric", month: "short", hour: "numeric", minute: "2-digit" }))}. ` +
+    `Impact uses each player's estimated win shares per 48 minutes over the games still to play.` +
+    (state.injuries ? "" : ` Switch on <b>Adjust for injuries</b> to apply it to the leaderboard and charts.`);
+
+  // Impact on the comp
+  const counted = entries.filter(e => e.impact != null && Math.abs(e.impact) >= 0.05);
+  const rows = players.map(pl => {
+    const parts = [];
+    for (const e of counted) for (const p of pl.picks) if (p.teamKey === e.key) parts.push({ d: pickDelta(p, e), p, e });
+    parts.sort((a, b) => Math.abs(b.d) - Math.abs(a.d));
+    return { name: pl.name, total: parts.reduce((s, x) => s + x.d, 0), parts };
+  }).sort((a, b) => b.total - a.total);
+  const maxAbs = Math.max(0.5, ...rows.map(r => Math.abs(r.total)));
+  const statusWord = e => e.status === "returned" ? "back" : e.status === "season" ? "out for season" : e.status === "dtd" ? "day-to-day" : "out";
+  const impactPanel = `<section class="panel"><h3>Impact on the comp</h3>${rows.map(r => {
+    const w = (Math.abs(r.total) / maxAbs) * 48;
+    const drv = r.parts.length ? r.parts.slice(0, 3).map(x => `${esc(x.p.team)} ${x.p.side} ${fmt(x.d)} (${esc(x.e.short || x.e.name)} ${statusWord(x.e)})`).join(" · ") : "No affected picks";
+    return `<div class="inj-imp${r.name === me ? " me" : ""}"><span class="inj-who">${avatar(r.name, 28)}<span>${esc(r.name)}</span></span>
+      <div class="inj-bar"><div class="axis"></div>${Math.abs(r.total) > 0.05 ? `<div class="fill ${r.total > 0 ? "pos" : "neg"}" style="left:${r.total > 0 ? 50 : 50 - w}%;width:${w}%"></div>` : ""}</div>
+      <span class="inj-val ${cls(r.total)}">${fmt(r.total)}</span><span class="inj-drv" title="${esc(drv)}">${drv}</span></div>`;
+  }).join("")}</section>`;
+
+  // Player cards
+  const filt = state.injFilter;
+  const cards = entries.filter(e => e.status !== "dtd")
+    .filter(e => filt === "all" || (filt === "returned" ? e.status === "returned" : e.status !== "returned"))
+    .filter(e => e.tbd ? (e.mpg || 0) >= 15 : e.impact == null || Math.abs(e.impact) >= 0.05 || e.status === "season")
+    .sort((a, b) => (a.tbd - b.tbd) || Math.abs(b.impact || 0) - Math.abs(a.impact || 0));
+  const card = e => {
+    const kind = e.status === "returned" ? "back" : e.tbd ? "tbd" : "out";
+    const pill = e.status === "season" ? `<span class="inj-pill season">Out for season</span>`
+      : e.status === "returned" ? `<span class="inj-pill back">Back</span>`
+      : e.tbd ? `<span class="inj-pill tbd">Out · return TBD</span>` : `<span class="inj-pill out">Out</span>`;
+    const what = e.injury ? esc(e.injury) + " · " : "";
+    const games = n => `<b>${n} game${n === 1 ? "" : "s"}</b>`;
+    const when = e.status === "season" ? `${what}${e.since ? `out since ${dayText(e.since)} · ` : ""}misses the remaining ${games(e.remaining)}`
+      : e.status === "returned" ? `Back ${e.returnedOn ? dayText(e.returnedOn) : ""} after missing ${games(Math.max(0, (e.teamGp || 0) - (e.gp || 0)))} · healthy for the remaining ${e.remaining}`
+      : e.tbd ? `${what}return date to be decided · <b>not counted yet</b>`
+      : `${what}expected back ~${dayText(e.returnDate)} · about ${games(e.gamesOut)}`;
+    const t = team => ({ "trail blazers": "Trail Blazers" }[team] || team);
+    const line = linesByTeam.get(e.key), base = project(e.rec, line, m);
+    const after = Math.min(e.rec.wins + e.remaining, Math.max(e.rec.wins, base + (e.impact || 0)));
+    const impact = e.impact == null
+      ? `<div class="inj-impact"><span class="big" style="color:var(--muted)">TBD</span><span class="proj">${e.ws48 == null ? "No stats available yet" : "Counted once ESPN gives a return date"}</span></div>`
+      : `<div class="inj-impact"><span class="big ${cls(e.impact)}">${fmt(e.impact)}</span><span class="proj">wins · ${esc(t(e.team))} projection ${base.toFixed(1)} → <b>${after.toFixed(1)}</b> (line ${line.toFixed(1)})</span></div>`;
+    const pk = picks.filter(p => p.teamKey === e.key).map(p => {
+      const d = e.impact == null ? null : pickDelta(p, e);
+      return `<div class="inj-pick ${d == null ? "" : d >= 0 ? "good" : "bad"}${p.name === me ? " me" : ""}">${avatar(p.name, 22)}<b>${esc(p.name.split(" ")[0])}</b>
+        <span class="t">${esc(p.team)} ${p.side}</span><span class="v ${d == null ? "" : cls(d)}">${d == null ? "—" : fmt(d)}</span></div>`;
+    }).join("");
+    const live = (gamesData && gamesData.events || []).flatMap(g => g.teams).find(x => keyOf(x.name) === e.key) || {};
+    const known = TEAM_INFO[e.key] || [];
+    const teamInfo = { abbr: live.abbr || known[0], color: live.color || known[1] };
+    const abbr = teamInfo.abbr || e.team.slice(0, 3).toUpperCase();
+    return `<article class="inj-card ${kind}">
+      <div class="inj-hd"><span class="abbr" style="${teamColours(teamInfo.color)}">${esc(abbr)}</span>
+        <div style="min-width:0"><div class="inj-name">${esc(e.name)}</div><div class="inj-sub">${esc(t(e.team))}${e.pos ? " · " + esc(e.pos) : ""}</div></div>${pill}</div>
+      <p class="inj-when">${when}</p>
+      <div class="inj-stats">${e.ws48 == null ? `<span class="inj-stat">WS/48 unavailable</span>`
+        : `<span class="inj-stat" title="Estimated from ESPN box-score stats (${esc(e.basis || "")})">est. WS/48 <b>${ws48Text(e.ws48)}</b></span>`}
+        ${e.mpg ? `<span class="inj-stat"><b>${e.mpg.toFixed(1)}</b> min/g</span>` : ""}
+        ${e.teamGp ? `<span class="inj-stat">Played <b>${e.gp || 0} of ${e.teamGp}</b></span>` : ""}</div>
+      ${impact}<div class="inj-picks">${pk}</div></article>`;
+  };
+  const shown = cards.slice(0, 9), more = cards.slice(9);
+  const cardsHtml = cards.length
+    ? `<div class="inj-cards">${shown.map(card).join("")}</div>` +
+      (more.length ? `<details class="inj-more"><summary>Show ${more.length} more</summary><div class="inj-cards">${more.map(card).join("")}</div></details>` : "")
+    : `<p class="note" style="margin-top:10px">${filt === "returned" ? "No one's come back from injury recently." : "No confirmed injuries affecting the picks right now."}</p>`;
+
+  // Day-to-day: counted as missing one game
+  const dtd = filt === "returned" ? [] : entries.filter(e => e.status === "dtd").sort((a, b) => Math.abs(b.impact || 0) - Math.abs(a.impact || 0));
+  const shortList = dtd.length ? `<section class="panel inj-short"><h3>Short-term · counted as missing one game</h3><ul>${dtd.map(e =>
+    `<li><b>${esc(e.name)}</b> (${esc(e.team)})${e.injury ? " · " + esc(e.injury) : ""}<span class="inj-pill dtd">${esc(e.label || "Day-to-day")}</span>
+      ${e.impact != null ? ` · <span class="${e.impact < 0 ? "neg" : "pos"}" style="font-weight:600">${e.impact < 0 ? "−" : "+"}${Math.abs(e.impact).toFixed(2)} wins</span>` : ""}</li>`).join("")}</ul></section>` : "";
+
+  box.innerHTML = impactPanel + cardsHtml + shortList +
+    `<p class="note inj-method"><b>How it's worked out:</b> a player's value per game is (WS/48 − 0.045) × minutes per game ÷ 48, where 0.045 is roughly a replacement-level fill-in. ` +
+    `Win pace already reflects how often he's played, so the impact is that value × games left × (share of the remaining games he'll play − share he's played so far). ` +
+    `WS/48 is estimated from ESPN box-score stats using the same structure as Basketball-Reference's Win Shares, blended with last season while the sample is small, so it won't match their figures exactly. ` +
+    `Players out with no return date aren't counted until one is set; day-to-day players count as missing one game.</p>`;
+}
+
+function updateInjUI() {
+  const any = injuryEntries().some(e => e.impact != null && Math.abs(e.impact) >= 0.05);
+  document.getElementById("injToggleWrap").hidden = !any && !state.injuries;
+  document.getElementById("injToggle").checked = state.injuries;
+  document.getElementById("injPill").hidden = !state.injuries;
+}
+
+function setInjuries(on) {
+  state.injuries = on;
+  try { localStorage.setItem("injAdj", on ? "on" : "off"); } catch (e) {}
+  computeSeries();
+  render();
+}
+
 function render() {
   document.getElementById("methodNote").textContent = METHOD_NOTES[state.method];
-  renderBoard(); renderGames(); renderMovers(); renderRounds(); renderCharts(); renderTable();
+  renderBoard(); renderGames(); renderInjuries(); renderMovers(); renderRounds(); renderCharts(); renderTable();
+  updateInjUI();
 }
 
 // ---------- Games ----------
@@ -1242,11 +1533,12 @@ function buildTimeline(history, standings) {
 }
 
 async function init() {
-  const [csv, standings, history, commentary] = await Promise.all([
+  const [csv, standings, history, commentary, savedInjuries] = await Promise.all([
     fetch("picks.csv", { cache: "no-store" }).then(r => r.text()),
     loadStandings(),
     fetch("data/history.json", { cache: "no-store" }).then(r => r.json()).catch(() => ({ days: [] })),
     fetch("data/commentary.json", { cache: "no-store" }).then(r => (r.ok ? r.json() : null)).catch(() => null),
+    fetch("data/standings.json", { cache: "no-store" }).then(r => r.json()).then(j => j.injuries || null).catch(() => null),
   ]);
   picks = parseCSV(csv).map(p => {
     const key = p.Team.toLowerCase();
@@ -1256,6 +1548,7 @@ async function init() {
       line: parseFloat(p.Line), teamKey: TEAM_ALIASES[key] || key,
     };
   });
+  injuriesData = savedInjuries;
   historyData = history;
   baseTimeline = buildTimeline(history, standings);
   timeline = baseTimeline;
@@ -1280,12 +1573,12 @@ async function init() {
     values.map(v => `<option value="${esc(v)}">${id === "filterRound" ? "Round " + v : esc(v)}</option>`).join(""));
   fill("filterName", players.map(p => p.name));
   fill("filterRound", [...new Set(picks.filter(p => p.round).map(p => p.round))].sort((a, b) => a - b));
-  document.getElementById("filterName").onchange = () => { renderBoard(); renderGames(); renderTable(); };
+  document.getElementById("filterName").onchange = () => { renderBoard(); renderGames(); renderInjuries(); renderTable(); };
   document.getElementById("filterRound").onchange = renderTable;
   document.getElementById("clear").onclick = () => {
     document.getElementById("filterName").value = "";
     document.getElementById("filterRound").value = "";
-    renderBoard(); renderGames(); renderTable();
+    renderBoard(); renderGames(); renderInjuries(); renderTable();
   };
   document.getElementById("period").onchange = e => { state.period = e.target.value; render(); };
   document.querySelectorAll("#method button").forEach(b => b.onclick = () => {
@@ -1308,6 +1601,12 @@ async function init() {
   } catch (e) {}
   document.querySelectorAll("#gameDay button").forEach(b => b.onclick = () => showGames(+b.dataset.o));
   document.getElementById("liveToggle").onchange = e => setLiveMode(e.target.checked);
+  document.getElementById("injToggle").onchange = e => setInjuries(e.target.checked);
+  document.querySelectorAll("#injFilter button").forEach(b => b.onclick = () => {
+    state.injFilter = b.dataset.f;
+    document.querySelectorAll("#injFilter button").forEach(x => x.classList.toggle("on", x === b));
+    renderInjuries();
+  });
   render();
   setupCommentary(commentary);
   showGames(0);

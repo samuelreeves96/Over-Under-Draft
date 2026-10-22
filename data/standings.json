@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-22T23:33+00:00",
+  "updated": "2026-10-22T23:38+00:00",
   "source": "ESPN",
   "teams": [
     {
@@ -280,7 +280,7 @@
         "id": "401909093",
         "date": "2026-10-22T23:00Z",
         "state": "in",
-        "detail": "2:00 - 1st",
+        "detail": "1:18 - 1st",
         "completed": false,
         "teams": [
           {
@@ -288,7 +288,7 @@
             "name": "Cavaliers",
             "abbr": "CLE",
             "color": "860038",
-            "score": 25.0,
+            "score": 30.0,
             "winner": false,
             "record": "0-0"
           },
@@ -333,7 +333,7 @@
     ]
   },
   "injuries": {
-    "updated": "2026-10-22T23:33+00:00",
+    "updated": "2026-10-22T23:39+00:00",
     "season": 2027,
     "players": {
       "4712863": {

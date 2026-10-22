@@ -333,6 +333,7 @@
     <div class="seg" id="method" role="group" aria-label="Projection method">
       <button data-m="pace" class="on">Win pace</button>
       <button data-m="eff">Efficiency</button>
+      <button data-m="blend">Blended</button>
     </div>
     <label class="ctl">Change over
       <select id="period">
@@ -429,7 +430,9 @@ const TEAM_ALIASES = { "blazers": "trail blazers", "wolves": "timberwolves", "76
 const METHOD_NOTES = {
   pace: "Win pace: projects each team's current win % over 82 games.",
   eff: "Efficiency: keeps wins already banked and projects the rest from points scored vs allowed, which rewards teams outplaying their record.",
+  blend: "Blended: starts from the preseason line and shifts toward each team's point margin as games are played. The line counts as about 17 games of evidence, so early results don't swing it wildly.",
 };
+const METHODS = ["pace", "eff", "blend"];
 
 // Avatar images in avatars/. Anyone not listed gets their initials.
 const AVATARS = {
@@ -478,9 +481,24 @@ function parseCSV(text) {
 }
 
 // ---------- Projections ----------
+const PRIOR_GAMES = 17;      // how many games of evidence the preseason line is worth
+const WINS_PER_POINT = 2.7;  // a point of average margin is worth ~2.7 wins over 82 games
+
+// Best estimate of a team's true point margin per game: the line's implied margin,
+// shrunk toward the margin actually played as games build up.
+function blendedMargin(rec, line) {
+  const gp = rec.wins + rec.losses;
+  const prior = (line - SEASON_GAMES / 2) / WINS_PER_POINT;
+  let obs = 0;
+  if (gp) obs = rec.pf > 0 || rec.pa > 0 ? (rec.pf - rec.pa) / gp : (rec.wins / gp - 0.5) * SEASON_GAMES / WINS_PER_POINT;
+  return (PRIOR_GAMES * prior + gp * obs) / (PRIOR_GAMES + gp);
+}
+const marginToRate = m => Math.min(0.95, Math.max(0.05, 0.5 + (m * WINS_PER_POINT) / SEASON_GAMES));
+
 function project(rec, line, method) {
   const gp = rec.wins + rec.losses;
   if (!gp) return line;
+  if (method === "blend") return rec.wins + Math.max(0, SEASON_GAMES - gp) * marginToRate(blendedMargin(rec, line));
   if (method === "eff" && rec.pf > 0 && rec.pa > 0) {
     const pyth = 1 / (1 + Math.pow(rec.pa / rec.pf, PYTH_EXP));
     return rec.wins + Math.max(0, SEASON_GAMES - gp) * pyth;
@@ -558,7 +576,16 @@ const TEAM_INFO = {
   "trail blazers": ["POR", "e03a3e"], "kings": ["SAC", "5a2d81"], "spurs": ["SA", "000000"], "raptors": ["TOR", "ce1141"],
   "jazz": ["UTAH", "4e008e"], "wizards": ["WSH", "002b5c"],
 };
-const REPLACEMENT_WS48 = 0.045;   // roughly what a replacement-level fill-in produces
+const REPLACEMENT_BPM = -2.0;   // replacement level (points per 100 possessions below average)
+const HEALTHY_AVAIL = 0.92;     // even healthy players miss ~8% of games (rest, knocks)
+const LINE_DATE = "2026-10-20"; // the lines were set before this date; injuries before it were already priced in
+// Rough typical layoffs (games) when ESPN gives no return date
+const TYPICAL_LAYOFF = [
+  [/achilles|acl|cruciate/i, 82], [/fracture|broken|surgery/i, 20], [/hamstring|calf|groin|foot|knee/i, 6],
+  [/shoulder|hip|wrist|hand|finger|thumb|back|quad|thigh/i, 4], [/ankle/i, 4], [/concussion/i, 3], [/illness|rest|personal/i, 1],
+];
+const typicalLayoff = injury => (TYPICAL_LAYOFF.find(([re]) => re.test(injury || "")) || [null, 4])[1];
+let teamLines = new Map();
 
 // Games a team plays before a date (from the saved schedule, or estimated at ~0.48 games a day)
 function gamesBefore(team, isoDate, remaining) {
@@ -570,43 +597,58 @@ function gamesBefore(team, isoDate, remaining) {
   return Math.min(n, remaining);
 }
 
-// Every tracked player with their estimated effect on their team's projected wins.
-// Win pace already reflects how often a player has played so far, so the effect is his value
-// per game x games left x (share of the rest he'll play - share he's played so far).
-function injuryEntries() {
+// Every tracked player with his estimated effect on his team's projected wins.
+//  value per game  = (BPM + 2) x minutes share x 2.7 / 82 wins, with a boost for stars
+//  impact          = value per game x games left x (availability from here - availability the projection assumes)
+// Win pace and efficiency assume he keeps playing as often as he has so far. The blended projection
+// also leans on the preseason line, which assumed normal availability unless he was already hurt.
+function injuryEntries(method = state.method) {
   if (!injuriesData) return [];
   const last = timeline[timeline.length - 1];
   const all = [...Object.values(injuriesData.players || {}), ...Object.values(injuriesData.returned || {})];
   return all.map(p => {
-    const key = keyOf(p.team), rec = last.teams.get(key) || { wins: 0, losses: 0 };
-    const remaining = Math.max(0, SEASON_GAMES - rec.wins - rec.losses);
-    const perGame = p.ws48 == null ? null : ((p.ws48 - REPLACEMENT_WS48) * (p.mpg || 0)) / 48;
-    const fPast = p.teamGp ? Math.min(1, (p.gp || 0) / p.teamGp) : 1;
-    let gamesOut = null;
+    const key = keyOf(p.team), rec = last.teams.get(key) || { wins: 0, losses: 0, pf: 0, pa: 0 };
+    const gp = rec.wins + rec.losses, remaining = Math.max(0, SEASON_GAMES - gp), line = teamLines.get(key);
+    // Box BPM plus the team adjustment: the team's rating shared across its five players on court
+    const teamRating = line != null ? blendedMargin(rec, line) : (gp ? (rec.pf - rec.pa) / gp : 0);
+    const bpm = p.bpm == null ? null : p.bpm + teamRating / 5;
+    const star = bpm == null ? 1 : Math.min(1.2, 1 + 0.03 * Math.max(0, bpm - 3));   // stars are worth more than linear
+    const perGame = bpm == null ? null : (bpm - REPLACEMENT_BPM) * ((p.mpg || 0) / 48) * star * WINS_PER_POINT / SEASON_GAMES;
+    const aPast = p.teamGp ? Math.min(1, (p.gp || 0) / p.teamGp) : HEALTHY_AVAIL;
+    // Expected games missed from here
+    let gamesOut, layoffGuess = null;
     if (p.status === "season") gamesOut = remaining;
     else if (p.status === "returned") gamesOut = 0;
-    else if (p.status === "dtd") gamesOut = Math.min(1, remaining);
-    else if (p.status === "out" && p.returnDate) gamesOut = gamesBefore(p.team, p.returnDate, remaining);
-    const tbd = p.status === "out" && !p.returnDate;
-    const fFuture = gamesOut == null || !remaining ? null : (remaining - gamesOut) / remaining;
-    const impact = perGame == null || fFuture == null ? null : perGame * remaining * (fFuture - fPast);
-    return { ...p, key, rec, remaining, perGame, fPast, gamesOut, tbd, impact };
+    else if (p.status === "dtd") gamesOut = Math.min(0.5, remaining);
+    else if (p.returnDate) gamesOut = gamesBefore(p.team, p.returnDate, remaining);
+    else gamesOut = Math.min(remaining, layoffGuess = typicalLayoff(p.injury));
+    const aFuture = remaining ? ((remaining - gamesOut) / remaining) * (p.status === "season" ? 0 : HEALTHY_AVAIL) : 0;
+    // What the projection already assumes
+    const knownAtLine = !!p.since && p.since < LINE_DATE;
+    const aLine = knownAtLine ? aFuture : HEALTHY_AVAIL;
+    const w = PRIOR_GAMES / (PRIOR_GAMES + gp);
+    const aAssumed = method === "blend" ? w * aLine + (1 - w) * aPast : (gp ? aPast : aLine);
+    const impact = perGame == null || !remaining ? null : perGame * remaining * (aFuture - aAssumed);
+    return { ...p, key, rec, remaining, bpmAdj: bpm, perGame, aPast, aFuture, gamesOut, layoffGuess, knownAtLine, impact,
+             tbd: p.status === "out" && !p.returnDate };
   });
 }
 
-function injuryTeamAdj() {
+function injuryTeamAdj(method) {
   const adj = new Map();
-  for (const e of injuryEntries()) if (e.impact != null) adj.set(e.key, (adj.get(e.key) || 0) + e.impact);
+  for (const e of injuryEntries(method)) if (e.impact != null) adj.set(e.key, (adj.get(e.key) || 0) + e.impact);
   return adj;
 }
 
 function computeSeries() {
   const zero = { wins: 0, losses: 0, pf: 0, pa: 0 };
-  const injAdj = state.injuries ? injuryTeamAdj() : null, lastIdx = timeline.length - 1;
+  const lastIdx = timeline.length - 1;
+  const injAdjBy = state.injuries ? Object.fromEntries(METHODS.map(m => [m, injuryTeamAdj(m)])) : {};
   const baseLast = baseTimeline.length ? baseTimeline[baseTimeline.length - 1] : timeline[timeline.length - 1];
   for (const p of picks) {
     p.series = {};
-    for (const m of ["pace", "eff"]) {
+    for (const m of METHODS) {
+      const injAdj = injAdjBy[m];
       p.series[m] = timeline.map((day, d) => {
         const rec = day.teams.get(p.teamKey) || zero;
         let proj = project(rec, p.line, m);
@@ -630,7 +672,7 @@ function computeSeries() {
   }
   players = [...byName].map(([name, list]) => ({
     name, picks: list,
-    totals: Object.fromEntries(["pace", "eff"].map(m =>
+    totals: Object.fromEntries(METHODS.map(m =>
       [m, timeline.map((_, d) => list.reduce((s, p) => s + p.series[m][d].pts, 0))])),
   }));
 }
@@ -986,7 +1028,6 @@ function renderRounds() {
   }).join("");
 }
 
-const ws48Text = v => (v < 0 ? "−" : "") + Math.abs(v).toFixed(3).replace(/^0/, "");
 const dayText = iso => iso ? parseDate(iso.slice(0, 10)).toLocaleDateString(undefined, { day: "numeric", month: "short" }) : "";
 
 function renderInjuries() {
@@ -1001,7 +1042,7 @@ function renderInjuries() {
   const entries = injuryEntries().filter(e => linesByTeam.has(e.key));
   const pickDelta = (p, e) => (p.side === "Over" ? e.impact : -e.impact);
   note.innerHTML = `Confirmed injuries from ESPN's report, updated ${esc(new Date(injuriesData.updated).toLocaleString(undefined, { day: "numeric", month: "short", hour: "numeric", minute: "2-digit" }))}. ` +
-    `Impact uses each player's estimated win shares per 48 minutes over the games still to play.` +
+    `Impact uses each player's estimated box plus/minus (BPM) over the games still to play.` +
     (state.injuries ? "" : ` Switch on <b>Adjust for injuries</b> to apply it to the leaderboard and charts.`);
 
   // Impact on the comp
@@ -1026,24 +1067,24 @@ function renderInjuries() {
   const filt = state.injFilter;
   const cards = entries.filter(e => e.status !== "dtd")
     .filter(e => filt === "all" || (filt === "returned" ? e.status === "returned" : e.status !== "returned"))
-    .filter(e => e.tbd ? (e.mpg || 0) >= 15 : e.impact == null || Math.abs(e.impact) >= 0.05 || e.status === "season")
-    .sort((a, b) => (a.tbd - b.tbd) || Math.abs(b.impact || 0) - Math.abs(a.impact || 0));
+    .filter(e => e.impact == null ? (e.mpg || 0) >= 15 : Math.abs(e.impact) >= 0.05 || e.status === "season")
+    .sort((a, b) => Math.abs(b.impact || 0) - Math.abs(a.impact || 0));
   const card = e => {
     const kind = e.status === "returned" ? "back" : e.tbd ? "tbd" : "out";
     const pill = e.status === "season" ? `<span class="inj-pill season">Out for season</span>`
       : e.status === "returned" ? `<span class="inj-pill back">Back</span>`
-      : e.tbd ? `<span class="inj-pill tbd">Out · return TBD</span>` : `<span class="inj-pill out">Out</span>`;
+      : e.tbd ? `<span class="inj-pill out">Out · return TBD</span>` : `<span class="inj-pill out">Out</span>`;
     const what = e.injury ? esc(e.injury) + " · " : "";
     const games = n => `<b>${n} game${n === 1 ? "" : "s"}</b>`;
     const when = e.status === "season" ? `${what}${e.since ? `out since ${dayText(e.since)} · ` : ""}misses the remaining ${games(e.remaining)}`
       : e.status === "returned" ? `Back ${e.returnedOn ? dayText(e.returnedOn) : ""} after missing ${games(Math.max(0, (e.teamGp || 0) - (e.gp || 0)))} · healthy for the remaining ${e.remaining}`
-      : e.tbd ? `${what}return date to be decided · <b>not counted yet</b>`
+      : e.tbd ? `${what}no return date yet · assuming ${games(e.gamesOut)} (typical for this injury)`
       : `${what}expected back ~${dayText(e.returnDate)} · about ${games(e.gamesOut)}`;
     const t = team => ({ "trail blazers": "Trail Blazers" }[team] || team);
     const line = linesByTeam.get(e.key), base = project(e.rec, line, m);
     const after = Math.min(e.rec.wins + e.remaining, Math.max(e.rec.wins, base + (e.impact || 0)));
     const impact = e.impact == null
-      ? `<div class="inj-impact"><span class="big" style="color:var(--muted)">TBD</span><span class="proj">${e.ws48 == null ? "No stats available yet" : "Counted once ESPN gives a return date"}</span></div>`
+      ? `<div class="inj-impact"><span class="big" style="color:var(--muted)">—</span><span class="proj">Player stats arrive with the next standings update</span></div>`
       : `<div class="inj-impact"><span class="big ${cls(e.impact)}">${fmt(e.impact)}</span><span class="proj">wins · ${esc(t(e.team))} projection ${base.toFixed(1)} → <b>${after.toFixed(1)}</b> (line ${line.toFixed(1)})</span></div>`;
     const pk = picks.filter(p => p.teamKey === e.key).map(p => {
       const d = e.impact == null ? null : pickDelta(p, e);
@@ -1058,8 +1099,8 @@ function renderInjuries() {
       <div class="inj-hd"><span class="abbr" style="${teamColours(teamInfo.color)}">${esc(abbr)}</span>
         <div style="min-width:0"><div class="inj-name">${esc(e.name)}</div><div class="inj-sub">${esc(t(e.team))}${e.pos ? " · " + esc(e.pos) : ""}</div></div>${pill}</div>
       <p class="inj-when">${when}</p>
-      <div class="inj-stats">${e.ws48 == null ? `<span class="inj-stat">WS/48 unavailable</span>`
-        : `<span class="inj-stat" title="Estimated from ESPN box-score stats (${esc(e.basis || "")})">est. WS/48 <b>${ws48Text(e.ws48)}</b></span>`}
+      <div class="inj-stats">${e.bpmAdj == null ? `<span class="inj-stat">BPM updating</span>`
+        : `<span class="inj-stat" title="Box plus/minus: points per 100 possessions above an average player, estimated from ESPN box-score stats (${esc(e.basis || "")})">est. BPM <b>${e.bpmAdj >= 0 ? "+" : "−"}${Math.abs(e.bpmAdj).toFixed(1)}</b></span>`}
         ${e.mpg ? `<span class="inj-stat"><b>${e.mpg.toFixed(1)}</b> min/g</span>` : ""}
         ${e.teamGp ? `<span class="inj-stat">Played <b>${e.gp || 0} of ${e.teamGp}</b></span>` : ""}</div>
       ${impact}<div class="inj-picks">${pk}</div></article>`;
@@ -1072,15 +1113,16 @@ function renderInjuries() {
 
   // Day-to-day: counted as missing one game
   const dtd = filt === "returned" ? [] : entries.filter(e => e.status === "dtd").sort((a, b) => Math.abs(b.impact || 0) - Math.abs(a.impact || 0));
-  const shortList = dtd.length ? `<section class="panel inj-short"><h3>Short-term · counted as missing one game</h3><ul>${dtd.map(e =>
+  const shortList = dtd.length ? `<section class="panel inj-short"><h3>Short-term · day-to-day, counted as missing half a game on average</h3><ul>${dtd.map(e =>
     `<li><b>${esc(e.name)}</b> (${esc(e.team)})${e.injury ? " · " + esc(e.injury) : ""}<span class="inj-pill dtd">${esc(e.label || "Day-to-day")}</span>
       ${e.impact != null ? ` · <span class="${e.impact < 0 ? "neg" : "pos"}" style="font-weight:600">${e.impact < 0 ? "−" : "+"}${Math.abs(e.impact).toFixed(2)} wins</span>` : ""}</li>`).join("")}</ul></section>` : "";
 
   box.innerHTML = impactPanel + cardsHtml + shortList +
-    `<p class="note inj-method"><b>How it's worked out:</b> a player's value per game is (WS/48 − 0.045) × minutes per game ÷ 48, where 0.045 is roughly a replacement-level fill-in. ` +
-    `Win pace already reflects how often he's played, so the impact is that value × games left × (share of the remaining games he'll play − share he's played so far). ` +
-    `WS/48 is estimated from ESPN box-score stats using the same structure as Basketball-Reference's Win Shares, blended with last season while the sample is small, so it won't match their figures exactly. ` +
-    `Players out with no return date aren't counted until one is set; day-to-day players count as missing one game.</p>`;
+    `<p class="note inj-method"><b>How it's worked out:</b> each player's box plus/minus (points per 100 possessions above average) is estimated from ESPN box-score stats with Basketball-Reference's published BPM 2.0 formula, blended with last season while the sample is small, plus a share of his team's rating. ` +
+    `His value per game is (BPM + 2) × share of minutes × 2.7 ÷ 82 wins, where −2 is a replacement-level fill-in and each point of margin is worth about 2.7 wins a season, with a boost of up to 20% for stars, whose teammates get less efficient without them. ` +
+    `The impact is that value × games left × (how often he'll play from here − how often the projection already assumes he plays). Healthy players are expected to play 92% of games. ` +
+    `Win pace and efficiency assume he keeps playing as often as he has; the blended projection also leans on the preseason line, so injuries known before the lines were set don't count twice. ` +
+    `Players out with no return date are assumed to miss a typical layoff for that injury; day-to-day players count as missing half a game.</p>`;
 }
 
 function updateInjUI() {
@@ -1548,6 +1590,8 @@ async function init() {
       line: parseFloat(p.Line), teamKey: TEAM_ALIASES[key] || key,
     };
   });
+  teamLines = new Map();
+  for (const p of picks) if (!teamLines.has(p.teamKey)) teamLines.set(p.teamKey, p.line);   // drafted line first
   injuriesData = savedInjuries;
   historyData = history;
   baseTimeline = buildTimeline(history, standings);

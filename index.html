@@ -364,6 +364,15 @@
   <h2>Leaderboard <span class="livepill" id="livePill" hidden>As it stands</span><span class="injpill" id="injPill" hidden>Injury-adjusted</span></h2>
   <div class="board" id="board"></div>
 
+  <h2>Progress
+    <span class="seg" id="chartMode" role="group" aria-label="Chart layout">
+      <button data-v="split" class="on">Separate</button>
+      <button data-v="combined">Combined</button>
+    </span>
+  </h2>
+  <div class="charts" id="charts"></div>
+  <div class="combined" id="combined" hidden></div>
+
   <h2>Games
     <span class="seg" id="gameDay" role="group" aria-label="Game day">
       <button data-o="-1">Yesterday</button><button data-o="0" class="on">Today</button><button data-o="1">Tomorrow</button>
@@ -391,14 +400,6 @@
     <th class="num">Avg / pick</th><th class="barcol"></th><th class="num">Change</th><th>Best pick</th>
   </tr></thead><tbody id="rounds"></tbody></table></div>
 
-  <h2>Progress
-    <span class="seg" id="chartMode" role="group" aria-label="Chart layout">
-      <button data-v="split" class="on">Separate</button>
-      <button data-v="combined">Combined</button>
-    </span>
-  </h2>
-  <div class="charts" id="charts"></div>
-  <div class="combined" id="combined" hidden></div>
 
   <h2>Picks</h2>
   <div class="controls">

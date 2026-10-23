@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-23T13:25+00:00",
+  "updated": "2026-10-23T18:19+00:00",
   "source": "ESPN",
   "teams": [
     {
@@ -274,66 +274,336 @@
     }
   ],
   "scoreboard": {
-    "date": "2026-10-22",
+    "date": "2026-10-23",
     "events": [
       {
-        "id": "401909093",
-        "date": "2026-10-22T23:00Z",
-        "state": "post",
-        "detail": "Final",
-        "completed": true,
+        "id": "401909848",
+        "date": "2026-10-23T20:00Z",
+        "state": "pre",
+        "detail": "10/23 - 4:00 PM EDT",
+        "completed": false,
         "teams": [
           {
             "homeAway": "away",
-            "name": "Cavaliers",
-            "abbr": "CLE",
-            "color": "860038",
-            "score": 106.0,
+            "name": "Bulls",
+            "abbr": "CHI",
+            "color": "ce1141",
+            "score": 0.0,
             "winner": false,
             "record": "0-1"
           },
           {
             "homeAway": "home",
-            "name": "76ers",
-            "abbr": "PHI",
-            "color": "1d428a",
-            "score": 114.0,
-            "winner": true,
-            "record": "2-0"
+            "name": "Bucks",
+            "abbr": "MIL",
+            "color": "00471b",
+            "score": 0.0,
+            "winner": false,
+            "record": "0-1"
           }
         ]
       },
       {
-        "id": "401909094",
-        "date": "2026-10-23T01:30Z",
-        "state": "post",
-        "detail": "Final",
-        "completed": true,
+        "id": "401909095",
+        "date": "2026-10-23T23:00Z",
+        "state": "pre",
+        "detail": "10/23 - 7:00 PM EDT",
+        "completed": false,
         "teams": [
           {
             "homeAway": "away",
-            "name": "Nuggets",
-            "abbr": "DEN",
-            "color": "0e2240",
-            "score": 84.0,
+            "name": "Knicks",
+            "abbr": "NY",
+            "color": "1d428a",
+            "score": 0.0,
             "winner": false,
             "record": "0-1"
           },
           {
             "homeAway": "home",
-            "name": "Thunder",
-            "abbr": "OKC",
-            "color": "007ac1",
-            "score": 96.0,
-            "winner": true,
-            "record": "2-0"
+            "name": "Celtics",
+            "abbr": "BOS",
+            "color": "008348",
+            "score": 0.0,
+            "winner": false,
+            "record": "0-1"
+          }
+        ]
+      },
+      {
+        "id": "401909843",
+        "date": "2026-10-23T23:00Z",
+        "state": "pre",
+        "detail": "10/23 - 7:00 PM EDT",
+        "completed": false,
+        "teams": [
+          {
+            "homeAway": "away",
+            "name": "Hawks",
+            "abbr": "ATL",
+            "color": "c8102e",
+            "score": 0.0,
+            "winner": false,
+            "record": "1-0"
+          },
+          {
+            "homeAway": "home",
+            "name": "Hornets",
+            "abbr": "CHA",
+            "color": "008ca8",
+            "score": 0.0,
+            "winner": false,
+            "record": "1-0"
+          }
+        ]
+      },
+      {
+        "id": "401909844",
+        "date": "2026-10-23T23:00Z",
+        "state": "pre",
+        "detail": "10/23 - 7:00 PM EDT",
+        "completed": false,
+        "teams": [
+          {
+            "homeAway": "away",
+            "name": "Mavericks",
+            "abbr": "DAL",
+            "color": "0064b1",
+            "score": 0.0,
+            "winner": false,
+            "record": "0-1"
+          },
+          {
+            "homeAway": "home",
+            "name": "Pacers",
+            "abbr": "IND",
+            "color": "0c2340",
+            "score": 0.0,
+            "winner": false,
+            "record": "1-0"
+          }
+        ]
+      },
+      {
+        "id": "401909845",
+        "date": "2026-10-23T23:00Z",
+        "state": "pre",
+        "detail": "10/23 - 7:00 PM EDT",
+        "completed": false,
+        "teams": [
+          {
+            "homeAway": "away",
+            "name": "Timberwolves",
+            "abbr": "MIN",
+            "color": "266092",
+            "score": 0.0,
+            "winner": false,
+            "record": "1-0"
+          },
+          {
+            "homeAway": "home",
+            "name": "Magic",
+            "abbr": "ORL",
+            "color": "0150b5",
+            "score": 0.0,
+            "winner": false,
+            "record": "0-1"
+          }
+        ]
+      },
+      {
+        "id": "401909846",
+        "date": "2026-10-23T23:00Z",
+        "state": "pre",
+        "detail": "10/23 - 7:00 PM EDT",
+        "completed": false,
+        "teams": [
+          {
+            "homeAway": "away",
+            "name": "Raptors",
+            "abbr": "TOR",
+            "color": "d91244",
+            "score": 0.0,
+            "winner": false,
+            "record": "1-0"
+          },
+          {
+            "homeAway": "home",
+            "name": "Wizards",
+            "abbr": "WSH",
+            "color": "e31837",
+            "score": 0.0,
+            "winner": false,
+            "record": "1-0"
+          }
+        ]
+      },
+      {
+        "id": "401909847",
+        "date": "2026-10-24T00:00Z",
+        "state": "pre",
+        "detail": "10/23 - 8:00 PM EDT",
+        "completed": false,
+        "teams": [
+          {
+            "homeAway": "away",
+            "name": "Pistons",
+            "abbr": "DET",
+            "color": "1d428a",
+            "score": 0.0,
+            "winner": false,
+            "record": "1-0"
+          },
+          {
+            "homeAway": "home",
+            "name": "Heat",
+            "abbr": "MIA",
+            "color": "98002e",
+            "score": 0.0,
+            "winner": false,
+            "record": "0-1"
+          }
+        ]
+      },
+      {
+        "id": "401909096",
+        "date": "2026-10-24T01:30Z",
+        "state": "pre",
+        "detail": "10/23 - 9:30 PM EDT",
+        "completed": false,
+        "teams": [
+          {
+            "homeAway": "away",
+            "name": "Rockets",
+            "abbr": "HOU",
+            "color": "ce0e2d",
+            "score": 0.0,
+            "winner": false,
+            "record": "1-0"
+          },
+          {
+            "homeAway": "home",
+            "name": "Spurs",
+            "abbr": "SA",
+            "color": "000000",
+            "score": 0.0,
+            "winner": false,
+            "record": "0-1"
+          }
+        ]
+      },
+      {
+        "id": "401909849",
+        "date": "2026-10-24T01:30Z",
+        "state": "pre",
+        "detail": "10/23 - 9:30 PM EDT",
+        "completed": false,
+        "teams": [
+          {
+            "homeAway": "away",
+            "name": "Pelicans",
+            "abbr": "NO",
+            "color": "0a2240",
+            "score": 0.0,
+            "winner": false,
+            "record": "0-1"
+          },
+          {
+            "homeAway": "home",
+            "name": "Jazz",
+            "abbr": "UTAH",
+            "color": "4e008e",
+            "score": 0.0,
+            "winner": false,
+            "record": "0-1"
+          }
+        ]
+      },
+      {
+        "id": "401909850",
+        "date": "2026-10-24T02:00Z",
+        "state": "pre",
+        "detail": "10/23 - 10:00 PM EDT",
+        "completed": false,
+        "teams": [
+          {
+            "homeAway": "away",
+            "name": "Grizzlies",
+            "abbr": "MEM",
+            "color": "5d76a9",
+            "score": 0.0,
+            "winner": false,
+            "record": "1-0"
+          },
+          {
+            "homeAway": "home",
+            "name": "Warriors",
+            "abbr": "GS",
+            "color": "fdb927",
+            "score": 0.0,
+            "winner": false,
+            "record": "0-1"
+          }
+        ]
+      },
+      {
+        "id": "401909851",
+        "date": "2026-10-24T02:00Z",
+        "state": "pre",
+        "detail": "10/23 - 10:00 PM EDT",
+        "completed": false,
+        "teams": [
+          {
+            "homeAway": "away",
+            "name": "Clippers",
+            "abbr": "LAC",
+            "color": "12173f",
+            "score": 0.0,
+            "winner": false,
+            "record": "1-0"
+          },
+          {
+            "homeAway": "home",
+            "name": "Lakers",
+            "abbr": "LAL",
+            "color": "552583",
+            "score": 0.0,
+            "winner": false,
+            "record": "1-0"
+          }
+        ]
+      },
+      {
+        "id": "401909852",
+        "date": "2026-10-24T02:00Z",
+        "state": "pre",
+        "detail": "10/23 - 10:00 PM EDT",
+        "completed": false,
+        "teams": [
+          {
+            "homeAway": "away",
+            "name": "Trail Blazers",
+            "abbr": "POR",
+            "color": "e03a3e",
+            "score": 0.0,
+            "winner": false,
+            "record": "1-0"
+          },
+          {
+            "homeAway": "home",
+            "name": "Kings",
+            "abbr": "SAC",
+            "color": "5a2d81",
+            "score": 0.0,
+            "winner": false,
+            "record": "0-1"
           }
         ]
       }
     ]
   },
   "injuries": {
-    "updated": "2026-10-23T13:26+00:00",
+    "updated": "2026-10-23T18:20+00:00",
     "season": 2027,
     "players": {
       "4712863": {
@@ -473,94 +743,6 @@
         "teamGp": 1,
         "bpm": null,
         "noStats": true
-      },
-      "4848625": {
-        "id": "4848625",
-        "name": "Dailyn Swain",
-        "short": "D. Swain",
-        "pos": "G",
-        "team": "Bulls",
-        "status": "dtd",
-        "label": "Day-To-Day",
-        "injury": "Illness Not Specified",
-        "comment": "Swain (illness) is questionable for Friday's game against the Bucks.",
-        "since": "2026-10-22",
-        "returnDate": "2026-10-23",
-        "teamGp": 1,
-        "bpm": null,
-        "noStats": true
-      },
-      "4683750": {
-        "id": "4683750",
-        "name": "Jordan Hawkins",
-        "short": "J. Hawkins",
-        "pos": "G",
-        "team": "Bulls",
-        "status": "dtd",
-        "label": "Day-To-Day",
-        "injury": "Illness Not Specified",
-        "comment": "Hawkins (illness) is questionable for Friday's game against the Bucks.",
-        "since": "2026-10-22",
-        "returnDate": "2026-10-23",
-        "teamGp": 1,
-        "bpm": -5.5,
-        "mpg": 13.6,
-        "gp": 0,
-        "basis": "last season"
-      },
-      "4066650": {
-        "id": "4066650",
-        "name": "Zach Collins",
-        "short": "Z. Collins",
-        "pos": "F",
-        "team": "Bulls",
-        "status": "dtd",
-        "label": "Day-To-Day",
-        "injury": "Quadriceps",
-        "comment": "Collins (quadriceps) is probable for Friday's game against the Bucks.",
-        "since": "2026-10-22",
-        "returnDate": "2026-10-23",
-        "teamGp": 1,
-        "bpm": 0.7,
-        "mpg": 9.0,
-        "gp": 1,
-        "basis": "blend"
-      },
-      "5105555": {
-        "id": "5105555",
-        "name": "Tobe Awaka",
-        "short": "T. Awaka",
-        "pos": "F",
-        "team": "Bulls",
-        "status": "dtd",
-        "label": "Day-To-Day",
-        "injury": "Left Knee Sprain",
-        "comment": "Awaka (knee) is probable for Friday's game against the Bucks.",
-        "since": "2026-10-22",
-        "returnDate": "2026-10-23",
-        "teamGp": 1,
-        "bpm": 9.2,
-        "mpg": 11.0,
-        "gp": 1,
-        "basis": "this season"
-      },
-      "4871145": {
-        "id": "4871145",
-        "name": "Josh Giddey",
-        "short": "J. Giddey",
-        "pos": "G",
-        "team": "Bulls",
-        "status": "dtd",
-        "label": "Day-To-Day",
-        "injury": "Wrist",
-        "comment": "Giddey (wrist) is probable for Friday's game against the Bucks.",
-        "since": "2026-10-22",
-        "returnDate": "2026-10-23",
-        "teamGp": 1,
-        "bpm": 3.5,
-        "mpg": 24.0,
-        "gp": 1,
-        "basis": "blend"
       },
       "4278067": {
         "id": "4278067",
@@ -719,24 +901,6 @@
         "teamGp": 1,
         "bpm": -2.2,
         "mpg": 15.1,
-        "gp": 0,
-        "basis": "last season"
-      },
-      "2990962": {
-        "id": "2990962",
-        "name": "Taurean Prince",
-        "short": "T. Prince",
-        "pos": "F",
-        "team": "Pistons",
-        "status": "dtd",
-        "label": "Day-To-Day",
-        "injury": "Personal",
-        "comment": "Prince (personal) is listed as probable for Friday's game against the Heat.",
-        "since": "2026-10-22",
-        "returnDate": "2026-10-23",
-        "teamGp": 1,
-        "bpm": -2.4,
-        "mpg": 23.5,
         "gp": 0,
         "basis": "last season"
       },
@@ -1193,8 +1357,8 @@
         "status": "out",
         "label": "Out",
         "injury": "Right Ankle Sprain",
-        "comment": "Black (ankle) has been ruled out for Friday's game against the Timberwolves.",
-        "since": "2026-10-22",
+        "comment": "Black (ankle) has been ruled out for Friday's game against Minnesota but participated in shootaround and has experienced no setbacks in his recovery, Jason Beede of the Orlando Sentinel reports.",
+        "since": "2026-10-23",
         "returnDate": "2026-10-25",
         "teamGp": 1,
         "bpm": -0.9,
@@ -1253,6 +1417,24 @@
         "teamGp": 1,
         "bpm": null,
         "noStats": true
+      },
+      "3059318": {
+        "id": "3059318",
+        "name": "Joel Embiid",
+        "short": "J. Embiid",
+        "pos": "C",
+        "team": "76ers",
+        "status": "dtd",
+        "label": "Day-To-Day",
+        "injury": "Rest",
+        "comment": "Embiid recorded 24 points (8-16 FG, 1-4 3Pt, 7-9 FT), seven rebounds and one assist in 34 minutes during Thursday's 114-106 win over the Cavaliers.",
+        "since": "2026-10-23",
+        "returnDate": "2026-10-24",
+        "teamGp": 2,
+        "bpm": 5.8,
+        "mpg": 34.0,
+        "gp": 2,
+        "basis": "blend"
       },
       "3904625": {
         "id": "3904625",
@@ -1502,24 +1684,6 @@
         "gp": 0,
         "basis": "last season"
       },
-      "4066259": {
-        "id": "4066259",
-        "name": "De'Aaron Fox",
-        "short": "D. Fox",
-        "pos": "G",
-        "team": "Spurs",
-        "status": "dtd",
-        "label": "Day-To-Day",
-        "injury": "Right Wrist Sprain",
-        "comment": "Fox (wrist) is questionable to play in Friday's game against the Rockets.",
-        "since": "2026-10-22",
-        "returnDate": "2026-10-23",
-        "teamGp": 1,
-        "bpm": 1.9,
-        "mpg": 32.0,
-        "gp": 1,
-        "basis": "blend"
-      },
       "4395723": {
         "id": "4395723",
         "name": "Keldon Johnson",
@@ -1529,12 +1693,30 @@
         "status": "dtd",
         "label": "Day-To-Day",
         "injury": "Mouth Laceration",
-        "comment": "Johnson is listed as questionable for Friday's game against the Rockets due to a mouth laceration.",
-        "since": "2026-10-22",
+        "comment": "Johnson (mouth) participated in shooting drills after Friday's morning shootaround, per Tom Orsborn of the San Antonio Express-News.",
+        "since": "2026-10-23",
         "returnDate": "2026-10-23",
         "teamGp": 1,
         "bpm": -0.0,
         "mpg": 20.0,
+        "gp": 1,
+        "basis": "blend"
+      },
+      "4066259": {
+        "id": "4066259",
+        "name": "De'Aaron Fox",
+        "short": "D. Fox",
+        "pos": "G",
+        "team": "Spurs",
+        "status": "dtd",
+        "label": "Day-To-Day",
+        "injury": "Right Wrist Sprain",
+        "comment": "Fox (wrist) participated in Friday's morning shootaround, Tom Orsborn of the San Antonio Express-News reports.",
+        "since": "2026-10-23",
+        "returnDate": "2026-10-23",
+        "teamGp": 1,
+        "bpm": 1.9,
+        "mpg": 32.0,
         "gp": 1,
         "basis": "blend"
       },
@@ -1603,24 +1785,6 @@
         "teamGp": 1,
         "bpm": -0.9,
         "mpg": 12.3,
-        "gp": 0,
-        "basis": "last season"
-      },
-      "4065673": {
-        "id": "4065673",
-        "name": "Tony Bradley",
-        "short": "T. Bradley",
-        "pos": "C",
-        "team": "Jazz",
-        "status": "dtd",
-        "label": "Day-To-Day",
-        "injury": "Left Quadriceps Strain",
-        "comment": "Bradley (quadriceps) is questionable for Friday's game against New Orleans.",
-        "since": "2026-10-22",
-        "returnDate": "2026-10-23",
-        "teamGp": 1,
-        "bpm": -5.0,
-        "mpg": 11.0,
         "gp": 0,
         "basis": "last season"
       },
@@ -2960,87 +3124,6 @@
         "2027-04-01T23:00",
         "2027-04-04T19:30",
         "2027-04-06T23:00",
-        "2027-04-07T23:00",
-        "2027-04-09T23:00",
-        "2027-04-11T22:00"
-      ],
-      "Pistons": [
-        "2026-10-24T00:00",
-        "2026-10-25T23:30",
-        "2026-10-28T00:00",
-        "2026-10-28T23:00",
-        "2026-10-30T23:30",
-        "2026-11-03T00:30",
-        "2026-11-05T00:00",
-        "2026-11-08T23:00",
-        "2026-11-10T00:00",
-        "2026-11-13T00:00",
-        "2026-11-15T01:00",
-        "2026-11-18T01:00",
-        "2026-11-19T01:00",
-        "2026-11-21T00:30",
-        "2026-11-22T20:30",
-        "2026-11-25T00:00",
-        "2026-11-28T00:30",
-        "2026-11-29T23:00",
-        "2026-12-01T00:00",
-        "2026-12-03T00:00",
-        "2026-12-13T22:00",
-        "2026-12-15T00:00",
-        "2026-12-17T00:00",
-        "2026-12-19T00:30",
-        "2026-12-21T01:00",
-        "2026-12-23T01:00",
-        "2026-12-24T00:00",
-        "2026-12-27T01:00",
-        "2026-12-28T00:00",
-        "2026-12-31T00:00",
-        "2027-01-02T00:30",
-        "2027-01-03T22:00",
-        "2027-01-06T03:00",
-        "2027-01-08T03:00",
-        "2027-01-09T03:00",
-        "2027-01-10T23:00",
-        "2027-01-13T00:30",
-        "2027-01-15T00:00",
-        "2027-01-17T01:30",
-        "2027-01-18T17:00",
-        "2027-01-23T00:30",
-        "2027-01-24T23:00",
-        "2027-01-27T00:00",
-        "2027-01-28T00:00",
-        "2027-01-30T01:00",
-        "2027-01-31T20:00",
-        "2027-02-03T00:00",
-        "2027-02-04T00:00",
-        "2027-02-06T00:00",
-        "2027-02-07T20:00",
-        "2027-02-10T03:30",
-        "2027-02-11T02:00",
-        "2027-02-13T20:30",
-        "2027-02-16T02:00",
-        "2027-02-18T00:00",
-        "2027-02-26T00:00",
-        "2027-02-27T22:30",
-        "2027-03-02T00:00",
-        "2027-03-03T01:00",
-        "2027-03-06T00:00",
-        "2027-03-10T01:00",
-        "2027-03-12T00:00",
-        "2027-03-13T20:00",
-        "2027-03-14T21:00",
-        "2027-03-17T00:00",
-        "2027-03-19T00:00",
-        "2027-03-21T00:00",
-        "2027-03-23T01:30",
-        "2027-03-24T23:00",
-        "2027-03-25T23:00",
-        "2027-03-27T19:00",
-        "2027-03-29T23:00",
-        "2027-03-31T23:00",
-        "2027-04-03T00:00",
-        "2027-04-04T19:00",
-        "2027-04-07T00:00",
         "2027-04-07T23:00",
         "2027-04-09T23:00",
         "2027-04-11T22:00"

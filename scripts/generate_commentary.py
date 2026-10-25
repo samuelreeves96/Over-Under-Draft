@@ -12,6 +12,7 @@ import json
 import os
 import re
 import sys
+import urllib.error
 import urllib.request
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
@@ -151,20 +152,42 @@ def main():
         "Cover every player in leaderboard order."
     )
 
-    body = json.dumps({
-        "model": MODEL, "max_tokens": 3000, "system": style,
-        "messages": [{"role": "user", "content": prompt}],
-    }).encode()
-    req = urllib.request.Request(API_URL, data=body, headers={
-        "x-api-key": key, "anthropic-version": "2023-06-01", "content-type": "application/json"})
-    with urllib.request.urlopen(req, timeout=120) as resp:
-        reply = json.load(resp)
-    text = "".join(b.get("text", "") for b in reply.get("content", []) if b.get("type") == "text")
-    text = re.sub(r"^```(?:json)?\s*|\s*```$", "", text.strip())
+    def call(no_thinking):
+        payload = {"model": MODEL, "max_tokens": 16000, "system": style,
+                   "messages": [{"role": "user", "content": prompt}]}
+        if no_thinking:
+            # Newer models (e.g. Sonnet 5.5) think before answering by default, and that thinking
+            # counts toward max_tokens. Commentary doesn't need it, so switch it off.
+            payload["thinking"] = {"type": "between_tools"}
+        req = urllib.request.Request(API_URL, data=json.dumps(payload).encode(), headers={
+            "x-api-key": key, "anthropic-version": "2023-06-01", "content-type": "application/json"})
+        with urllib.request.urlopen(req, timeout=180) as resp:
+            return json.load(resp)
+
     try:
-        out = json.loads(text)
+        reply = call(no_thinking=True)
+    except urllib.error.HTTPError as e:
+        detail = e.read().decode("utf-8", "replace")
+        if e.code == 400 and "thinking" in detail:
+            print("This model doesn't accept that thinking setting; retrying with its default.")
+            reply = call(no_thinking=False)
+        else:
+            sys.exit(f"Claude API error {e.code}: {detail[:1000]}")
+
+    blocks = reply.get("content", [])
+    stop = reply.get("stop_reason")
+    text = "".join(b.get("text", "") for b in blocks if b.get("type") == "text").strip()
+    if not text:
+        if stop == "refusal":
+            print("Claude declined to write this week's commentary; keeping the previous edition.")
+            return
+        sys.exit(f"Claude's reply had no text (stop_reason={stop}, blocks={[b.get('type') for b in blocks]}).")
+    # Pull the JSON object out even if it's wrapped in code fences or a sentence
+    m = re.search(r"\{.*\}", text, re.S)
+    try:
+        out = json.loads(m.group(0) if m else text)
     except json.JSONDecodeError:
-        sys.exit("Model reply wasn't valid JSON:\n" + text[:2000])
+        sys.exit(f"Claude's reply wasn't valid JSON (stop_reason={stop}):\n" + text[:2000])
 
     totals = {pl["player"]: pl for pl in ranked}
     out["players"] = [

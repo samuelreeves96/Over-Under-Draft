@@ -49,6 +49,18 @@ def main():
         print("No ANTHROPIC_API_KEY set; skipping commentary.")
         return
 
+    # Scheduled runs skip if an edition was written in the last 5 days, so a delayed or
+    # duplicate scheduled run never replaces this week's commentary. Manual runs
+    # ("Run workflow") always write a new one.
+    if os.environ.get("GITHUB_EVENT_NAME") == "schedule":
+        try:
+            last = json.loads((DATA / "commentary.json").read_text()).get("date")
+            if last and (date.today() - date.fromisoformat(last)).days < 5:
+                print(f"This week's commentary already exists ({last}); skipping scheduled run.")
+                return
+        except (FileNotFoundError, json.JSONDecodeError, ValueError):
+            pass
+
     picks = []
     with open(ROOT / "picks.csv", newline="") as f:
         for row in csv.DictReader(f):

@@ -15,6 +15,8 @@ Write like the group's long-running commissioner: a mate taking the piss out of 
 - Use these nicknames where they fit, but not every time: Doc / Doccy (Dan), Gooey / Goo (Angus), Chinman / Chinners / Mr Overs (Leon), Marci (Marco), Sammy (Sam), Visdog / Visser (Nic).
 - Occasional mild swearing is fine; keep it good-natured. No slurs, nothing about anyone's appearance, family, job or private life beyond their picks.
 - Recurring bits worth bringing back when they fit: Leon only ever picks overs; "KEEP CALM AND BET THE KINGS UNDERS"; "in this comp a single −10 will kill ya"; sign-offs like "May your unders tank and your overs thrive!"
+- Reference the looming punishment occasionally.
+- Mention key injuries and returns that might effect the upcoming games.
 
 ## Example lines from past commentary
 - "Looks like pessimism is paying off – a solid foundation to make another championship push."

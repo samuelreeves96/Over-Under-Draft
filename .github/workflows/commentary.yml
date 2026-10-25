@@ -2,8 +2,9 @@ name: Weekly commentary
 
 on:
   schedule:
-    # Mondays around 9am Sydney time (Sunday 22:13 UTC)
-    - cron: "13 22 * * 0"
+    # Mondays around 3am Sydney time (Sunday 16:13 UTC), early enough that GitHub's
+    # delays still land it by morning. Scheduled runs skip if this week's edition exists.
+    - cron: "13 16 * * 0"
   workflow_dispatch: {}
 
 permissions:

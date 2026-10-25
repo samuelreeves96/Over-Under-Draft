@@ -23,7 +23,7 @@ Round,Pick,Name,Over/Under,Team,Line
 4,29,Dan,Over,76ers,50.5
 5,36,Dan,Over,Bulls,29.5
 6,45,Dan,Under,Lakers,46.5
-1,5,Harry,Under,Mavericks,34.5
+1,5,Harry,Over,Mavericks,34.5
 2,12,Harry,Over,Wizards,34.5
 3,21,Harry,Over,Clippers,30.5
 4,28,Harry,Over,Magic,43.5
@@ -33,7 +33,7 @@ Round,Pick,Name,Over/Under,Team,Line
 2,11,Marco,Over,Wolves,48.5
 3,22,Marco,Under,Wizards,34.5
 4,27,Marco,Over,Hornets,39.5
-5,38,Marco,Over,Mavericks,34.5
+5,38,Marco,Under,Mavericks,34.5
 6,43,Marco,Over,Nuggets,49.5
 1,7,Leon,Over,Jazz,37.5
 2,10,Leon,Over,Pistons,49.5

@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T13:10+00:00",
+  "updated": "2026-10-25T17:38+00:00",
   "source": "ESPN",
   "teams": [
     {
@@ -274,228 +274,201 @@
     }
   ],
   "scoreboard": {
-    "date": "2026-10-24",
+    "date": "2026-10-25",
     "events": [
       {
-        "id": "401909853",
-        "date": "2026-10-24T22:00Z",
-        "state": "post",
-        "detail": "Final",
-        "completed": true,
+        "id": "401909861",
+        "date": "2026-10-25T21:00Z",
+        "state": "pre",
+        "detail": "10/25 - 5:00 PM EDT",
+        "completed": false,
         "teams": [
           {
             "homeAway": "away",
-            "name": "Heat",
-            "abbr": "MIA",
-            "color": "98002e",
-            "score": 110.0,
+            "name": "Lakers",
+            "abbr": "LAL",
+            "color": "552583",
+            "score": 0.0,
             "winner": false,
-            "record": "0-3"
+            "record": "2-0"
           },
           {
             "homeAway": "home",
-            "name": "Hornets",
-            "abbr": "CHA",
-            "color": "008ca8",
-            "score": 115.0,
-            "winner": true,
-            "record": "2-1"
-          }
-        ]
-      },
-      {
-        "id": "401909854",
-        "date": "2026-10-24T23:30Z",
-        "state": "post",
-        "detail": "Final",
-        "completed": true,
-        "teams": [
-          {
-            "homeAway": "away",
-            "name": "Nets",
-            "abbr": "BKN",
-            "color": "000000",
-            "score": 121.0,
+            "name": "Jazz",
+            "abbr": "UTAH",
+            "color": "4e008e",
+            "score": 0.0,
             "winner": false,
-            "record": "0-2"
-          },
-          {
-            "homeAway": "home",
-            "name": "Cavaliers",
-            "abbr": "CLE",
-            "color": "860038",
-            "score": 125.0,
-            "winner": true,
             "record": "1-1"
           }
         ]
       },
       {
-        "id": "401909855",
-        "date": "2026-10-24T23:30Z",
-        "state": "post",
-        "detail": "Final",
-        "completed": true,
+        "id": "401909862",
+        "date": "2026-10-25T22:00Z",
+        "state": "pre",
+        "detail": "10/25 - 6:00 PM EDT",
+        "completed": false,
         "teams": [
           {
             "homeAway": "away",
-            "name": "Bucks",
-            "abbr": "MIL",
-            "color": "00471b",
-            "score": 116.0,
+            "name": "Pacers",
+            "abbr": "IND",
+            "color": "0c2340",
+            "score": 0.0,
             "winner": false,
-            "record": "0-3"
+            "record": "1-1"
+          },
+          {
+            "homeAway": "home",
+            "name": "Nets",
+            "abbr": "BKN",
+            "color": "000000",
+            "score": 0.0,
+            "winner": false,
+            "record": "0-2"
+          }
+        ]
+      },
+      {
+        "id": "401909863",
+        "date": "2026-10-25T23:00Z",
+        "state": "pre",
+        "detail": "10/25 - 7:00 PM EDT",
+        "completed": false,
+        "teams": [
+          {
+            "homeAway": "away",
+            "name": "Magic",
+            "abbr": "ORL",
+            "color": "0150b5",
+            "score": 0.0,
+            "winner": false,
+            "record": "0-2"
+          },
+          {
+            "homeAway": "home",
+            "name": "Knicks",
+            "abbr": "NY",
+            "color": "1d428a",
+            "score": 0.0,
+            "winner": false,
+            "record": "0-2"
+          }
+        ]
+      },
+      {
+        "id": "401909864",
+        "date": "2026-10-25T23:00Z",
+        "state": "pre",
+        "detail": "10/25 - 7:00 PM EDT",
+        "completed": false,
+        "teams": [
+          {
+            "homeAway": "away",
+            "name": "Raptors",
+            "abbr": "TOR",
+            "color": "d91244",
+            "score": 0.0,
+            "winner": false,
+            "record": "2-0"
+          },
+          {
+            "homeAway": "home",
+            "name": "Timberwolves",
+            "abbr": "MIN",
+            "color": "266092",
+            "score": 0.0,
+            "winner": false,
+            "record": "2-0"
+          }
+        ]
+      },
+      {
+        "id": "401909865",
+        "date": "2026-10-25T23:00Z",
+        "state": "pre",
+        "detail": "10/25 - 7:00 PM EDT",
+        "completed": false,
+        "teams": [
+          {
+            "homeAway": "away",
+            "name": "Clippers",
+            "abbr": "LAC",
+            "color": "12173f",
+            "score": 0.0,
+            "winner": false,
+            "record": "1-1"
+          },
+          {
+            "homeAway": "home",
+            "name": "Thunder",
+            "abbr": "OKC",
+            "color": "007ac1",
+            "score": 0.0,
+            "winner": false,
+            "record": "2-0"
+          }
+        ]
+      },
+      {
+        "id": "401909866",
+        "date": "2026-10-25T23:30Z",
+        "state": "pre",
+        "detail": "10/25 - 7:30 PM EDT",
+        "completed": false,
+        "teams": [
+          {
+            "homeAway": "away",
+            "name": "Pistons",
+            "abbr": "DET",
+            "color": "1d428a",
+            "score": 0.0,
+            "winner": false,
+            "record": "2-0"
           },
           {
             "homeAway": "home",
             "name": "76ers",
             "abbr": "PHI",
             "color": "1d428a",
-            "score": 127.0,
-            "winner": true,
+            "score": 0.0,
+            "winner": false,
             "record": "3-0"
           }
         ]
       },
       {
-        "id": "401909857",
-        "date": "2026-10-25T00:00Z",
-        "state": "post",
-        "detail": "Final",
-        "completed": true,
+        "id": "401909867",
+        "date": "2026-10-26T01:00Z",
+        "state": "pre",
+        "detail": "10/25 - 9:00 PM EDT",
+        "completed": false,
         "teams": [
           {
             "homeAway": "away",
-            "name": "Wizards",
-            "abbr": "WSH",
-            "color": "e31837",
-            "score": 124.0,
-            "winner": true,
-            "record": "2-1"
+            "name": "Grizzlies",
+            "abbr": "MEM",
+            "color": "5d76a9",
+            "score": 0.0,
+            "winner": false,
+            "record": "2-0"
           },
           {
             "homeAway": "home",
-            "name": "Bulls",
-            "abbr": "CHI",
-            "color": "ce1141",
-            "score": 120.0,
+            "name": "Kings",
+            "abbr": "SAC",
+            "color": "5a2d81",
+            "score": 0.0,
             "winner": false,
-            "record": "1-2"
-          }
-        ]
-      },
-      {
-        "id": "401909858",
-        "date": "2026-10-25T00:00Z",
-        "state": "post",
-        "detail": "Final",
-        "completed": true,
-        "teams": [
-          {
-            "homeAway": "away",
-            "name": "Spurs",
-            "abbr": "SA",
-            "color": "000000",
-            "score": 122.0,
-            "winner": true,
-            "record": "1-2"
-          },
-          {
-            "homeAway": "home",
-            "name": "Mavericks",
-            "abbr": "DAL",
-            "color": "0064b1",
-            "score": 106.0,
-            "winner": false,
-            "record": "1-2"
-          }
-        ]
-      },
-      {
-        "id": "401909856",
-        "date": "2026-10-25T00:30Z",
-        "state": "post",
-        "detail": "Final",
-        "completed": true,
-        "teams": [
-          {
-            "homeAway": "away",
-            "name": "Rockets",
-            "abbr": "HOU",
-            "color": "ce0e2d",
-            "score": 121.0,
-            "winner": true,
-            "record": "3-0"
-          },
-          {
-            "homeAway": "home",
-            "name": "Hawks",
-            "abbr": "ATL",
-            "color": "c8102e",
-            "score": 114.0,
-            "winner": false,
-            "record": "2-1"
-          }
-        ]
-      },
-      {
-        "id": "401909859",
-        "date": "2026-10-25T01:00Z",
-        "state": "post",
-        "detail": "Final/OT",
-        "completed": true,
-        "teams": [
-          {
-            "homeAway": "away",
-            "name": "Pelicans",
-            "abbr": "NO",
-            "color": "0a2240",
-            "score": 135.0,
-            "winner": false,
-            "record": "0-3"
-          },
-          {
-            "homeAway": "home",
-            "name": "Nuggets",
-            "abbr": "DEN",
-            "color": "0e2240",
-            "score": 141.0,
-            "winner": true,
-            "record": "1-1"
-          }
-        ]
-      },
-      {
-        "id": "401909860",
-        "date": "2026-10-25T02:00Z",
-        "state": "post",
-        "detail": "Final",
-        "completed": true,
-        "teams": [
-          {
-            "homeAway": "away",
-            "name": "Warriors",
-            "abbr": "GS",
-            "color": "fdb927",
-            "score": 122.0,
-            "winner": false,
-            "record": "0-3"
-          },
-          {
-            "homeAway": "home",
-            "name": "Suns",
-            "abbr": "PHX",
-            "color": "29127a",
-            "score": 131.0,
-            "winner": true,
-            "record": "1-1"
+            "record": "0-2"
           }
         ]
       }
     ]
   },
   "injuries": {
-    "updated": "2026-10-25T13:11+00:00",
+    "updated": "2026-10-25T17:39+00:00",
     "season": 2027,
     "players": {
       "4712863": {
@@ -550,6 +523,22 @@
         "gp": 0,
         "basis": "last season"
       },
+      "5105626": {
+        "id": "5105626",
+        "name": "Tyler Bilodeau",
+        "short": "T. Bilodeau",
+        "pos": "F",
+        "team": "Nets",
+        "status": "out",
+        "label": "Out",
+        "injury": "Right Shoulder Sprain",
+        "comment": "Bilodeau (shoulder) has been ruled out for Sunday's game against Indiana.",
+        "since": "2026-10-25",
+        "returnDate": "2026-10-27",
+        "teamGp": 2,
+        "bpm": null,
+        "noStats": true
+      },
       "5101761": {
         "id": "5101761",
         "name": "Mikel Brown Jr.",
@@ -567,22 +556,6 @@
         "mpg": 20.0,
         "gp": 2,
         "basis": "this season"
-      },
-      "5105626": {
-        "id": "5105626",
-        "name": "Tyler Bilodeau",
-        "short": "T. Bilodeau",
-        "pos": "F",
-        "team": "Nets",
-        "status": "out",
-        "label": "Out",
-        "injury": "Shoulder",
-        "comment": "Bilodeau (shoulder) has been ruled out for Saturday's game in Cleveland.",
-        "since": "2026-10-23",
-        "returnDate": "2026-10-25",
-        "teamGp": 2,
-        "bpm": null,
-        "noStats": true
       },
       "4066218": {
         "id": "4066218",
@@ -660,11 +633,11 @@
         "short": "P. Williams",
         "pos": "F",
         "team": "Bulls",
-        "status": "out",
-        "label": "Out",
+        "status": "dtd",
+        "label": "Day-To-Day",
         "injury": "Right Groin Soreness",
         "comment": "Williams (groin) is out for Saturday's game versus the Wizards, Joel Lorenzi of The Athletic reports.",
-        "since": "2026-10-24",
+        "since": "2026-10-25",
         "returnDate": "2026-10-26",
         "teamGp": 3,
         "bpm": -4.3,
@@ -678,11 +651,11 @@
         "short": "N. Essengue",
         "pos": "F",
         "team": "Bulls",
-        "status": "out",
-        "label": "Out",
+        "status": "dtd",
+        "label": "Day-To-Day",
         "injury": "Head Bruise",
         "comment": "Essengue (head) won't suit up for Saturday's game against the Wizards, Joel Lorenzi of The Athletic reports.",
-        "since": "2026-10-24",
+        "since": "2026-10-25",
         "returnDate": "2026-10-26",
         "teamGp": 3,
         "bpm": -8.5,
@@ -714,11 +687,11 @@
         "short": "K. Irving",
         "pos": "G",
         "team": "Mavericks",
-        "status": "out",
-        "label": "Out",
+        "status": "dtd",
+        "label": "Day-To-Day",
         "injury": "Left Knee",
         "comment": "Irving is out for Saturday's game against the Spurs due to rest, Christian Clark of The Athletic reports.",
-        "since": "2026-10-24",
+        "since": "2026-10-25",
         "returnDate": "2026-10-26",
         "teamGp": 3,
         "bpm": 5.3,
@@ -814,14 +787,50 @@
         "gp": 0,
         "basis": "last season"
       },
+      "4592427": {
+        "id": "4592427",
+        "name": "Spencer Jones",
+        "short": "S. Jones",
+        "pos": "F",
+        "team": "Nuggets",
+        "status": "dtd",
+        "label": "Day-To-Day",
+        "injury": "Hamstring Not Specified",
+        "comment": "Jones (hamstring) is out for Saturday's game against the Pelicans.",
+        "since": "2026-10-25",
+        "returnDate": "2026-10-26",
+        "teamGp": 2,
+        "bpm": -3.9,
+        "mpg": 22.1,
+        "gp": 0,
+        "basis": "last season"
+      },
+      "3138196": {
+        "id": "3138196",
+        "name": "Cameron Johnson",
+        "short": "C. Johnson",
+        "pos": "F",
+        "team": "Nuggets",
+        "status": "dtd",
+        "label": "Day-To-Day",
+        "injury": "Right Ankle Sprain",
+        "comment": "Head coach David Aldeman said that Johnson is \"day-to-day\" due to his sprained right ankle, Vinny Benedetto of The Denver Gazette reports.",
+        "since": "2026-10-25",
+        "returnDate": "2026-10-26",
+        "teamGp": 2,
+        "bpm": -1.3,
+        "mpg": 11.0,
+        "gp": 1,
+        "basis": "blend"
+      },
       "4065813": {
         "id": "4065813",
         "name": "Alpha Diallo",
         "short": "A. Diallo",
         "pos": "F",
         "team": "Nuggets",
-        "status": "out",
-        "label": "Out",
+        "status": "dtd",
+        "label": "Day-To-Day",
         "injury": "Right Wrist",
         "comment": "Diallo (wrist) won't play Saturday against the Pelicans.",
         "since": "2026-10-25",
@@ -831,42 +840,6 @@
         "mpg": 22.0,
         "gp": 1,
         "basis": "this season"
-      },
-      "3138196": {
-        "id": "3138196",
-        "name": "Cameron Johnson",
-        "short": "C. Johnson",
-        "pos": "F",
-        "team": "Nuggets",
-        "status": "out",
-        "label": "Out",
-        "injury": "Right Ankle Sprain",
-        "comment": "Head coach David Aldeman said that Johnson is \"day-to-day\" due to his sprained right ankle, Vinny Benedetto of The Denver Gazette reports.",
-        "since": "2026-10-24",
-        "returnDate": "2026-10-26",
-        "teamGp": 2,
-        "bpm": -1.3,
-        "mpg": 11.0,
-        "gp": 1,
-        "basis": "blend"
-      },
-      "4592427": {
-        "id": "4592427",
-        "name": "Spencer Jones",
-        "short": "S. Jones",
-        "pos": "F",
-        "team": "Nuggets",
-        "status": "out",
-        "label": "Out",
-        "injury": "Hamstring Not Specified",
-        "comment": "Jones (hamstring) is out for Saturday's game against the Pelicans.",
-        "since": "2026-10-23",
-        "returnDate": "2026-10-26",
-        "teamGp": 2,
-        "bpm": -3.9,
-        "mpg": 22.1,
-        "gp": 0,
-        "basis": "last season"
       },
       "4432181": {
         "id": "4432181",
@@ -895,8 +868,8 @@
         "status": "dtd",
         "label": "Day-To-Day",
         "injury": "Right Ankle Sprain",
-        "comment": "Thompson (ankle) is listed as questionable for Sunday's game against Philadelphia.",
-        "since": "2026-10-24",
+        "comment": "Thompson (ankle) did not participate in Sunday morning's shootaround, Coty M. Davis of The Detroit News reports.",
+        "since": "2026-10-25",
         "returnDate": "2026-10-25",
         "teamGp": 2,
         "bpm": 0.7,
@@ -913,12 +886,84 @@
         "status": "out",
         "label": "Out",
         "injury": "Right Hamstring Strain",
-        "comment": "Duren has been ruled out for Sunday's game against the 76ers due to a right hamstring strain, Eric Vincent of ClutchPoints.com reports.",
-        "since": "2026-10-24",
-        "returnDate": "2026-10-27",
+        "comment": "Duren will be re-evaluated in two weeks due to a right hamstring strain, Eric Vincent of ClutchPoints.com reports.",
+        "since": "2026-10-25",
+        "returnDate": "2026-11-09",
         "teamGp": 2,
         "bpm": 4.2,
         "mpg": 19.0,
+        "gp": 2,
+        "basis": "blend"
+      },
+      "4709138": {
+        "id": "4709138",
+        "name": "Brandin Podziemski",
+        "short": "B. Podziemski",
+        "pos": "G",
+        "team": "Warriors",
+        "status": "dtd",
+        "label": "Day-To-Day",
+        "injury": "Back",
+        "comment": "Podziemski (back) told reporters Friday that he will not play in the second leg of the Warriors' back-to-back set Saturday against the Suns, Nick Friedell of The Athletic reports.",
+        "since": "2026-10-25",
+        "returnDate": "2026-10-26",
+        "teamGp": 3,
+        "bpm": 0.3,
+        "mpg": 33.0,
+        "gp": 1,
+        "basis": "blend"
+      },
+      "3213": {
+        "id": "3213",
+        "name": "Al Horford",
+        "short": "A. Horford",
+        "pos": "C",
+        "team": "Warriors",
+        "status": "dtd",
+        "label": "Day-To-Day",
+        "injury": "Back",
+        "comment": "Horford (back) has been ruled out for Saturday's game against the Suns.",
+        "since": "2026-10-25",
+        "returnDate": "2026-10-26",
+        "teamGp": 3,
+        "bpm": 1.6,
+        "mpg": 18.5,
+        "gp": 2,
+        "basis": "blend"
+      },
+      "6589": {
+        "id": "6589",
+        "name": "Draymond Green",
+        "short": "D. Green",
+        "pos": "F",
+        "team": "Warriors",
+        "status": "dtd",
+        "label": "Day-To-Day",
+        "injury": "Back",
+        "comment": "Green (back) won't play Saturday in Phoenix.",
+        "since": "2026-10-25",
+        "returnDate": "2026-10-26",
+        "teamGp": 3,
+        "bpm": -2.5,
+        "mpg": 26.0,
+        "gp": 2,
+        "basis": "blend"
+      },
+      "3975": {
+        "id": "3975",
+        "name": "Stephen Curry",
+        "short": "S. Curry",
+        "pos": "G",
+        "team": "Warriors",
+        "status": "dtd",
+        "label": "Day-To-Day",
+        "injury": "Rest",
+        "comment": "Curry (rest) won't play Saturday against the Suns.",
+        "since": "2026-10-25",
+        "returnDate": "2026-10-26",
+        "teamGp": 3,
+        "bpm": 8.0,
+        "mpg": 25.5,
         "gp": 2,
         "basis": "blend"
       },
@@ -938,78 +983,6 @@
         "bpm": -0.6,
         "mpg": 22.7,
         "gp": 3,
-        "basis": "blend"
-      },
-      "6589": {
-        "id": "6589",
-        "name": "Draymond Green",
-        "short": "D. Green",
-        "pos": "F",
-        "team": "Warriors",
-        "status": "out",
-        "label": "Out",
-        "injury": "Back",
-        "comment": "Green (back) won't play Saturday in Phoenix.",
-        "since": "2026-10-25",
-        "returnDate": "2026-10-26",
-        "teamGp": 3,
-        "bpm": -2.5,
-        "mpg": 26.0,
-        "gp": 2,
-        "basis": "blend"
-      },
-      "3213": {
-        "id": "3213",
-        "name": "Al Horford",
-        "short": "A. Horford",
-        "pos": "C",
-        "team": "Warriors",
-        "status": "out",
-        "label": "Out",
-        "injury": "Back",
-        "comment": "Horford (back) has been ruled out for Saturday's game against the Suns.",
-        "since": "2026-10-24",
-        "returnDate": "2026-10-26",
-        "teamGp": 3,
-        "bpm": 1.6,
-        "mpg": 18.5,
-        "gp": 2,
-        "basis": "blend"
-      },
-      "3975": {
-        "id": "3975",
-        "name": "Stephen Curry",
-        "short": "S. Curry",
-        "pos": "G",
-        "team": "Warriors",
-        "status": "out",
-        "label": "Out",
-        "injury": "Rest",
-        "comment": "Curry (rest) won't play Saturday against the Suns.",
-        "since": "2026-10-24",
-        "returnDate": "2026-10-26",
-        "teamGp": 3,
-        "bpm": 8.0,
-        "mpg": 25.5,
-        "gp": 2,
-        "basis": "blend"
-      },
-      "4709138": {
-        "id": "4709138",
-        "name": "Brandin Podziemski",
-        "short": "B. Podziemski",
-        "pos": "G",
-        "team": "Warriors",
-        "status": "out",
-        "label": "Out",
-        "injury": "Back",
-        "comment": "Podziemski (back) told reporters Friday that he will not play in the second leg of the Warriors' back-to-back set Saturday against the Suns, Nick Friedell of The Athletic reports.",
-        "since": "2026-10-24",
-        "returnDate": "2026-10-26",
-        "teamGp": 3,
-        "bpm": 0.3,
-        "mpg": 33.0,
-        "gp": 1,
         "basis": "blend"
       },
       "3102531": {
@@ -1066,17 +1039,35 @@
         "gp": 0,
         "basis": "last season"
       },
+      "2991230": {
+        "id": "2991230",
+        "name": "Fred VanVleet",
+        "short": "F. VanVleet",
+        "pos": "G",
+        "team": "Rockets",
+        "status": "dtd",
+        "label": "Day-To-Day",
+        "injury": "Right Knee",
+        "comment": "VanVleet (knee) has been ruled out for Saturday's game against the Hawks.",
+        "since": "2026-10-25",
+        "returnDate": "2026-10-26",
+        "teamGp": 3,
+        "bpm": 5.4,
+        "mpg": 30.5,
+        "gp": 2,
+        "basis": "this season"
+      },
       "2990992": {
         "id": "2990992",
         "name": "Marcus Smart",
         "short": "M. Smart",
         "pos": "G",
         "team": "Rockets",
-        "status": "out",
-        "label": "Out",
+        "status": "dtd",
+        "label": "Day-To-Day",
         "injury": "Left Forearm Strain",
         "comment": "Smart (forearm) has been ruled out for Saturday's game against the Hawks, Varun Shankar of the Houston Chronicle reports.",
-        "since": "2026-10-24",
+        "since": "2026-10-25",
         "returnDate": "2026-10-26",
         "teamGp": 3,
         "bpm": -3.6,
@@ -1090,35 +1081,17 @@
         "short": "S. Adams",
         "pos": "C",
         "team": "Rockets",
-        "status": "out",
-        "label": "Out",
+        "status": "dtd",
+        "label": "Day-To-Day",
         "injury": "Left Ankle",
         "comment": "Adams (ankle) has been ruled out for Saturday's game against the Hawks.",
-        "since": "2026-10-24",
+        "since": "2026-10-25",
         "returnDate": "2026-10-26",
         "teamGp": 3,
         "bpm": -3.2,
         "mpg": 9.0,
         "gp": 1,
         "basis": "blend"
-      },
-      "2991230": {
-        "id": "2991230",
-        "name": "Fred VanVleet",
-        "short": "F. VanVleet",
-        "pos": "G",
-        "team": "Rockets",
-        "status": "out",
-        "label": "Out",
-        "injury": "Right Knee",
-        "comment": "VanVleet (knee) has been ruled out for Saturday's game against the Hawks.",
-        "since": "2026-10-24",
-        "returnDate": "2026-10-26",
-        "teamGp": 3,
-        "bpm": 5.4,
-        "mpg": 30.5,
-        "gp": 2,
-        "basis": "this season"
       },
       "4396909": {
         "id": "4396909",
@@ -1544,60 +1517,6 @@
         "bpm": null,
         "noStats": true
       },
-      "3059318": {
-        "id": "3059318",
-        "name": "Joel Embiid",
-        "short": "J. Embiid",
-        "pos": "C",
-        "team": "76ers",
-        "status": "dtd",
-        "label": "Day-To-Day",
-        "injury": "Rest",
-        "comment": "Embiid produced 28 points (8-20 FG, 0-3 3Pt, 12-14 FT), 11 rebounds, 10 assists, one steal and four turnovers across 36 minutes in Saturday's 127-116 win over the Bucks.",
-        "since": "2026-10-25",
-        "returnDate": "2026-10-25",
-        "teamGp": 3,
-        "bpm": 5.8,
-        "mpg": 34.7,
-        "gp": 3,
-        "basis": "blend"
-      },
-      "4432446": {
-        "id": "4432446",
-        "name": "Jabari Walker",
-        "short": "J. Walker",
-        "pos": "F",
-        "team": "76ers",
-        "status": "dtd",
-        "label": "Day-To-Day",
-        "injury": "Right Knee",
-        "comment": "Walker (ankle) exited Saturday's 127-116 win over the Bucks in the third quarter and did not return, finishing with six points (2-3 FG, 2-3 FT), three rebounds, one assist and one steal across 12 minutes.",
-        "since": "2026-10-25",
-        "returnDate": "2026-10-25",
-        "teamGp": 3,
-        "bpm": -3.6,
-        "mpg": 6.3,
-        "gp": 3,
-        "basis": "blend"
-      },
-      "1966": {
-        "id": "1966",
-        "name": "LeBron James",
-        "short": "L. James",
-        "pos": "F",
-        "team": "76ers",
-        "status": "out",
-        "label": "Out",
-        "injury": "Back",
-        "comment": "James (back) has been ruled out for Saturday's game against the Bucks, Adam Aaronson of PhillyVoice.com reports.",
-        "since": "2026-10-24",
-        "returnDate": "2026-10-25",
-        "teamGp": 3,
-        "bpm": 3.9,
-        "mpg": 33.5,
-        "gp": 2,
-        "basis": "blend"
-      },
       "3904625": {
         "id": "3904625",
         "name": "Tacko Fall",
@@ -1607,12 +1526,48 @@
         "status": "out",
         "label": "Out",
         "injury": "Left Quadriceps Strain",
-        "comment": "Fall (quadriceps) is out for Saturday's game against the Bucks.",
-        "since": "2026-10-23",
-        "returnDate": "2026-10-25",
+        "comment": "Fall (quadriceps) has been ruled out for Sunday's game against Detroit.",
+        "since": "2026-10-25",
+        "returnDate": "2026-10-28",
         "teamGp": 3,
         "bpm": null,
         "noStats": true
+      },
+      "4432446": {
+        "id": "4432446",
+        "name": "Jabari Walker",
+        "short": "J. Walker",
+        "pos": "F",
+        "team": "76ers",
+        "status": "out",
+        "label": "Out",
+        "injury": "Left Knee Soreness",
+        "comment": "Walker has been ruled out for Sunday's game against the Pistons due to left knee soreness.",
+        "since": "2026-10-25",
+        "returnDate": "2026-10-28",
+        "teamGp": 3,
+        "bpm": -3.6,
+        "mpg": 6.3,
+        "gp": 3,
+        "basis": "blend"
+      },
+      "3059318": {
+        "id": "3059318",
+        "name": "Joel Embiid",
+        "short": "J. Embiid",
+        "pos": "C",
+        "team": "76ers",
+        "status": "out",
+        "label": "Out",
+        "injury": "Right Heel",
+        "comment": "Embiid has been ruled out for Sunday's game against Detroit due to right plantar fasciitis management.",
+        "since": "2026-10-25",
+        "returnDate": "2026-10-28",
+        "teamGp": 3,
+        "bpm": 5.8,
+        "mpg": 34.7,
+        "gp": 3,
+        "basis": "blend"
       },
       "4870562": {
         "id": "4870562",
@@ -1656,11 +1611,11 @@
         "short": "O. Ighodaro",
         "pos": "F",
         "team": "Suns",
-        "status": "out",
-        "label": "Out",
+        "status": "dtd",
+        "label": "Day-To-Day",
         "injury": "Oblique Strain",
         "comment": "Ighodaro (oblique) has been ruled out for Saturday's game against the Warriors, Duane Rankin of The Arizona Republic reports.",
-        "since": "2026-10-24",
+        "since": "2026-10-25",
         "returnDate": "2026-10-26",
         "teamGp": 2,
         "bpm": -1.9,
@@ -1985,6 +1940,25 @@
         "basis": "last season",
         "returnedOn": "2026-10-22",
         "bpm": -2.6
+      },
+      "1966": {
+        "id": "1966",
+        "name": "LeBron James",
+        "short": "L. James",
+        "pos": "F",
+        "team": "76ers",
+        "status": "returned",
+        "label": "Out",
+        "injury": "Back",
+        "comment": "James (back) has been ruled out for Saturday's game against the Bucks, Adam Aaronson of PhillyVoice.com reports.",
+        "since": "2026-10-24",
+        "returnDate": "2026-10-25",
+        "teamGp": 3,
+        "bpm": 3.9,
+        "mpg": 33.5,
+        "gp": 2,
+        "basis": "blend",
+        "returnedOn": "2026-10-25"
       }
     },
     "schedules": {
@@ -4883,6 +4857,30 @@
         "name": "Zach Edey",
         "short": "Z. Edey",
         "team": "Grizzlies"
+      },
+      {
+        "date": "2026-10-25",
+        "kind": "out",
+        "id": "4432446",
+        "name": "Jabari Walker",
+        "short": "J. Walker",
+        "team": "76ers"
+      },
+      {
+        "date": "2026-10-25",
+        "kind": "out",
+        "id": "3059318",
+        "name": "Joel Embiid",
+        "short": "J. Embiid",
+        "team": "76ers"
+      },
+      {
+        "date": "2026-10-25",
+        "kind": "returned",
+        "id": "1966",
+        "name": "LeBron James",
+        "short": "L. James",
+        "team": "76ers"
       }
     ]
   }

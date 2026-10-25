@@ -1,64 +1,64 @@
 {
-  "headline": "Three Games In And Win Pace Is Talking Absolute Rubbish",
-  "intro": "Two to three games a side, so every team is either on pace for 82 wins or a perfect goose egg and the leaderboard is basically a coin toss with extra steps. Gooey leads on 144, Leon's right behind on 124, and Sam's at the bottom on −126 looking like a man who's picked a fight with the whole league. Treat all of this as vibes: the efficiency column is the only adult in the room, and it's got its own opinions about who's actually travelling.",
+  "headline": "Angus Leads Off Two 0-3 Teams And A Whole Lot Of Small Sample",
+  "intro": "Two or three games in, win pace is still producing absolute lunacy, with teams sitting at 82 or 0 wins and every score swinging like a pub door. Angus (+144.0) leads Leon (+124.3) and Nic (+69.0), and the spoon is Sam at −126.0, though the efficiency column says half of this table is lying to us. Plenty of injuries to chew on too, with Joel Embiid and a bunch of Warriors on the sidelines, so let's get stuck in.",
   "players": [
     {
       "name": "Angus",
-      "text": "Top of the pile on 144, and Goo will be insufferable about it. But peek at the efficiency number: 63.3, so the real total is less than half of what the pace is flattering him with. The Warriors Under and Pelicans Under are doing the heavy lifting on 0–3 starts, and the Suns Over is sitting at −29.5 by efficiency. Enjoy the view, Goo, the altitude is thin.",
+      "text": "Top of the pile at +144.0, built on Warriors and Pelicans unders sitting at 0-3 and Raptors and Lakers overs both unbeaten. But the efficiency number is a far more modest +63.3, so don't book the trophy engraver yet, Gooey. The Warriors Under is the cleanest part of it: Jimmy Butler out until January, Porzingis and Moody out until December, and Curry, Draymond and Horford all added to the injury list this week.",
       "rank": 1,
       "total": 144.0
     },
     {
       "name": "Leon",
-      "text": "Mr Overs showing optimism has merit, at least for a fortnight. Five of six overs are in the black, with the Grizzlies, Blazers, Rockets and Pistons all winning, and the Nets Over at 0–2 is the only real smudge (−24.5, ouch). He actually leads the comp on efficiency at 92.5, so this isn't just small-sample fairy floss. Chinners is very much in the hunt.",
+      "text": "Mr Overs is second at +124.3 and his efficiency score of +92.5 is the best in the comp, so this one's no fluke. Pistons, Rockets, Blazers and Grizzlies overs are all unbeaten, and Optimism Has Merit again. The only blemishes are the Nets Over at −24.5 and the Jazz Over at −10.2, and the Pistons losing Duren for at least two weeks is the one thing that should make him nervous.",
       "rank": 2,
       "total": 124.3
     },
     {
       "name": "Nic",
-      "text": "Visdog is third on 69, and his Unders are doing exactly what Unders should: Knicks, Bucks and Kings all winless and banking +99.5 between them. The problem is the Blazers Under at 2–0 (−39.5), which is already a nasty one, and by efficiency his whole total is −0.7. The Thunder Over at 2–0 is quietly doing the business. Fine, but wobbly.",
+      "text": "Visdog sits third at +69.0, mostly on the back of Knicks, Bucks and Kings unders all losing every game they've played. The Blazers Under is costing him −39.5 with a 2-0 start, and the Celtics Over is a quiet −10.5 at 1-1. His efficiency total of −0.7 says this is more luck than skill so far, but a lead is a lead, so enjoy it while the Blazers are winning in Leon's favour.",
       "rank": 3,
       "total": 69.0
     },
     {
       "name": "Marco",
-      "text": "Marci is fourth on 20.7, which is a polite way of saying he's up on pace and down on efficiency (−24.7). The Wolves Over is the star at +33.5, but the Hornets Over is a mirage, with a 2–1 record hiding a −23.3 efficiency read. Wizards Under at −20.2 is also a concern, and the Cavs and Nuggets Overs are both treading water. A lot of ifs in this portfolio.",
+      "text": "Marci is fourth at +20.7, with the Wolves Over doing the heavy lifting at +33.5 after a 2-0 start. Early days, but the efficiency number of −24.7 suggests his portfolio is flattering him a bit. Donte DiVincenzo's Achilles surgery (out until April) is a real worry for the Wolves Over, and it's a big win for Harry's Wolves Under.",
       "rank": 4,
       "total": 20.7
     },
     {
       "name": "Ned",
-      "text": "Ned sits fifth on −12, which for a man who didn't even draft is a strong early showing. The Magic and Nets Unders have both started 0–2 and are pocketing +68 between them. He's also copping −86.5 from the Thunder, Pistons and Rockets Unders all winning, so it's a feast-or-famine portfolio. Fading the group is working for now.",
+      "text": "Fifth at −12.0 for a bloke who wasn't even in the draft, which is a respectable effort for the fade merchant. The Magic Under (+43.5) is the star of the show, helped by Banchero being out until late November with an ankle sprain. The Rockets Under at 3-0 (−34.5) and Pistons Under at 2-0 (−32.5) are the anchors, and Duren's two-plus weeks out is the first bit of good news he's had on that front.",
       "rank": 5,
       "total": -12.0
     },
     {
       "name": "Roscoe the Dog",
-      "text": "Roscoe's on −37.3 by pace, but the efficiency number is +26.4, so the pup is arguably the sharpest operator in the comp once you look under the hood. The Warriors Over at 0–3 is the −40.5 stinker dragging him down, and the Raptors Under at 2–0 is another early wound. Heat Under at 0–3 (+46.5) is the dog's best mate. Don't write him off, he's got the better underlying numbers than half of you.",
+      "text": "Roscoe is sixth at −37.3, and I say this with love, his picks are better than the scoreboard suggests with an efficiency number of +26.4, the best of the non-drafters. Warriors Over at 0-3 (−40.5) and Raptors Under at 2-0 (−35.5) are doing the damage, and Kawhi sitting out with knee swelling won't help the Raptors Under fans. That Heat Under at 0-3 (+46.5) is a ripper though, good boy.",
       "rank": 6,
       "total": -37.3
     },
     {
       "name": "Harry",
-      "text": "Harry's on −43, and the Magic Over at 0–2 (−43.5) is basically the entire problem. Add the Wolves Under at 2–0 (−33.5) and you've got two picks wiping out every good thing he's done. The Wizards Over is the one shining light. It's early, but he's already deep into negative territory and in this comp a single −10 will kill ya.",
+      "text": "Harry's at −43.0 and the Magic Over at 0-2 (−43.5) is the whole story, with Banchero out for around 12 games to make it worse. The Wolves Under is at −33.5 right now but DiVincenzo's season-ending Achilles gives him a lifeline. Clippers Over has Beal and Ingram out until early November and Jordan Miller until March, so it's not exactly a stress-free portfolio.",
       "rank": 7,
       "total": -43.0
     },
     {
       "name": "Dan",
-      "text": "Doccy is on −49.4 and, importantly, it's even worse by efficiency at −43.8, so there's no excuse to hide behind. The Spurs Over at 1–2 is bleeding −32.2 and the Lakers Under at 3–0 is bleeding −35.5, a combined −67.7 of pure suffering. The 76ers Over at 3–0 is the one cheerful thing in the portfolio. Doc needs a few of these to flip, fast.",
+      "text": "Doccy's −49.4 is a mixed bag of the 76ers Over at 3-0 (+31.5) and the Lakers Under at 3-0 (−35.5) cancelling each other out, plus a Spurs Over at 1-2 costing −32.2. That said, the Spurs finally got their first win against the Mavs, so there's a flicker of hope. LeBron returning for the Sixers is a boost for the Over, but Embiid sitting with plantar fasciitis management is the flip side, and Hukporti is gone for the season.",
       "rank": 8,
       "total": -49.4
     },
     {
       "name": "Pos",
-      "text": "Pos is on −89.3 and the efficiency is a rotten −76.6, so this isn't a fluke, it's a bad fortnight with receipts. Grizzlies Under at 2–0 (−52.5) and Heat Over at 0–3 (−46.5) are a brutal pair, and he's the only one holding both sides of the Spurs and Jazz and Kings in awkward spots. Spurs Under at +32.2 is the lifeline. It's early, but he's firmly in spoon-watch territory.",
+      "text": "Pos is at −89.3, and the Grizzlies Under (−52.5 at 2-0) and Heat Over (−46.5 at 0-3) are two big reasons why. The Heat Over might be cooked early, and the Grizzlies have Edey, Stewart and Coward all on the injury list, which at least gives that Under some hope. The Spurs Under is the one saving grace at +32.2, but he needs a few more of those to climb out of the hole. Remember, in this comp a single −10 will kill ya, and he's got a few.",
       "rank": 9,
       "total": -89.3
     },
     {
       "name": "Sam",
-      "text": "Sammy is last on −126, and the Knicks Over at 0–2 (−52.5) has done most of the damage on its own. Add the 76ers Under at 3–0 and the Bucks Over at 0–3 and it's a horror show. The one tiny mercy is that efficiency has him at −23.1, so the real number is far less grim than the headline. Still the spoon at the moment, and nobody's going to let him forget it.",
+      "text": "Sammy holds the spoon at −126.0, and the picks are going nowhere fast: Knicks Over at 0-2 (−52.5), 76ers Under at 3-0 (−31.5), Bucks Over at 0-3 (−25.5). His efficiency of −23.1 suggests it's not quite this dire, but Furphy out for the season is bad news for the Pacers Over. Start planning how you'll tell Roscoe you're coming to dinner, mate.",
       "rank": 10,
       "total": -126.0
     }

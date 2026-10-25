@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T23:38+00:00",
+  "updated": "2026-10-25T23:55+00:00",
   "source": "ESPN",
   "teams": [
     {
@@ -307,7 +307,7 @@
         "id": "401909862",
         "date": "2026-10-25T22:00Z",
         "state": "in",
-        "detail": "8:14 - 3rd",
+        "detail": "1:58 - 3rd",
         "completed": false,
         "teams": [
           {
@@ -315,7 +315,7 @@
             "name": "Pacers",
             "abbr": "IND",
             "color": "0c2340",
-            "score": 79.0,
+            "score": 100.0,
             "winner": false,
             "record": "1-1"
           },
@@ -324,7 +324,7 @@
             "name": "Nets",
             "abbr": "BKN",
             "color": "000000",
-            "score": 65.0,
+            "score": 74.0,
             "winner": false,
             "record": "0-2"
           }
@@ -334,7 +334,7 @@
         "id": "401909863",
         "date": "2026-10-25T23:00Z",
         "state": "in",
-        "detail": "17.6 - 1st",
+        "detail": "4:57 - 2nd",
         "completed": false,
         "teams": [
           {
@@ -342,7 +342,7 @@
             "name": "Magic",
             "abbr": "ORL",
             "color": "0150b5",
-            "score": 18.0,
+            "score": 37.0,
             "winner": false,
             "record": "0-2"
           },
@@ -351,7 +351,7 @@
             "name": "Knicks",
             "abbr": "NY",
             "color": "1d428a",
-            "score": 28.0,
+            "score": 44.0,
             "winner": false,
             "record": "0-2"
           }
@@ -361,7 +361,7 @@
         "id": "401909864",
         "date": "2026-10-25T23:00Z",
         "state": "in",
-        "detail": "2:12 - 1st",
+        "detail": "8:26 - 2nd",
         "completed": false,
         "teams": [
           {
@@ -369,7 +369,7 @@
             "name": "Raptors",
             "abbr": "TOR",
             "color": "d91244",
-            "score": 18.0,
+            "score": 24.0,
             "winner": false,
             "record": "2-0"
           },
@@ -378,7 +378,7 @@
             "name": "Timberwolves",
             "abbr": "MIN",
             "color": "266092",
-            "score": 28.0,
+            "score": 40.0,
             "winner": false,
             "record": "2-0"
           }
@@ -388,7 +388,7 @@
         "id": "401909865",
         "date": "2026-10-25T23:00Z",
         "state": "in",
-        "detail": "0.0 - 2nd",
+        "detail": "3:01 - 2nd",
         "completed": false,
         "teams": [
           {
@@ -396,7 +396,7 @@
             "name": "Clippers",
             "abbr": "LAC",
             "color": "12173f",
-            "score": 25.0,
+            "score": 41.0,
             "winner": false,
             "record": "1-1"
           },
@@ -405,7 +405,7 @@
             "name": "Thunder",
             "abbr": "OKC",
             "color": "007ac1",
-            "score": 23.0,
+            "score": 36.0,
             "winner": false,
             "record": "2-0"
           }
@@ -414,8 +414,8 @@
       {
         "id": "401909866",
         "date": "2026-10-25T23:30Z",
-        "state": "pre",
-        "detail": "10/25 - 7:30 PM EDT",
+        "state": "in",
+        "detail": "5:56 - 1st",
         "completed": false,
         "teams": [
           {
@@ -423,7 +423,7 @@
             "name": "Pistons",
             "abbr": "DET",
             "color": "1d428a",
-            "score": 0.0,
+            "score": 25.0,
             "winner": false,
             "record": "2-0"
           },
@@ -432,7 +432,7 @@
             "name": "76ers",
             "abbr": "PHI",
             "color": "1d428a",
-            "score": 0.0,
+            "score": 7.0,
             "winner": false,
             "record": "3-0"
           }
@@ -468,7 +468,7 @@
     ]
   },
   "injuries": {
-    "updated": "2026-10-25T23:39+00:00",
+    "updated": "2026-10-25T23:56+00:00",
     "season": 2027,
     "players": {
       "4712863": {
@@ -1048,7 +1048,7 @@
         "status": "dtd",
         "label": "Day-To-Day",
         "injury": "Left Ankle Sprain",
-        "comment": "Zubac is questionable to return to Sunday's game in Brooklyn due to a left ankle sprain, Pat Boylan of FanDuel Sports Network Indiana reports.",
+        "comment": "Zubac (ankle) will not return to Sunday's game against the Nets.",
         "since": "2026-10-25",
         "returnDate": "2026-10-26",
         "teamGp": 2,
@@ -1338,6 +1338,24 @@
         "teamGp": 2,
         "bpm": -1.6,
         "mpg": 13.5,
+        "gp": 2,
+        "basis": "blend"
+      },
+      "4683692": {
+        "id": "4683692",
+        "name": "Cason Wallace",
+        "short": "C. Wallace",
+        "pos": "G",
+        "team": "Thunder",
+        "status": "dtd",
+        "label": "Day-To-Day",
+        "injury": "Shoulder",
+        "comment": "Wallace went back to the locker room with an apparent shoulder injury during Sunday's game against the Clippers, Justin Martinez of The Oklahoman",
+        "since": "2026-10-25",
+        "returnDate": "2026-10-25",
+        "teamGp": 2,
+        "bpm": -1.2,
+        "mpg": 21.5,
         "gp": 2,
         "basis": "blend"
       },

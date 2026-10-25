@@ -1,70 +1,70 @@
 {
-  "headline": "One Game In And Already Somebody's Cooked",
-  "intro": "Welcome to the 2026 season, where one game gives you either an 82-win pace or a 0-win pace, so treat every number below with the seriousness of a Sunday arvo sausage sizzle. Pos leads on 59.5, Sam is wearing the early spoon on −84.0, and three of you haven't had a single pick play yet. It's early, the projections will swing like a pub door, and I've already poured the first beer for the pack of us who'll be crying by Christmas.",
+  "headline": "Three Games In And Win Pace Is Talking Absolute Rubbish",
+  "intro": "Two to three games a side, so every team is either on pace for 82 wins or a perfect goose egg and the leaderboard is basically a coin toss with extra steps. Gooey leads on 144, Leon's right behind on 124, and Sam's at the bottom on −126 looking like a man who's picked a fight with the whole league. Treat all of this as vibes: the efficiency column is the only adult in the room, and it's got its own opinions about who's actually travelling.",
   "players": [
     {
-      "name": "Pos",
-      "text": "59.5 and top of the ladder after one night. The whole lot comes from Spurs Under 59.5 and a 0–1 start, with the other five picks yet to play a minute. The efficiency number is a calmer 45.1, which is still a monster. Enjoy the view, mate, because a single Spurs win swings it hard the other way.",
+      "name": "Angus",
+      "text": "Top of the pile on 144, and Goo will be insufferable about it. But peek at the efficiency number: 63.3, so the real total is less than half of what the pace is flattering him with. The Warriors Under and Pelicans Under are doing the heavy lifting on 0–3 starts, and the Suns Over is sitting at −29.5 by efficiency. Enjoy the view, Goo, the altitude is thin.",
       "rank": 1,
-      "total": 59.5
-    },
-    {
-      "name": "Harry",
-      "text": "51.5, second, and it's also one pick doing all the work: Celtics Under 51.5 with the Celtics sitting 0–1. His efficiency total of 29.0 says it's not all a mirage. Very comfortable for a man who has done nothing but watch.",
-      "rank": 2,
-      "total": 51.5
+      "total": 144.0
     },
     {
       "name": "Leon",
-      "text": "32.5 for Mr Overs, and Pistons Over 49.5 at 1–0 is the lot, so we'll call it optimism with a shred of merit. Efficiency has it at a tamer 10.0, so don't go booking the trophy engraving yet. The other five overs haven't played a game, which is how Leon likes his picks: unproven and full of hope.",
-      "rank": 3,
-      "total": 32.5
+      "text": "Mr Overs showing optimism has merit, at least for a fortnight. Five of six overs are in the black, with the Grizzlies, Blazers, Rockets and Pistons all winning, and the Nets Over at 0–2 is the only real smudge (−24.5, ouch). He actually leads the comp on efficiency at 92.5, so this isn't just small-sample fairy floss. Chinners is very much in the hunt.",
+      "rank": 2,
+      "total": 124.3
     },
     {
       "name": "Nic",
-      "text": "20.5 and a wild ride for one game. Knicks Under (+52.5) and Thunder Over (+19.5) are carrying him, while Celtics Over (−51.5) is already trying to drown him. Net result is a fourth-place start. In this comp a single −50 will kill ya, and Nicky T has already copped one.",
-      "rank": 4,
-      "total": 20.5
+      "text": "Visdog is third on 69, and his Unders are doing exactly what Unders should: Knicks, Bucks and Kings all winless and banking +99.5 between them. The problem is the Blazers Under at 2–0 (−39.5), which is already a nasty one, and by efficiency his whole total is −0.7. The Thunder Over at 2–0 is quietly doing the business. Fine, but wobbly.",
+      "rank": 3,
+      "total": 69.0
     },
     {
       "name": "Marco",
-      "text": "0.0 and fifth, because not one of his six picks has played a game. Technically undefeated, practically a bystander. Check back when something happens to him.",
-      "rank": 5,
-      "total": 0.0
-    },
-    {
-      "name": "Angus",
-      "text": "0.0 as well, with all six picks still to tip off. Goo is sitting in the cleanest position in the comp: no wins, no losses, no excuses yet. That'll change soon enough.",
-      "rank": 6,
-      "total": 0.0
-    },
-    {
-      "name": "Roscoe the Dog",
-      "text": "Also 0.0, with every pick yet to play. The dog is fading the group and so far the group hasn't given him anything to bark at. Roscoe is currently outscoring Dan, Ned and Sam, so the bar is on the floor.",
-      "rank": 7,
-      "total": 0.0
-    },
-    {
-      "name": "Dan",
-      "text": "−28.0 and eighth. Spurs Over 59.5 at 0–1 is a −59.5 hole, and the 76ers Over at 1–0 gave back +31.5 to soften the landing. Doccy's efficiency total is −38.4, so the Spurs pick doesn't look any better under the bonnet. Early days, but he's already a Spurs win away from breathing normally.",
-      "rank": 8,
-      "total": -28.0
+      "text": "Marci is fourth on 20.7, which is a polite way of saying he's up on pace and down on efficiency (−24.7). The Wolves Over is the star at +33.5, but the Hornets Over is a mirage, with a 2–1 record hiding a −23.3 efficiency read. Wizards Under at −20.2 is also a concern, and the Cavs and Nuggets Overs are both treading water. A lot of ifs in this portfolio.",
+      "rank": 4,
+      "total": 20.7
     },
     {
       "name": "Ned",
-      "text": "−52.0 for a man who wasn't even in the draft. He's fading the Pistons (−32.5) and the Thunder (−19.5), and both won their opener. Efficiency has it at a much kinder −15.1, so there's hope. The dog isn't the only one fading the group, but he's the only one who looks calm about it.",
+      "text": "Ned sits fifth on −12, which for a man who didn't even draft is a strong early showing. The Magic and Nets Unders have both started 0–2 and are pocketing +68 between them. He's also copping −86.5 from the Thunder, Pistons and Rockets Unders all winning, so it's a feast-or-famine portfolio. Fading the group is working for now.",
+      "rank": 5,
+      "total": -12.0
+    },
+    {
+      "name": "Roscoe the Dog",
+      "text": "Roscoe's on −37.3 by pace, but the efficiency number is +26.4, so the pup is arguably the sharpest operator in the comp once you look under the hood. The Warriors Over at 0–3 is the −40.5 stinker dragging him down, and the Raptors Under at 2–0 is another early wound. Heat Under at 0–3 (+46.5) is the dog's best mate. Don't write him off, he's got the better underlying numbers than half of you.",
+      "rank": 6,
+      "total": -37.3
+    },
+    {
+      "name": "Harry",
+      "text": "Harry's on −43, and the Magic Over at 0–2 (−43.5) is basically the entire problem. Add the Wolves Under at 2–0 (−33.5) and you've got two picks wiping out every good thing he's done. The Wizards Over is the one shining light. It's early, but he's already deep into negative territory and in this comp a single −10 will kill ya.",
+      "rank": 7,
+      "total": -43.0
+    },
+    {
+      "name": "Dan",
+      "text": "Doccy is on −49.4 and, importantly, it's even worse by efficiency at −43.8, so there's no excuse to hide behind. The Spurs Over at 1–2 is bleeding −32.2 and the Lakers Under at 3–0 is bleeding −35.5, a combined −67.7 of pure suffering. The 76ers Over at 3–0 is the one cheerful thing in the portfolio. Doc needs a few of these to flip, fast.",
+      "rank": 8,
+      "total": -49.4
+    },
+    {
+      "name": "Pos",
+      "text": "Pos is on −89.3 and the efficiency is a rotten −76.6, so this isn't a fluke, it's a bad fortnight with receipts. Grizzlies Under at 2–0 (−52.5) and Heat Over at 0–3 (−46.5) are a brutal pair, and he's the only one holding both sides of the Spurs and Jazz and Kings in awkward spots. Spurs Under at +32.2 is the lifeline. It's early, but he's firmly in spoon-watch territory.",
       "rank": 9,
-      "total": -52.0
+      "total": -89.3
     },
     {
       "name": "Sam",
-      "text": "−84.0 and the early spoon. 76ers Under (−31.5) and Knicks Over (−52.5) have both gone the wrong way, and it's the lowest score in the comp by a distance. His efficiency total of −34.4 is a lot kinder, which is the only thing keeping him off the ledge. Sammy, it's one game, so breathe, but also yeah, brutal.",
+      "text": "Sammy is last on −126, and the Knicks Over at 0–2 (−52.5) has done most of the damage on its own. Add the 76ers Under at 3–0 and the Bucks Over at 0–3 and it's a horror show. The one tiny mercy is that efficiency has him at −23.1, so the real number is far less grim than the headline. Still the spoon at the moment, and nobody's going to let him forget it.",
       "rank": 10,
-      "total": -84.0
+      "total": -126.0
     }
   ],
   "signoff": "May your unders tank and your overs thrive!",
-  "date": "2026-10-21",
+  "date": "2026-10-25",
   "basis": "Win pace",
   "model": "claude-sonnet-5-5"
 }

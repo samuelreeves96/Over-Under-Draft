@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-27T00:51+00:00",
+  "updated": "2026-10-27T14:30+00:00",
   "source": "ESPN",
   "teams": [
     {
@@ -15,37 +15,37 @@
       "name": "Bucks",
       "fullName": "Milwaukee Bucks",
       "abbr": "MIL",
-      "wins": 0,
+      "wins": 1,
       "losses": 3,
-      "pointsFor": 357.0,
-      "pointsAgainst": 387.0
+      "pointsFor": 467.0,
+      "pointsAgainst": 489.0
     },
     {
       "name": "Bulls",
       "fullName": "Chicago Bulls",
       "abbr": "CHI",
       "wins": 1,
-      "losses": 2,
-      "pointsFor": 344.0,
-      "pointsAgainst": 384.0
+      "losses": 3,
+      "pointsFor": 443.0,
+      "pointsAgainst": 518.0
     },
     {
       "name": "Cavaliers",
       "fullName": "Cleveland Cavaliers",
       "abbr": "CLE",
-      "wins": 1,
+      "wins": 2,
       "losses": 1,
-      "pointsFor": 231.0,
-      "pointsAgainst": 235.0
+      "pointsFor": 358.0,
+      "pointsAgainst": 360.0
     },
     {
       "name": "Celtics",
       "fullName": "Boston Celtics",
       "abbr": "BOS",
-      "wins": 1,
+      "wins": 2,
       "losses": 1,
-      "pointsFor": 220.0,
-      "pointsAgainst": 224.0
+      "pointsFor": 354.0,
+      "pointsAgainst": 323.0
     },
     {
       "name": "Clippers",
@@ -60,46 +60,46 @@
       "name": "Grizzlies",
       "fullName": "Memphis Grizzlies",
       "abbr": "MEM",
-      "wins": 3,
+      "wins": 4,
       "losses": 0,
-      "pointsFor": 357.0,
-      "pointsAgainst": 323.0
+      "pointsFor": 467.0,
+      "pointsAgainst": 428.0
     },
     {
       "name": "Hawks",
       "fullName": "Atlanta Hawks",
       "abbr": "ATL",
       "wins": 2,
-      "losses": 1,
-      "pointsFor": 374.0,
-      "pointsAgainst": 327.0
+      "losses": 2,
+      "pointsFor": 484.0,
+      "pointsAgainst": 447.0
     },
     {
       "name": "Heat",
       "fullName": "Miami Heat",
       "abbr": "MIA",
       "wins": 0,
-      "losses": 3,
-      "pointsFor": 327.0,
-      "pointsAgainst": 374.0
+      "losses": 4,
+      "pointsFor": 436.0,
+      "pointsAgainst": 487.0
     },
     {
       "name": "Hornets",
       "fullName": "Charlotte Hornets",
       "abbr": "CHA",
-      "wins": 2,
+      "wins": 3,
       "losses": 1,
-      "pointsFor": 306.0,
-      "pointsAgainst": 341.0
+      "pointsFor": 416.0,
+      "pointsAgainst": 444.0
     },
     {
       "name": "Jazz",
       "fullName": "Utah Jazz",
       "abbr": "UTAH",
       "wins": 1,
-      "losses": 2,
-      "pointsFor": 346.0,
-      "pointsAgainst": 374.0
+      "losses": 3,
+      "pointsFor": 451.0,
+      "pointsAgainst": 484.0
     },
     {
       "name": "Kings",
@@ -141,10 +141,10 @@
       "name": "Mavericks",
       "fullName": "Dallas Mavericks",
       "abbr": "DAL",
-      "wins": 1,
+      "wins": 2,
       "losses": 2,
-      "pointsFor": 337.0,
-      "pointsAgainst": 355.0
+      "pointsFor": 450.0,
+      "pointsAgainst": 464.0
     },
     {
       "name": "Nets",
@@ -160,18 +160,18 @@
       "fullName": "Denver Nuggets",
       "abbr": "DEN",
       "wins": 1,
-      "losses": 1,
-      "pointsFor": 225.0,
-      "pointsAgainst": 231.0
+      "losses": 2,
+      "pointsFor": 339.0,
+      "pointsAgainst": 365.0
     },
     {
       "name": "Pacers",
       "fullName": "Indiana Pacers",
       "abbr": "IND",
       "wins": 2,
-      "losses": 1,
-      "pointsFor": 364.0,
-      "pointsAgainst": 350.0
+      "losses": 2,
+      "pointsFor": 466.0,
+      "pointsAgainst": 460.0
     },
     {
       "name": "Pelicans",
@@ -204,10 +204,10 @@
       "name": "Rockets",
       "fullName": "Houston Rockets",
       "abbr": "HOU",
-      "wins": 3,
+      "wins": 4,
       "losses": 0,
-      "pointsFor": 363.0,
-      "pointsAgainst": 334.0
+      "pointsFor": 483.0,
+      "pointsAgainst": 444.0
     },
     {
       "name": "Spurs",
@@ -223,27 +223,27 @@
       "fullName": "Phoenix Suns",
       "abbr": "PHX",
       "wins": 1,
-      "losses": 1,
-      "pointsFor": 214.0,
-      "pointsAgainst": 246.0
+      "losses": 2,
+      "pointsFor": 328.0,
+      "pointsAgainst": 371.0
     },
     {
       "name": "Thunder",
       "fullName": "Oklahoma City Thunder",
       "abbr": "OKC",
-      "wins": 3,
+      "wins": 4,
       "losses": 0,
-      "pointsFor": 320.0,
-      "pointsAgainst": 289.0
+      "pointsFor": 445.0,
+      "pointsAgainst": 403.0
     },
     {
       "name": "Timberwolves",
       "fullName": "Minnesota Timberwolves",
       "abbr": "MIN",
       "wins": 3,
-      "losses": 0,
-      "pointsFor": 363.0,
-      "pointsAgainst": 293.0
+      "losses": 1,
+      "pointsFor": 488.0,
+      "pointsAgainst": 420.0
     },
     {
       "name": "Trail Blazers",
@@ -258,19 +258,19 @@
       "name": "Warriors",
       "fullName": "Golden State Warriors",
       "abbr": "GS",
-      "wins": 0,
+      "wins": 1,
       "losses": 3,
-      "pointsFor": 335.0,
-      "pointsAgainst": 369.0
+      "pointsFor": 469.0,
+      "pointsAgainst": 483.0
     },
     {
       "name": "Wizards",
       "fullName": "Washington Wizards",
       "abbr": "WSH",
       "wins": 2,
-      "losses": 1,
-      "pointsFor": 354.0,
-      "pointsAgainst": 348.0
+      "losses": 2,
+      "pointsFor": 457.0,
+      "pointsAgainst": 458.0
     }
   ],
   "scoreboard": {
@@ -279,250 +279,250 @@
       {
         "id": "401909868",
         "date": "2026-10-26T23:00Z",
-        "state": "in",
-        "detail": "34.5 - 3rd",
-        "completed": false,
+        "state": "post",
+        "detail": "Final",
+        "completed": true,
         "teams": [
           {
             "homeAway": "away",
             "name": "Wizards",
             "abbr": "WSH",
             "color": "e31837",
-            "score": 66.0,
+            "score": 103.0,
             "winner": false,
-            "record": "2-1"
+            "record": "2-2"
           },
           {
             "homeAway": "home",
             "name": "Hornets",
             "abbr": "CHA",
             "color": "008ca8",
-            "score": 78.0,
-            "winner": false,
-            "record": "2-1"
+            "score": 110.0,
+            "winner": true,
+            "record": "3-1"
           }
         ]
       },
       {
         "id": "401909869",
         "date": "2026-10-26T23:00Z",
-        "state": "in",
-        "detail": "4:29 - 3rd",
-        "completed": false,
+        "state": "post",
+        "detail": "Final/OT",
+        "completed": true,
         "teams": [
           {
             "homeAway": "away",
             "name": "Timberwolves",
             "abbr": "MIN",
             "color": "266092",
-            "score": 69.0,
+            "score": 125.0,
             "winner": false,
-            "record": "3-0"
+            "record": "3-1"
           },
           {
             "homeAway": "home",
             "name": "Cavaliers",
             "abbr": "CLE",
             "color": "860038",
-            "score": 70.0,
-            "winner": false,
-            "record": "1-1"
+            "score": 127.0,
+            "winner": true,
+            "record": "2-1"
           }
         ]
       },
       {
         "id": "401909870",
         "date": "2026-10-26T23:30Z",
-        "state": "in",
-        "detail": "Halftime",
-        "completed": false,
+        "state": "post",
+        "detail": "Final",
+        "completed": true,
         "teams": [
           {
             "homeAway": "away",
             "name": "Bulls",
             "abbr": "CHI",
             "color": "ce1141",
-            "score": 54.0,
+            "score": 99.0,
             "winner": false,
-            "record": "1-2"
+            "record": "1-3"
           },
           {
             "homeAway": "home",
             "name": "Celtics",
             "abbr": "BOS",
             "color": "008348",
-            "score": 66.0,
-            "winner": false,
-            "record": "1-1"
+            "score": 134.0,
+            "winner": true,
+            "record": "2-1"
           }
         ]
       },
       {
         "id": "401909871",
         "date": "2026-10-26T23:30Z",
-        "state": "in",
-        "detail": "Halftime",
-        "completed": false,
+        "state": "post",
+        "detail": "Final",
+        "completed": true,
         "teams": [
           {
             "homeAway": "away",
             "name": "Mavericks",
             "abbr": "DAL",
             "color": "0064b1",
-            "score": 53.0,
-            "winner": false,
-            "record": "1-2"
+            "score": 113.0,
+            "winner": true,
+            "record": "2-2"
           },
           {
             "homeAway": "home",
             "name": "Heat",
             "abbr": "MIA",
             "color": "98002e",
-            "score": 52.0,
+            "score": 109.0,
             "winner": false,
-            "record": "0-3"
+            "record": "0-4"
           }
         ]
       },
       {
         "id": "401909872",
         "date": "2026-10-27T00:00Z",
-        "state": "in",
-        "detail": "7:23 - 2nd",
-        "completed": false,
+        "state": "post",
+        "detail": "Final",
+        "completed": true,
         "teams": [
           {
             "homeAway": "away",
             "name": "Pacers",
             "abbr": "IND",
             "color": "0c2340",
-            "score": 43.0,
+            "score": 102.0,
             "winner": false,
-            "record": "2-1"
+            "record": "2-2"
           },
           {
             "homeAway": "home",
             "name": "Bucks",
             "abbr": "MIL",
             "color": "00471b",
-            "score": 44.0,
-            "winner": false,
-            "record": "0-3"
+            "score": 110.0,
+            "winner": true,
+            "record": "1-3"
           }
         ]
       },
       {
         "id": "401909873",
         "date": "2026-10-27T00:00Z",
-        "state": "in",
-        "detail": "6:35 - 2nd",
-        "completed": false,
+        "state": "post",
+        "detail": "Final",
+        "completed": true,
         "teams": [
           {
             "homeAway": "away",
             "name": "Suns",
             "abbr": "PHX",
             "color": "29127a",
-            "score": 39.0,
+            "score": 114.0,
             "winner": false,
-            "record": "1-1"
+            "record": "1-2"
           },
           {
             "homeAway": "home",
             "name": "Thunder",
             "abbr": "OKC",
             "color": "007ac1",
-            "score": 45.0,
-            "winner": false,
-            "record": "3-0"
+            "score": 125.0,
+            "winner": true,
+            "record": "4-0"
           }
         ]
       },
       {
         "id": "401909874",
         "date": "2026-10-27T00:30Z",
-        "state": "in",
-        "detail": "6:50 - 1st",
-        "completed": false,
+        "state": "post",
+        "detail": "Final",
+        "completed": true,
         "teams": [
           {
             "homeAway": "away",
             "name": "Hawks",
             "abbr": "ATL",
             "color": "c8102e",
-            "score": 18.0,
+            "score": 110.0,
             "winner": false,
-            "record": "2-1"
+            "record": "2-2"
           },
           {
             "homeAway": "home",
             "name": "Rockets",
             "abbr": "HOU",
             "color": "ce0e2d",
-            "score": 15.0,
-            "winner": false,
-            "record": "3-0"
+            "score": 120.0,
+            "winner": true,
+            "record": "4-0"
           }
         ]
       },
       {
         "id": "401909875",
         "date": "2026-10-27T01:00Z",
-        "state": "pre",
-        "detail": "10/26 - 9:00 PM EDT",
-        "completed": false,
+        "state": "post",
+        "detail": "Final",
+        "completed": true,
         "teams": [
           {
             "homeAway": "away",
             "name": "Grizzlies",
             "abbr": "MEM",
             "color": "5d76a9",
-            "score": 0.0,
-            "winner": false,
-            "record": "3-0"
+            "score": 110.0,
+            "winner": true,
+            "record": "4-0"
           },
           {
             "homeAway": "home",
             "name": "Jazz",
             "abbr": "UTAH",
             "color": "4e008e",
-            "score": 0.0,
+            "score": 105.0,
             "winner": false,
-            "record": "1-2"
+            "record": "1-3"
           }
         ]
       },
       {
         "id": "401909876",
         "date": "2026-10-27T02:00Z",
-        "state": "pre",
-        "detail": "10/26 - 10:00 PM EDT",
-        "completed": false,
+        "state": "post",
+        "detail": "Final",
+        "completed": true,
         "teams": [
           {
             "homeAway": "away",
             "name": "Warriors",
             "abbr": "GS",
             "color": "fdb927",
-            "score": 0.0,
-            "winner": false,
-            "record": "0-3"
+            "score": 134.0,
+            "winner": true,
+            "record": "1-3"
           },
           {
             "homeAway": "home",
             "name": "Nuggets",
             "abbr": "DEN",
             "color": "0e2240",
-            "score": 0.0,
+            "score": 114.0,
             "winner": false,
-            "record": "1-1"
+            "record": "1-2"
           }
         ]
       }
     ]
   },
   "injuries": {
-    "updated": "2026-10-27T00:53+00:00",
+    "updated": "2026-10-27T14:31+00:00",
     "season": 2027,
     "players": {
       "4712863": {
@@ -537,7 +537,7 @@
         "comment": "Gueye underwent surgery Tuesday to repair a fractured left foot that he suffered during a workout last week, Brad Rowland of the Locked On Podcast Network reports.",
         "since": "2026-10-19",
         "returnDate": "2026-11-20",
-        "teamGp": 3,
+        "teamGp": 4,
         "bpm": -1.9,
         "mpg": 15.3,
         "gp": 0,
@@ -555,7 +555,7 @@
         "comment": "Veesaar was diagnosed with a torn right ACL and is expected to miss the 2026-27 season, the Hawks announced Monday.",
         "since": "2026-09-21",
         "returnDate": "2027-07-01",
-        "teamGp": 3,
+        "teamGp": 4,
         "bpm": null,
         "noStats": true
       },
@@ -571,29 +571,11 @@
         "comment": "Carter has been diagnosed with mononucleosis and is without a timetable for a return, Gary Washburn of The Boston Globe reports.",
         "since": "2026-10-18",
         "returnDate": "2026-11-08",
-        "teamGp": 2,
+        "teamGp": 3,
         "bpm": -1.4,
         "mpg": 18.4,
         "gp": 0,
         "basis": "last season"
-      },
-      "5101761": {
-        "id": "5101761",
-        "name": "Mikel Brown Jr.",
-        "short": "M. Brown Jr.",
-        "pos": "G",
-        "team": "Nets",
-        "status": "dtd",
-        "label": "Day-To-Day",
-        "injury": "Rest",
-        "comment": "Head coach Jordi Fernandez said Brown (rest) will be held out of Sunday's game against the Pacers, Brian Lewis of the New York Post reports.",
-        "since": "2026-10-26",
-        "returnDate": "2026-10-27",
-        "teamGp": 3,
-        "bpm": -6.1,
-        "mpg": 20.0,
-        "gp": 2,
-        "basis": "this season"
       },
       "5105626": {
         "id": "5105626",
@@ -623,7 +605,7 @@
         "comment": "Head coach Charles Lee said Monday that White (calf) remains without a timeline for a return, though Lee added that he'll have a better idea of where things stand following the Hornets' two-game road trip, Rod Boone of The Charlotte Observer reports.",
         "since": "2026-10-26",
         "returnDate": "2026-10-31",
-        "teamGp": 3,
+        "teamGp": 4,
         "bpm": 0.9,
         "mpg": 25.0,
         "gp": 0,
@@ -641,7 +623,7 @@
         "comment": "Knueppel (hamstring) is without a timetable for a return, Rod Boone of The Charlotte Observer reports.",
         "since": "2026-10-26",
         "returnDate": "2026-10-31",
-        "teamGp": 3,
+        "teamGp": 4,
         "bpm": 1.9,
         "mpg": 31.5,
         "gp": 0,
@@ -659,7 +641,7 @@
         "comment": "Williams (hamstring) will be re-evaluated following Charlotte's upcoming two-game road trip, Rod Boone reports.",
         "since": "2026-10-26",
         "returnDate": "2026-10-31",
-        "teamGp": 3,
+        "teamGp": 4,
         "bpm": -1.2,
         "mpg": 19.8,
         "gp": 0,
@@ -677,9 +659,27 @@
         "comment": "Boswell (knee) is out for Wednesday's season opener against the Nets.",
         "since": "2026-10-20",
         "returnDate": "2026-11-02",
-        "teamGp": 3,
+        "teamGp": 4,
         "bpm": null,
         "noStats": true
+      },
+      "4431687": {
+        "id": "4431687",
+        "name": "Patrick Williams",
+        "short": "P. Williams",
+        "pos": "F",
+        "team": "Bulls",
+        "status": "dtd",
+        "label": "Day-To-Day",
+        "injury": "Right Groin Soreness",
+        "comment": "Williams (groin) has been ruled out for Monday's game against the Celtics.",
+        "since": "2026-10-27",
+        "returnDate": "2026-10-28",
+        "teamGp": 4,
+        "bpm": -4.3,
+        "mpg": 20.5,
+        "gp": 0,
+        "basis": "last season"
       },
       "4278067": {
         "id": "4278067",
@@ -693,29 +693,29 @@
         "comment": "Claxton (hamstring) participated in individual drills Monday morning and hopes to join the team for practice next week, Joe Cowley of the Chicago Sun-Times reports.",
         "since": "2026-10-26",
         "returnDate": "2026-11-04",
-        "teamGp": 3,
+        "teamGp": 4,
         "bpm": 0.8,
         "mpg": 27.8,
         "gp": 0,
         "basis": "last season"
       },
-      "4431687": {
-        "id": "4431687",
-        "name": "Patrick Williams",
-        "short": "P. Williams",
+      "4278594": {
+        "id": "4278594",
+        "name": "Naji Marshall",
+        "short": "N. Marshall",
         "pos": "F",
-        "team": "Bulls",
-        "status": "out",
-        "label": "Out",
-        "injury": "Right Groin Soreness",
-        "comment": "Williams (groin) has been ruled out for Monday's game against the Celtics.",
-        "since": "2026-10-26",
+        "team": "Mavericks",
+        "status": "dtd",
+        "label": "Day-To-Day",
+        "injury": "Illness",
+        "comment": "Marshall (illness) has been ruled out for Monday's game against the Heat.",
+        "since": "2026-10-27",
         "returnDate": "2026-10-28",
-        "teamGp": 3,
-        "bpm": -4.3,
-        "mpg": 20.5,
-        "gp": 0,
-        "basis": "last season"
+        "teamGp": 4,
+        "bpm": -0.7,
+        "mpg": 27.7,
+        "gp": 3,
+        "basis": "blend"
       },
       "5279129": {
         "id": "5279129",
@@ -725,14 +725,14 @@
         "team": "Mavericks",
         "status": "dtd",
         "label": "Day-To-Day",
-        "injury": "Ankle Not Specified",
-        "comment": "De Larrea went to the locker room during the second quarter of Monday's game against the Heat with an apparent right injury, Grant Afseth of DallasHoopsJournal.com reports.",
+        "injury": "Right Knee Strain",
+        "comment": "De Larrea (knee) won't return to Monday's game against the Heat. He'll finish with zero points (0-1 FG) and one rebound across six minutes.",
         "since": "2026-10-27",
-        "returnDate": "2026-10-26",
-        "teamGp": 3,
-        "bpm": -2.6,
-        "mpg": 13.7,
-        "gp": 3,
+        "returnDate": "2026-10-28",
+        "teamGp": 4,
+        "bpm": -4.1,
+        "mpg": 11.5,
+        "gp": 4,
         "basis": "this season"
       },
       "3138160": {
@@ -747,29 +747,11 @@
         "comment": "Martin (thumb) is out for Monday's game against the Heat, Mike Curtis of The Dallas Morning News reports.",
         "since": "2026-10-26",
         "returnDate": "2026-11-02",
-        "teamGp": 3,
+        "teamGp": 4,
         "bpm": -3.7,
         "mpg": 14.8,
         "gp": 0,
         "basis": "last season"
-      },
-      "4278594": {
-        "id": "4278594",
-        "name": "Naji Marshall",
-        "short": "N. Marshall",
-        "pos": "F",
-        "team": "Mavericks",
-        "status": "out",
-        "label": "Out",
-        "injury": "Illness",
-        "comment": "Marshall (illness) has been ruled out for Monday's game against the Heat.",
-        "since": "2026-10-25",
-        "returnDate": "2026-10-28",
-        "teamGp": 3,
-        "bpm": -0.7,
-        "mpg": 27.7,
-        "gp": 3,
-        "basis": "blend"
       },
       "5148538": {
         "id": "5148538",
@@ -783,7 +765,7 @@
         "comment": "Biberovic (heel) has been ruled out for Saturday's game against San Antonio.",
         "since": "2026-10-24",
         "returnDate": "2026-11-02",
-        "teamGp": 3,
+        "teamGp": 4,
         "bpm": null,
         "noStats": true
       },
@@ -799,7 +781,7 @@
         "comment": "Aldama (knee) has been ruled out for Saturday's game against the Spurs.",
         "since": "2026-10-24",
         "returnDate": "2026-11-02",
-        "teamGp": 3,
+        "teamGp": 4,
         "bpm": 1.5,
         "mpg": 27.9,
         "gp": 0,
@@ -817,29 +799,11 @@
         "comment": "Lively (foot) has been ruled out for Friday's game against the Pacers.",
         "since": "2026-10-22",
         "returnDate": "2026-11-02",
-        "teamGp": 3,
+        "teamGp": 4,
         "bpm": -1.5,
         "mpg": 16.4,
         "gp": 0,
         "basis": "last season"
-      },
-      "4065813": {
-        "id": "4065813",
-        "name": "Alpha Diallo",
-        "short": "A. Diallo",
-        "pos": "F",
-        "team": "Nuggets",
-        "status": "out",
-        "label": "Out",
-        "injury": "Right Wrist",
-        "comment": "Diallo (wrist) is out for Monday's game against the Warriors.",
-        "since": "2026-10-26",
-        "returnDate": "2026-10-28",
-        "teamGp": 2,
-        "bpm": -7.1,
-        "mpg": 22.0,
-        "gp": 1,
-        "basis": "this season"
       },
       "3138196": {
         "id": "3138196",
@@ -850,14 +814,32 @@
         "status": "dtd",
         "label": "Day-To-Day",
         "injury": "Right Ankle Sprain",
-        "comment": "Johnson (ankle) is doubtful to play Monday against the Warriors.",
-        "since": "2026-10-25",
-        "returnDate": "2026-10-26",
-        "teamGp": 2,
+        "comment": "Johnson (ankle) has been ruled out for Monday's game against Golden State.",
+        "since": "2026-10-27",
+        "returnDate": "2026-10-28",
+        "teamGp": 3,
         "bpm": -1.3,
         "mpg": 11.0,
         "gp": 1,
         "basis": "blend"
+      },
+      "4065813": {
+        "id": "4065813",
+        "name": "Alpha Diallo",
+        "short": "A. Diallo",
+        "pos": "F",
+        "team": "Nuggets",
+        "status": "dtd",
+        "label": "Day-To-Day",
+        "injury": "Right Wrist",
+        "comment": "Diallo (wrist) is out for Monday's game against the Warriors.",
+        "since": "2026-10-27",
+        "returnDate": "2026-10-28",
+        "teamGp": 3,
+        "bpm": -7.1,
+        "mpg": 22.0,
+        "gp": 1,
+        "basis": "this season"
       },
       "4592427": {
         "id": "4592427",
@@ -868,10 +850,10 @@
         "status": "out",
         "label": "Out",
         "injury": "Hamstring Not Specified",
-        "comment": "Jones (hamstring) is out for Monday's matchup with the Warriors.",
-        "since": "2026-10-25",
+        "comment": "Jones (hamstring) is progressing in his recovery and could be back with the team within the next three games, Vinny Benedetto of The Denver Gazette reports.",
+        "since": "2026-10-27",
         "returnDate": "2026-10-28",
-        "teamGp": 2,
+        "teamGp": 3,
         "bpm": -3.9,
         "mpg": 22.1,
         "gp": 0,
@@ -889,7 +871,7 @@
         "comment": "Strawther (knee) was diagnosed with a left knee sprain Friday and will be re-evaluated in six weeks, Vinny Benedetto of The Denver Gazette reports.",
         "since": "2026-10-17",
         "returnDate": "2026-11-29",
-        "teamGp": 2,
+        "teamGp": 3,
         "bpm": -2.2,
         "mpg": 15.1,
         "gp": 0,
@@ -961,7 +943,7 @@
         "comment": "Porzingis is contemplating his future in basketball as he deals with recurring symptoms from the autoimmune condition termed as postural orthostatic tachycardia syndrome, per Shams Charania of ESPN.",
         "since": "2026-10-21",
         "returnDate": "2026-12-01",
-        "teamGp": 3,
+        "teamGp": 4,
         "bpm": 3.6,
         "mpg": 24.0,
         "gp": 0,
@@ -979,7 +961,7 @@
         "comment": "Moody (knee) is progressing toward a potential return between December and January after rupturing his left patellar tendon in March, Anthony Slater of ESPN reports.",
         "since": "2026-10-16",
         "returnDate": "2026-12-01",
-        "teamGp": 3,
+        "teamGp": 4,
         "bpm": 0.1,
         "mpg": 25.7,
         "gp": 0,
@@ -997,11 +979,29 @@
         "comment": "Butler (knee) could return sometime between January and February as he continues recovering from a torn right ACL, Anthony Slater of ESPN reports.",
         "since": "2026-10-16",
         "returnDate": "2027-01-02",
-        "teamGp": 3,
+        "teamGp": 4,
         "bpm": 6.0,
         "mpg": 31.1,
         "gp": 0,
         "basis": "last season"
+      },
+      "2990992": {
+        "id": "2990992",
+        "name": "Marcus Smart",
+        "short": "M. Smart",
+        "pos": "G",
+        "team": "Rockets",
+        "status": "dtd",
+        "label": "Day-To-Day",
+        "injury": "Left Forearm Strain",
+        "comment": "Smart (arm) is out for Monday's game against the Hawks.",
+        "since": "2026-10-27",
+        "returnDate": "2026-10-28",
+        "teamGp": 4,
+        "bpm": -3.6,
+        "mpg": 24.0,
+        "gp": 2,
+        "basis": "blend"
       },
       "2991235": {
         "id": "2991235",
@@ -1015,28 +1015,46 @@
         "comment": "Head coach Ime Udoka said Monday that Adams could be out \"a week or two\" due to his right soleus strain, Lachard Binkley of SI.com reports.",
         "since": "2026-10-26",
         "returnDate": "2026-11-02",
-        "teamGp": 3,
+        "teamGp": 4,
         "bpm": -3.2,
         "mpg": 9.0,
         "gp": 1,
         "basis": "blend"
       },
-      "2990992": {
-        "id": "2990992",
-        "name": "Marcus Smart",
-        "short": "M. Smart",
-        "pos": "G",
-        "team": "Rockets",
-        "status": "out",
-        "label": "Out",
-        "injury": "Left Forearm Strain",
-        "comment": "Smart (arm) is out for Monday's game against the Hawks.",
-        "since": "2026-10-26",
+      "4017837": {
+        "id": "4017837",
+        "name": "Ivica Zubac",
+        "short": "I. Zubac",
+        "pos": "C",
+        "team": "Pacers",
+        "status": "dtd",
+        "label": "Day-To-Day",
+        "injury": "Left Ankle Sprain",
+        "comment": "The Pacers don't have a timetable for Zubac's return after he suffered a left ankle injury Sunday against Brooklyn, but he was able to walk without a boot Monday, Dustin Dopirak of The Indianapolis Star reports.",
+        "since": "2026-10-27",
         "returnDate": "2026-10-28",
-        "teamGp": 3,
-        "bpm": -3.6,
-        "mpg": 24.0,
-        "gp": 2,
+        "teamGp": 4,
+        "bpm": -1.4,
+        "mpg": 21.3,
+        "gp": 3,
+        "basis": "blend"
+      },
+      "4395712": {
+        "id": "4395712",
+        "name": "Andrew Nembhard",
+        "short": "A. Nembhard",
+        "pos": "G",
+        "team": "Pacers",
+        "status": "dtd",
+        "label": "Day-To-Day",
+        "injury": "Back Soreness",
+        "comment": "Nembhard (neck/back) has been ruled out for Monday's game against Milwaukee, Dustin Dopirak of The Indianapolis Star reports.",
+        "since": "2026-10-27",
+        "returnDate": "2026-10-28",
+        "teamGp": 4,
+        "bpm": -0.0,
+        "mpg": 32.0,
+        "gp": 3,
         "basis": "blend"
       },
       "4433076": {
@@ -1051,28 +1069,10 @@
         "comment": "Sheppard is scheduled for surgery to repair a torn meniscus in his left knee Wednesday, Dustin Dopirak of The Indianapolis Star reports.",
         "since": "2026-10-26",
         "returnDate": "2026-12-01",
-        "teamGp": 3,
+        "teamGp": 4,
         "bpm": -3.5,
         "mpg": 12.0,
         "gp": 1,
-        "basis": "blend"
-      },
-      "4395712": {
-        "id": "4395712",
-        "name": "Andrew Nembhard",
-        "short": "A. Nembhard",
-        "pos": "G",
-        "team": "Pacers",
-        "status": "out",
-        "label": "Out",
-        "injury": "Back Soreness",
-        "comment": "Nembhard (neck/back) has been ruled out for Monday's game against Milwaukee, Dustin Dopirak of The Indianapolis Star reports.",
-        "since": "2026-10-26",
-        "returnDate": "2026-10-28",
-        "teamGp": 3,
-        "bpm": -0.0,
-        "mpg": 32.0,
-        "gp": 3,
         "basis": "blend"
       },
       "2530530": {
@@ -1087,29 +1087,11 @@
         "comment": "McConnell (hamstring) is out for Monday's game against the Bucks.",
         "since": "2026-10-26",
         "returnDate": "2026-10-28",
-        "teamGp": 3,
+        "teamGp": 4,
         "bpm": 3.6,
         "mpg": 17.2,
         "gp": 0,
         "basis": "last season"
-      },
-      "4017837": {
-        "id": "4017837",
-        "name": "Ivica Zubac",
-        "short": "I. Zubac",
-        "pos": "C",
-        "team": "Pacers",
-        "status": "out",
-        "label": "Out",
-        "injury": "Left Ankle Sprain",
-        "comment": "Zubac (ankle) is out for Monday's game against the Bucks.",
-        "since": "2026-10-26",
-        "returnDate": "2026-10-28",
-        "teamGp": 3,
-        "bpm": -1.4,
-        "mpg": 21.3,
-        "gp": 3,
-        "basis": "blend"
       },
       "5157066": {
         "id": "5157066",
@@ -1123,7 +1105,7 @@
         "comment": "Furphy was diagnosed with a torn right ACL on Monday and will miss the remainder of the season, Michael Scotto of USA Today reports.",
         "since": "2026-02-09",
         "returnDate": "2027-01-02",
-        "teamGp": 3,
+        "teamGp": 4,
         "bpm": -4.4,
         "mpg": 18.4,
         "gp": 0,
@@ -1237,22 +1219,6 @@
         "gp": 0,
         "basis": "last season"
       },
-      "5113969": {
-        "id": "5113969",
-        "name": "Cameron Carr",
-        "short": "C. Carr",
-        "pos": "G",
-        "team": "Lakers",
-        "status": "out",
-        "label": "Out",
-        "injury": "Right Oblique Strain",
-        "comment": "Carr (oblique) has been ruled out for Tuesday's game against the Trail Blazers.",
-        "since": "2026-10-27",
-        "returnDate": "2026-10-27",
-        "teamGp": 3,
-        "bpm": null,
-        "noStats": true
-      },
       "3934673": {
         "id": "3934673",
         "name": "Donte DiVincenzo",
@@ -1265,7 +1231,7 @@
         "comment": "DiVincenzo (Achilles) remains confident that he'll return during the 2026-27 season, Jon Krawczynski of The Athletic reports.",
         "since": "2026-10-05",
         "returnDate": "2027-04-02",
-        "teamGp": 3,
+        "teamGp": 4,
         "bpm": -0.4,
         "mpg": 30.4,
         "gp": 0,
@@ -1307,6 +1273,42 @@
         "gp": 2,
         "basis": "blend"
       },
+      "4433255": {
+        "id": "4433255",
+        "name": "Chet Holmgren",
+        "short": "C. Holmgren",
+        "pos": "C",
+        "team": "Thunder",
+        "status": "dtd",
+        "label": "Day-To-Day",
+        "injury": "Knee",
+        "comment": "Holmgren (knee) is out for Monday's game versus the Suns.",
+        "since": "2026-10-27",
+        "returnDate": "2026-10-28",
+        "teamGp": 4,
+        "bpm": 2.5,
+        "mpg": 30.0,
+        "gp": 3,
+        "basis": "blend"
+      },
+      "2991350": {
+        "id": "2991350",
+        "name": "Alex Caruso",
+        "short": "A. Caruso",
+        "pos": "G",
+        "team": "Thunder",
+        "status": "dtd",
+        "label": "Day-To-Day",
+        "injury": "Right Ankle",
+        "comment": "Caruso won't return to Monday's game against the Suns due to a right ankle sprain, Marc J. Spears of ESPN.com reports. He'll finish with nine points (3-5 FG, 3-5 3Pt), three assists and two rebounds in nine minutes.",
+        "since": "2026-10-27",
+        "returnDate": "2026-10-28",
+        "teamGp": 4,
+        "bpm": 0.4,
+        "mpg": 19.0,
+        "gp": 4,
+        "basis": "blend"
+      },
       "4593803": {
         "id": "4593803",
         "name": "Jalen Williams",
@@ -1319,7 +1321,7 @@
         "comment": "Williams has been diagnosed with a dislocated left ankle and fractured fibula, which will require surgery, Shams Charania of ESPN reports.",
         "since": "2026-10-26",
         "returnDate": "2027-03-02",
-        "teamGp": 3,
+        "teamGp": 4,
         "bpm": 1.3,
         "mpg": 31.7,
         "gp": 3,
@@ -1337,7 +1339,7 @@
         "comment": "Wallace has been diagnosed with a torn labrum in his left shoulder and will require surgery, Shams Charania of ESPN reports.",
         "since": "2026-10-26",
         "returnDate": "2027-03-02",
-        "teamGp": 3,
+        "teamGp": 4,
         "bpm": -1.1,
         "mpg": 16.3,
         "gp": 3,
@@ -1355,7 +1357,7 @@
         "comment": "Topic (back) won't play in Monday's game against the Suns, Andrew Schlecht of The Athletic reports.",
         "since": "2026-10-26",
         "returnDate": "2026-10-28",
-        "teamGp": 3,
+        "teamGp": 4,
         "bpm": -6.4,
         "mpg": 16.0,
         "gp": 0,
@@ -1373,27 +1375,9 @@
         "comment": "Sorber (knee) is out for Monday's game versus the Suns, per Andrew Schlecht of The Athletic.",
         "since": "2026-10-26",
         "returnDate": "2026-10-28",
-        "teamGp": 3,
+        "teamGp": 4,
         "bpm": null,
         "noStats": true
-      },
-      "4433255": {
-        "id": "4433255",
-        "name": "Chet Holmgren",
-        "short": "C. Holmgren",
-        "pos": "C",
-        "team": "Thunder",
-        "status": "out",
-        "label": "Out",
-        "injury": "Knee",
-        "comment": "Holmgren (knee) is out for Monday's game versus the Suns.",
-        "since": "2026-10-26",
-        "returnDate": "2026-10-28",
-        "teamGp": 3,
-        "bpm": 2.5,
-        "mpg": 30.0,
-        "gp": 3,
-        "basis": "blend"
       },
       "5106270": {
         "id": "5106270",
@@ -1407,7 +1391,7 @@
         "comment": "The Thunder plan to waive Oweh (Achilles) on Friday.",
         "since": "2026-10-23",
         "returnDate": "2027-07-01",
-        "teamGp": 3,
+        "teamGp": 4,
         "bpm": null,
         "noStats": true
       },
@@ -1611,13 +1595,13 @@
         "short": "O. Ighodaro",
         "pos": "F",
         "team": "Suns",
-        "status": "out",
-        "label": "Out",
+        "status": "dtd",
+        "label": "Day-To-Day",
         "injury": "Oblique Strain",
         "comment": "Ighodaro (oblique) is out for Monday's matchup with the Thunder.",
-        "since": "2026-10-26",
+        "since": "2026-10-27",
         "returnDate": "2026-10-30",
-        "teamGp": 2,
+        "teamGp": 3,
         "bpm": -1.9,
         "mpg": 15.0,
         "gp": 1,
@@ -1635,9 +1619,27 @@
         "comment": "Williams underwent surgery Thursday to repair a torn labrum in his left shoulder and will miss an extended period of time, Shams Charania of ESPN reports.",
         "since": "2026-09-11",
         "returnDate": "2027-02-03",
-        "teamGp": 2,
+        "teamGp": 3,
         "bpm": 0.5,
         "mpg": 23.6,
+        "gp": 0,
+        "basis": "last season"
+      },
+      "4706557": {
+        "id": "4706557",
+        "name": "Chris Youngblood",
+        "short": "C. Youngblood",
+        "pos": "G",
+        "team": "Trail Blazers",
+        "status": "out",
+        "label": "Out",
+        "injury": "Left Ankle Soreness",
+        "comment": "Youngblood (ankle/two-way player) is out for Tuesday's game against the Lakers.",
+        "since": "2026-10-27",
+        "returnDate": "2026-10-29",
+        "teamGp": 2,
+        "bpm": -2.7,
+        "mpg": 5.4,
         "gp": 0,
         "basis": "last season"
       },
@@ -1676,24 +1678,6 @@
         "mpg": 20.0,
         "gp": 2,
         "basis": "blend"
-      },
-      "4706557": {
-        "id": "4706557",
-        "name": "Chris Youngblood",
-        "short": "C. Youngblood",
-        "pos": "G",
-        "team": "Trail Blazers",
-        "status": "out",
-        "label": "Out",
-        "injury": "Left Ankle Soreness",
-        "comment": "Youngblood (ankle) is out for Friday's game against the Kings.",
-        "since": "2026-10-27",
-        "returnDate": "2026-10-29",
-        "teamGp": 2,
-        "bpm": -2.7,
-        "mpg": 5.4,
-        "gp": 0,
-        "basis": "last season"
       },
       "4914336": {
         "id": "4914336",
@@ -1857,16 +1841,52 @@
         "short": "J. Hayes",
         "pos": "C",
         "team": "Jazz",
-        "status": "out",
-        "label": "Out",
+        "status": "dtd",
+        "label": "Day-To-Day",
         "injury": "Right Shoulder Soreness",
         "comment": "Hayes (shoulder) is out for Monday's game against the Grizzlies.",
         "since": "2026-10-27",
         "returnDate": "2026-10-28",
-        "teamGp": 3,
+        "teamGp": 4,
         "bpm": 0.4,
         "mpg": 23.7,
         "gp": 3,
+        "basis": "blend"
+      },
+      "4066336": {
+        "id": "4066336",
+        "name": "Lauri Markkanen",
+        "short": "L. Markkanen",
+        "pos": "F",
+        "team": "Jazz",
+        "status": "dtd",
+        "label": "Day-To-Day",
+        "injury": "Right Wrist Not Specified",
+        "comment": "Markkanen (wrist) won't return to Monday's game against Memphis.",
+        "since": "2026-10-27",
+        "returnDate": "2026-10-28",
+        "teamGp": 4,
+        "bpm": 3.9,
+        "mpg": 28.5,
+        "gp": 4,
+        "basis": "blend"
+      },
+      "4277961": {
+        "id": "4277961",
+        "name": "Jaren Jackson Jr.",
+        "short": "J. Jackson Jr.",
+        "pos": "F",
+        "team": "Jazz",
+        "status": "dtd",
+        "label": "Day-To-Day",
+        "injury": "Right Knee Not Specified",
+        "comment": "Jackson has been ruled out for the rest of Monday's game against the Grizzlies due to a right knee injury.",
+        "since": "2026-10-27",
+        "returnDate": "2026-10-28",
+        "teamGp": 4,
+        "bpm": -0.5,
+        "mpg": 26.0,
+        "gp": 4,
         "basis": "blend"
       },
       "4433268": {
@@ -1881,7 +1901,7 @@
         "comment": "Alexander won't play Wednesday against the Grizzlies due to a left knee bone bruise.",
         "since": "2026-10-24",
         "returnDate": "2026-10-28",
-        "teamGp": 3,
+        "teamGp": 4,
         "bpm": -0.9,
         "mpg": 12.3,
         "gp": 0,
@@ -1899,7 +1919,7 @@
         "comment": "Nurkic will miss at least the next four weeks due to a partial plantar plate tear of second toe in right foot, Chris Haynes of NBA TV reports.",
         "since": "2026-10-07",
         "returnDate": "2026-11-04",
-        "teamGp": 3,
+        "teamGp": 4,
         "bpm": 1.4,
         "mpg": 26.4,
         "gp": 0,
@@ -1917,10 +1937,10 @@
         "comment": "Champagnie has been ruled out for the remainder of Monday's game against Charlotte due to a right foot injury, Josh Robbins of The Athletic reports. He'll finish with two points (1-1 FG) and two rebounds in four minutes.",
         "since": "2026-10-27",
         "returnDate": "2026-10-28",
-        "teamGp": 3,
+        "teamGp": 4,
         "bpm": 0.6,
-        "mpg": 23.0,
-        "gp": 3,
+        "mpg": 18.2,
+        "gp": 4,
         "basis": "blend"
       },
       "5142718": {
@@ -1935,7 +1955,7 @@
         "comment": "Dybantsa, who has been ruled out for Monday's game against the Hornets, is progressing well from a left ankle sprain and will take part in on-court activities Tuesday, Josh Robbins of The Athletic reports.",
         "since": "2026-10-26",
         "returnDate": "2026-10-28",
-        "teamGp": 3,
+        "teamGp": 4,
         "bpm": null,
         "noStats": true
       },
@@ -1951,7 +1971,7 @@
         "comment": "The Wizards announced Thursday that Vukcevic (hip) will be re-evaluated in four weeks.",
         "since": "2026-10-01",
         "returnDate": "2026-11-02",
-        "teamGp": 3,
+        "teamGp": 4,
         "bpm": 1.4,
         "mpg": 13.7,
         "gp": 0,
@@ -1969,7 +1989,7 @@
         "comment": "The Wizards announced Thursday that Watkins has undergone surgery for a torn ACL.",
         "since": "2026-07-30",
         "returnDate": "2027-04-02",
-        "teamGp": 3,
+        "teamGp": 4,
         "bpm": -2.3,
         "mpg": 20.6,
         "gp": 0,
@@ -1989,7 +2009,7 @@
         "comment": "Diop (knee) has been ruled out for Thursday's game against the 76ers.",
         "since": "2026-10-21",
         "returnDate": "2026-10-24",
-        "teamGp": 2,
+        "teamGp": 3,
         "returnedOn": "2026-10-22",
         "bpm": null,
         "noStats": true
@@ -2006,7 +2026,7 @@
         "comment": "Tomlin is set to miss several weeks with a lower back stress reaction, Chris Fedor of The Cleveland Plain Dealer reports.",
         "since": "2026-10-20",
         "returnDate": "2026-11-16",
-        "teamGp": 2,
+        "teamGp": 3,
         "mpg": 15.7,
         "gp": 0,
         "basis": "last season",
@@ -2044,12 +2064,29 @@
         "comment": "Flagg (shoulder) is questionable to play Monday against the Heat.",
         "since": "2026-10-25",
         "returnDate": "2026-10-26",
-        "teamGp": 3,
-        "bpm": 2.6,
-        "mpg": 25.0,
-        "gp": 2,
+        "teamGp": 4,
+        "bpm": 3.1,
+        "mpg": 30.0,
+        "gp": 3,
         "basis": "blend",
         "returnedOn": "2026-10-26"
+      },
+      "5113969": {
+        "id": "5113969",
+        "name": "Cameron Carr",
+        "short": "C. Carr",
+        "pos": "G",
+        "team": "Lakers",
+        "status": "returned",
+        "label": "Out",
+        "injury": "Right Oblique Strain",
+        "comment": "Carr (oblique) has been ruled out for Tuesday's game against the Trail Blazers.",
+        "since": "2026-10-27",
+        "returnDate": "2026-10-27",
+        "teamGp": 3,
+        "bpm": null,
+        "noStats": true,
+        "returnedOn": "2026-10-27"
       }
     },
     "schedules": {
@@ -2524,7 +2561,6 @@
         "2027-04-11T22:00"
       ],
       "Jazz": [
-        "2026-10-27T01:00",
         "2026-10-29T01:00",
         "2026-10-31T19:00",
         "2026-11-03T01:30",
@@ -3076,7 +3112,6 @@
         "2027-04-11T22:00"
       ],
       "Nuggets": [
-        "2026-10-27T02:00",
         "2026-10-29T00:00",
         "2026-10-31T02:00",
         "2026-11-03T02:00",
@@ -3943,7 +3978,6 @@
         "2027-04-12T00:30"
       ],
       "Warriors": [
-        "2026-10-27T02:00",
         "2026-10-29T00:00",
         "2026-10-31T02:00",
         "2026-11-02T01:30",
@@ -4988,6 +5022,14 @@
         "name": "Jaxson Hayes",
         "short": "J. Hayes",
         "team": "Jazz"
+      },
+      {
+        "date": "2026-10-27",
+        "kind": "returned",
+        "id": "5113969",
+        "name": "Cameron Carr",
+        "short": "C. Carr",
+        "team": "Lakers"
       }
     ]
   }

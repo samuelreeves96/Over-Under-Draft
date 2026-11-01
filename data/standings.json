@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-01T15:05+00:00",
+  "updated": "2026-11-01T20:30+00:00",
   "source": "ESPN",
   "teams": [
     {
@@ -274,201 +274,120 @@
     }
   ],
   "scoreboard": {
-    "date": "2026-10-31",
+    "date": "2026-11-01",
     "events": [
       {
-        "id": "401909896",
-        "date": "2026-10-31T19:00Z",
-        "state": "post",
-        "detail": "Final",
-        "completed": true,
+        "id": "401909903",
+        "date": "2026-11-01T20:30Z",
+        "state": "pre",
+        "detail": "11/1 - 3:30 PM EST",
+        "completed": false,
         "teams": [
           {
             "homeAway": "away",
-            "name": "Trail Blazers",
-            "abbr": "POR",
-            "color": "e03a3e",
-            "score": 112.0,
-            "winner": true,
+            "name": "Celtics",
+            "abbr": "BOS",
+            "color": "008348",
+            "score": 0.0,
+            "winner": false,
             "record": "4-1"
           },
           {
             "homeAway": "home",
-            "name": "Jazz",
-            "abbr": "UTAH",
-            "color": "4e008e",
-            "score": 90.0,
+            "name": "Magic",
+            "abbr": "ORL",
+            "color": "0150b5",
+            "score": 0.0,
             "winner": false,
-            "record": "1-5"
+            "record": "2-3"
           }
         ]
       },
       {
-        "id": "401909897",
-        "date": "2026-10-31T22:00Z",
-        "state": "post",
-        "detail": "Final",
-        "completed": true,
+        "id": "401909904",
+        "date": "2026-11-01T22:00Z",
+        "state": "pre",
+        "detail": "11/1 - 5:00 PM EST",
+        "completed": false,
         "teams": [
           {
             "homeAway": "away",
-            "name": "76ers",
-            "abbr": "PHI",
-            "color": "1d428a",
-            "score": 109.0,
-            "winner": true,
-            "record": "6-1"
+            "name": "Nets",
+            "abbr": "BKN",
+            "color": "000000",
+            "score": 0.0,
+            "winner": false,
+            "record": "0-5"
           },
           {
             "homeAway": "home",
-            "name": "Hornets",
-            "abbr": "CHA",
-            "color": "008ca8",
-            "score": 104.0,
+            "name": "Pacers",
+            "abbr": "IND",
+            "color": "0c2340",
+            "score": 0.0,
             "winner": false,
-            "record": "3-4"
-          }
-        ]
-      },
-      {
-        "id": "401909898",
-        "date": "2026-10-31T23:00Z",
-        "state": "post",
-        "detail": "Final",
-        "completed": true,
-        "teams": [
-          {
-            "homeAway": "away",
-            "name": "Hawks",
-            "abbr": "ATL",
-            "color": "c8102e",
-            "score": 99.0,
-            "winner": false,
-            "record": "3-4"
-          },
-          {
-            "homeAway": "home",
-            "name": "Pelicans",
-            "abbr": "NO",
-            "color": "0a2240",
-            "score": 121.0,
-            "winner": true,
             "record": "2-4"
           }
         ]
       },
       {
-        "id": "401909899",
-        "date": "2026-11-01T00:00Z",
-        "state": "post",
-        "detail": "Final",
-        "completed": true,
+        "id": "401909905",
+        "date": "2026-11-02T01:30Z",
+        "state": "pre",
+        "detail": "11/1 - 8:30 PM EST",
+        "completed": false,
         "teams": [
           {
             "homeAway": "away",
-            "name": "Kings",
-            "abbr": "SAC",
-            "color": "5a2d81",
-            "score": 105.0,
+            "name": "Clippers",
+            "abbr": "LAC",
+            "color": "12173f",
+            "score": 0.0,
             "winner": false,
-            "record": "0-6"
+            "record": "1-4"
           },
           {
             "homeAway": "home",
-            "name": "Grizzlies",
-            "abbr": "MEM",
-            "color": "5d76a9",
-            "score": 136.0,
-            "winner": true,
-            "record": "6-0"
+            "name": "Warriors",
+            "abbr": "GS",
+            "color": "fdb927",
+            "score": 0.0,
+            "winner": false,
+            "record": "3-3"
           }
         ]
       },
       {
-        "id": "401909900",
-        "date": "2026-11-01T00:00Z",
-        "state": "post",
-        "detail": "Final",
-        "completed": true,
+        "id": "401909906",
+        "date": "2026-11-02T02:00Z",
+        "state": "pre",
+        "detail": "11/1 - 9:00 PM EST",
+        "completed": false,
         "teams": [
           {
             "homeAway": "away",
-            "name": "Cavaliers",
-            "abbr": "CLE",
-            "color": "860038",
-            "score": 136.0,
-            "winner": true,
-            "record": "4-2"
+            "name": "Raptors",
+            "abbr": "TOR",
+            "color": "d91244",
+            "score": 0.0,
+            "winner": false,
+            "record": "3-2"
           },
           {
             "homeAway": "home",
-            "name": "Bucks",
-            "abbr": "MIL",
-            "color": "00471b",
-            "score": 111.0,
-            "winner": false,
-            "record": "1-5"
-          }
-        ]
-      },
-      {
-        "id": "401909901",
-        "date": "2026-11-01T00:00Z",
-        "state": "post",
-        "detail": "Final",
-        "completed": true,
-        "teams": [
-          {
-            "homeAway": "away",
-            "name": "Timberwolves",
-            "abbr": "MIN",
-            "color": "266092",
-            "score": 111.0,
-            "winner": false,
-            "record": "4-3"
-          },
-          {
-            "homeAway": "home",
-            "name": "Spurs",
-            "abbr": "SA",
-            "color": "000000",
-            "score": 121.0,
-            "winner": true,
-            "record": "4-2"
-          }
-        ]
-      },
-      {
-        "id": "401909902",
-        "date": "2026-11-01T00:30Z",
-        "state": "post",
-        "detail": "Final",
-        "completed": true,
-        "teams": [
-          {
-            "homeAway": "away",
-            "name": "Thunder",
-            "abbr": "OKC",
-            "color": "007ac1",
-            "score": 98.0,
+            "name": "Lakers",
+            "abbr": "LAL",
+            "color": "552583",
+            "score": 0.0,
             "winner": false,
             "record": "4-2"
-          },
-          {
-            "homeAway": "home",
-            "name": "Rockets",
-            "abbr": "HOU",
-            "color": "ce0e2d",
-            "score": 119.0,
-            "winner": true,
-            "record": "6-1"
           }
         ]
       }
     ]
   },
   "injuries": {
-    "updated": "2026-11-01T15:07+00:00",
+    "updated": "2026-11-01T20:31+00:00",
     "season": 2027,
     "players": {
       "3146557": {
@@ -547,12 +466,12 @@
         "short": "M. Robinson",
         "pos": "C",
         "team": "Celtics",
-        "status": "dtd",
-        "label": "Day-To-Day",
-        "injury": "Rest",
-        "comment": "Robinson (rest) is questionable for Sunday's game in Orlando, Jay King of The Athletic reports.",
-        "since": "2026-10-31",
-        "returnDate": "2026-11-01",
+        "status": "out",
+        "label": "Out",
+        "injury": "Rest Not Specified",
+        "comment": "Robinson (rest) has been ruled out for Sunday's game against the Magic.",
+        "since": "2026-11-01",
+        "returnDate": "2026-11-02",
         "teamGp": 5,
         "bpm": -0.2,
         "mpg": 20.0,
@@ -699,6 +618,24 @@
         "bpm": null,
         "noStats": true
       },
+      "4278067": {
+        "id": "4278067",
+        "name": "Nic Claxton",
+        "short": "N. Claxton",
+        "pos": "C",
+        "team": "Bulls",
+        "status": "out",
+        "label": "Out",
+        "injury": "Hamstring",
+        "comment": "Claxton (hamstring) was a full participant in Sunday's practice, K.C. Johnson of Chicago Sports Network.",
+        "since": "2026-11-01",
+        "returnDate": "2026-11-04",
+        "teamGp": 6,
+        "bpm": 0.8,
+        "mpg": 27.8,
+        "gp": 0,
+        "basis": "last season"
+      },
       "4848625": {
         "id": "4848625",
         "name": "Dailyn Swain",
@@ -716,24 +653,6 @@
         "mpg": 12.0,
         "gp": 1,
         "basis": "this season"
-      },
-      "4278067": {
-        "id": "4278067",
-        "name": "Nic Claxton",
-        "short": "N. Claxton",
-        "pos": "C",
-        "team": "Bulls",
-        "status": "out",
-        "label": "Out",
-        "injury": "Hamstring",
-        "comment": "Claxton (hamstring) participated in individual drills Monday morning and hopes to join the team for practice next week, Joe Cowley of the Chicago Sun-Times reports.",
-        "since": "2026-10-26",
-        "returnDate": "2026-11-04",
-        "teamGp": 6,
-        "bpm": 0.8,
-        "mpg": 27.8,
-        "gp": 0,
-        "basis": "last season"
       },
       "4683747": {
         "id": "4683747",
@@ -1068,12 +987,48 @@
         "injury": "Right Calf Strain",
         "comment": "Head coach Ime Udoka said Monday that Adams could be out \"a week or two\" due to his right soleus strain, Lachard Binkley of SI.com reports.",
         "since": "2026-10-26",
-        "returnDate": "2026-11-02",
+        "returnDate": "2026-11-09",
         "teamGp": 7,
         "bpm": -3.2,
         "mpg": 8.0,
         "gp": 1,
         "basis": "blend"
+      },
+      "4278355": {
+        "id": "4278355",
+        "name": "Obi Toppin",
+        "short": "O. Toppin",
+        "pos": "F",
+        "team": "Pacers",
+        "status": "out",
+        "label": "Out",
+        "injury": "Back Soreness",
+        "comment": "Toppin (back) is questionable for Sunday's game against the Nets.",
+        "since": "2026-11-01",
+        "returnDate": "2026-11-02",
+        "teamGp": 6,
+        "bpm": 4.5,
+        "mpg": 22.8,
+        "gp": 5,
+        "basis": "blend"
+      },
+      "2530530": {
+        "id": "2530530",
+        "name": "T.J. McConnell",
+        "short": "T.J. McConnell",
+        "pos": "G",
+        "team": "Pacers",
+        "status": "out",
+        "label": "Out",
+        "injury": "Right Hamstring Strain",
+        "comment": "Indiana recalled McConnell (hamstring) from the G League's Noblesville Boom on Saturday.",
+        "since": "2026-11-01",
+        "returnDate": "2026-11-02",
+        "teamGp": 6,
+        "bpm": 3.6,
+        "mpg": 17.2,
+        "gp": 0,
+        "basis": "last season"
       },
       "4017837": {
         "id": "4017837",
@@ -1110,42 +1065,6 @@
         "mpg": 21.6,
         "gp": 5,
         "basis": "blend"
-      },
-      "4278355": {
-        "id": "4278355",
-        "name": "Obi Toppin",
-        "short": "O. Toppin",
-        "pos": "F",
-        "team": "Pacers",
-        "status": "dtd",
-        "label": "Day-To-Day",
-        "injury": "Back Soreness",
-        "comment": "Toppin (back) is questionable for Sunday's game against the Nets.",
-        "since": "2026-10-31",
-        "returnDate": "2026-11-01",
-        "teamGp": 6,
-        "bpm": 4.5,
-        "mpg": 22.8,
-        "gp": 5,
-        "basis": "blend"
-      },
-      "2530530": {
-        "id": "2530530",
-        "name": "T.J. McConnell",
-        "short": "T.J. McConnell",
-        "pos": "G",
-        "team": "Pacers",
-        "status": "out",
-        "label": "Out",
-        "injury": "Right Hamstring Strain",
-        "comment": "McConnell (hamstring) is practicing in the G League at Noblesville Boom training camp, per Alex Golden of SI.com.",
-        "since": "2026-10-30",
-        "returnDate": "2026-11-02",
-        "teamGp": 6,
-        "bpm": 3.6,
-        "mpg": 17.2,
-        "gp": 0,
-        "basis": "last season"
       },
       "5157066": {
         "id": "5157066",
@@ -1211,11 +1130,29 @@
         "label": "Out",
         "injury": "Right Foot Surgery",
         "comment": "Niederhauser (foot) had his third-year team option picked up Thursday by the Clippers, Ohm Youngmisuk of ESPN.com reports.",
-        "since": "2026-10-29",
+        "since": "2026-11-01",
         "returnDate": "2026-11-08",
         "teamGp": 5,
         "bpm": -3.2,
         "mpg": 10.3,
+        "gp": 0,
+        "basis": "last season"
+      },
+      "3913176": {
+        "id": "3913176",
+        "name": "Brandon Ingram",
+        "short": "B. Ingram",
+        "pos": "F",
+        "team": "Clippers",
+        "status": "out",
+        "label": "Out",
+        "injury": "Right Achilles Surgery",
+        "comment": "Ingram (Achilles) is making progress but is set to miss at least one more week, Ohm Youngmisuk of ESPN.com reports.",
+        "since": "2026-11-01",
+        "returnDate": "2026-11-08",
+        "teamGp": 5,
+        "bpm": 0.5,
+        "mpg": 33.8,
         "gp": 0,
         "basis": "last season"
       },
@@ -1234,24 +1171,6 @@
         "teamGp": 5,
         "bpm": -0.9,
         "mpg": 24.0,
-        "gp": 0,
-        "basis": "last season"
-      },
-      "3913176": {
-        "id": "3913176",
-        "name": "Brandon Ingram",
-        "short": "B. Ingram",
-        "pos": "F",
-        "team": "Clippers",
-        "status": "out",
-        "label": "Out",
-        "injury": "Right Achilles Surgery",
-        "comment": "Ingram (Achilles) is making progress but is set to miss at least one more week, Ohm Youngmisuk of ESPN.com reports.",
-        "since": "2026-10-29",
-        "returnDate": "2026-11-08",
-        "teamGp": 5,
-        "bpm": 0.5,
-        "mpg": 33.8,
         "gp": 0,
         "basis": "last season"
       },
@@ -1291,6 +1210,24 @@
         "gp": 0,
         "basis": "last season"
       },
+      "5060631": {
+        "id": "5060631",
+        "name": "Adou Thiero",
+        "short": "A. Thiero",
+        "pos": "F",
+        "team": "Lakers",
+        "status": "out",
+        "label": "Out",
+        "injury": "Left Knee Inflammation",
+        "comment": "Thiero (knee) has been ruled out for Sunday's game against the Raptors.",
+        "since": "2026-11-01",
+        "returnDate": "2026-11-09",
+        "teamGp": 6,
+        "bpm": -4.6,
+        "mpg": 6.0,
+        "gp": 0,
+        "basis": "last season"
+      },
       "4433137": {
         "id": "4433137",
         "name": "Ziaire Williams",
@@ -1308,24 +1245,6 @@
         "mpg": 28.5,
         "gp": 4,
         "basis": "blend"
-      },
-      "5060631": {
-        "id": "5060631",
-        "name": "Adou Thiero",
-        "short": "A. Thiero",
-        "pos": "F",
-        "team": "Lakers",
-        "status": "out",
-        "label": "Out",
-        "injury": "Left Knee Inflammation",
-        "comment": "Thiero (knee) has been ruled out for Friday's game against the Warriors.",
-        "since": "2026-10-30",
-        "returnDate": "2026-11-01",
-        "teamGp": 6,
-        "bpm": -4.6,
-        "mpg": 6.0,
-        "gp": 0,
-        "basis": "last season"
       },
       "4593016": {
         "id": "4593016",
@@ -1435,18 +1354,36 @@
         "gp": 0,
         "basis": "last season"
       },
+      "4397688": {
+        "id": "4397688",
+        "name": "Trey Murphy III",
+        "short": "T. Murphy III",
+        "pos": "F",
+        "team": "Pelicans",
+        "status": "dtd",
+        "label": "Day-To-Day",
+        "injury": "Knee Not Specified",
+        "comment": "Murphy (knee) is listed as probable for Monday's game against the Grizzlies.",
+        "since": "2026-11-01",
+        "returnDate": "2026-11-02",
+        "teamGp": 6,
+        "bpm": 2.1,
+        "mpg": 31.8,
+        "gp": 6,
+        "basis": "blend"
+      },
       "4277956": {
         "id": "4277956",
         "name": "Jordan Poole",
         "short": "J. Poole",
         "pos": "G",
         "team": "Pelicans",
-        "status": "dtd",
-        "label": "Day-To-Day",
+        "status": "out",
+        "label": "Out",
         "injury": "Left Ankle Sprain",
-        "comment": "Poole (ankle) has been ruled out for Saturday's game against the Hawks.",
+        "comment": "Poole (ankle) has been ruled out for Monday's game against the Grizzlies.",
         "since": "2026-11-01",
-        "returnDate": "2026-11-02",
+        "returnDate": "2026-11-04",
         "teamGp": 6,
         "bpm": -2.4,
         "mpg": 16.0,
@@ -2544,7 +2481,6 @@
         "2027-04-11T22:00"
       ],
       "Celtics": [
-        "2026-11-01T20:30",
         "2026-11-03T01:30",
         "2026-11-05T00:30",
         "2026-11-07T00:00",
@@ -3228,7 +3164,6 @@
         "2027-04-12T00:30"
       ],
       "Magic": [
-        "2026-11-01T20:30",
         "2026-11-03T00:30",
         "2026-11-06T02:00",
         "2026-11-08T01:30",
@@ -5537,6 +5472,22 @@
         "name": "Chris Youngblood",
         "short": "C. Youngblood",
         "team": "Trail Blazers"
+      },
+      {
+        "date": "2026-11-01",
+        "kind": "out",
+        "id": "4351852",
+        "name": "Mitchell Robinson",
+        "short": "M. Robinson",
+        "team": "Celtics"
+      },
+      {
+        "date": "2026-11-01",
+        "kind": "out",
+        "id": "4278355",
+        "name": "Obi Toppin",
+        "short": "O. Toppin",
+        "team": "Pacers"
       }
     ]
   }

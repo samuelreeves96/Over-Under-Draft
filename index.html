@@ -292,6 +292,64 @@
     .inj-imp .inj-bar { grid-column: 1 / -1; grid-row: 2; }
     .inj-imp .inj-drv { grid-column: 1 / -1; grid-row: 3; }
   }
+  /* Player sheet */
+  .sheet-backdrop { position: fixed; inset: 0; z-index: 50; background: rgba(6, 12, 26, .55); display: flex;
+    align-items: flex-start; justify-content: center; padding: 40px 16px; overflow-y: auto; }
+  .sheet { background: var(--bg); width: 100%; max-width: 760px; border-radius: 14px; box-shadow: 0 20px 60px rgba(0,0,0,.35);
+    overflow: hidden; outline: none; }
+  .sheet-hd { background: var(--nba-navy); color: #fff; border-bottom: 4px solid var(--nba-red); padding: 16px 18px;
+    display: grid; grid-template-columns: auto 1fr auto; gap: 14px; align-items: center; }
+  .sheet-hd .av { box-shadow: 0 0 0 2px var(--nba-navy), 0 0 0 4px rgba(255,255,255,.5); }
+  .sheet-hd h2 { margin: 0; font-size: 28px; color: #fff; }
+  .sheet-hd h2::before { display: none; }
+  .sheet-hd .sub { color: #c3cde0; font-size: 13.5px; margin: 2px 0 0; }
+  .sheet-total { text-align: right; }
+  .sheet-total .big { font-family: "Barlow Condensed", "Arial Narrow", sans-serif; font-weight: 700; font-size: 40px; line-height: 1; }
+  .sheet-total .big.pos { color: #5ee09a; } .sheet-total .big.neg { color: #ff7a8f; }
+  .sheet-total .chg { font-size: 13px; color: #c3cde0; font-variant-numeric: tabular-nums; }
+  .sheet-close { position: absolute; }
+  .sheet-x { background: rgba(255,255,255,.12); border: 0; color: #fff; width: 32px; height: 32px; border-radius: 8px; font-size: 18px;
+    cursor: pointer; margin-left: 10px; vertical-align: top; }
+  .sheet-x:hover { background: rgba(255,255,255,.22); }
+  .sheet-body { padding: 14px 16px 18px; }
+  .sheet-modes { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+  .sheet-modes span { font-size: 12px; background: var(--chip); color: var(--muted); border-radius: 999px; padding: 2px 9px; }
+  .pk-card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; margin-bottom: 8px;
+    border-left: 4px solid var(--faint); }
+  .pk-card.good { border-left-color: var(--pos); } .pk-card.bad { border-left-color: var(--neg); }
+  .pk-top { display: grid; grid-template-columns: auto 1fr auto; gap: 12px; align-items: center; }
+  .pk-team { font-weight: 700; }
+  .pk-sub { font-size: 12.5px; color: var(--muted); }
+  .pk-pts { text-align: right; }
+  .pk-pts .v { font-family: "Barlow Condensed", "Arial Narrow", sans-serif; font-weight: 700; font-size: 28px; line-height: 1;
+    font-variant-numeric: tabular-nums; }
+  .pk-pts .d { font-size: 12px; font-variant-numeric: tabular-nums; }
+  .pk-mid { display: grid; grid-template-columns: 1fr 130px; gap: 14px; align-items: center; margin-top: 10px; }
+  .gauge { position: relative; height: 34px; }
+  .gauge .track { position: absolute; left: 0; right: 0; top: 10px; height: 8px; border-radius: 4px; background: var(--chip); }
+  .gauge .fill { position: absolute; top: 10px; height: 8px; border-radius: 4px; }
+  .gauge .fill.pos { background: var(--pos); } .gauge .fill.neg { background: var(--neg); }
+  .gauge .line { position: absolute; top: 4px; width: 2px; height: 20px; margin-left: -1px; background: var(--text); border-radius: 1px; }
+  .gauge .dot { position: absolute; top: 7px; width: 14px; height: 14px; margin-left: -7px; border-radius: 50%;
+    background: var(--card); border: 3px solid var(--accent); }
+  .gauge .lbl { position: absolute; top: 22px; font-size: 11px; color: var(--muted); transform: translateX(-50%); white-space: nowrap;
+    font-variant-numeric: tabular-nums; }
+  .gauge .lbl b { color: var(--text); }
+  .spark svg { display: block; width: 100%; height: 34px; }
+  .pk-notes { margin-top: 8px; display: flex; flex-direction: column; gap: 3px; font-size: 12.5px; }
+  .pk-notes .n { display: flex; gap: 6px; align-items: baseline; }
+  .pk-notes .n .ic { width: 14px; flex-shrink: 0; text-align: center; }
+  .sheet-ft { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+  .sheet-ft button { font: inherit; font-size: 14px; padding: 7px 12px; border-radius: 8px; border: 1px solid var(--line);
+    background: var(--card); color: var(--text); cursor: pointer; }
+  .sheet-ft button.primary { background: var(--nba-blue); border-color: var(--nba-blue); color: #fff; }
+  @media (max-width: 640px) {
+    .sheet-backdrop { padding: 0; align-items: flex-end; }
+    .sheet { border-radius: 14px 14px 0 0; max-height: 92vh; overflow-y: auto; }
+    .sheet-hd { grid-template-columns: auto 1fr; }
+    .sheet-total { grid-column: 1 / -1; text-align: left; display: flex; align-items: baseline; gap: 10px; }
+    .pk-mid { grid-template-columns: 1fr; }
+  }
   .sw-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
   .sw-head h3 { margin: 0; }
   .sw-bar .nowbar { position: absolute; top: 3px; bottom: 3px; border-radius: 2px; z-index: 1; }
@@ -422,6 +480,10 @@
     <p>Standings load live from ESPN when the page opens. A GitHub Action saves a daily snapshot, which drives the movers and progress charts.</p>
   </footer>
 </main>
+
+<div class="sheet-backdrop" id="sheet" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle" tabindex="-1"></div>
+</div>
 
 <script>
 const SEASON_GAMES = 82;
@@ -704,11 +766,130 @@ function renderBoard() {
       <div class="meta"><span>Best: ${esc(pl.best.team)} ${pl.best.side}</span>
       <span class="delta ${cls(pl.delta)}" title="Change over selected period">${arrow(pl.delta)}${fmt(pl.delta)}</span></div>
     </button>`).join("");
-  document.querySelectorAll(".player").forEach(b => b.onclick = () => {
+  document.querySelectorAll(".player").forEach(b => b.onclick = () => openSheet(b.dataset.name, b));
+}
+
+// ---------- Player sheet: one player's picks and how they're tracking ----------
+let sheetOpener = null;
+function openSheet(name, opener) {
+  state.sheet = name; sheetOpener = opener || null;
+  renderSheet();
+  const wrap = document.getElementById("sheet");
+  wrap.hidden = false;
+  document.body.style.overflow = "hidden";
+  wrap.querySelector(".sheet-x").focus();
+}
+function closeSheet() {
+  state.sheet = null;
+  document.getElementById("sheet").hidden = true;
+  document.body.style.overflow = "";
+  if (sheetOpener && document.body.contains(sheetOpener)) sheetOpener.focus();
+  else { const b = document.querySelector(`.player[data-name="${CSS.escape(sheetOpener ? sheetOpener.dataset.name : "")}"]`); if (b) b.focus(); }
+}
+
+function sparkline(vals) {
+  const W = 130, H = 34, n = vals.length;
+  if (n < 2) return "";
+  const lim = Math.max(5, ...vals.map(Math.abs));
+  const x = i => (i / (n - 1)) * (W - 4) + 2, y = v => H / 2 - (v / lim) * (H / 2 - 3);
+  const path = vals.map((v, i) => `${i ? "L" : "M"}${x(i).toFixed(1)},${y(v).toFixed(1)}`).join("");
+  const last = vals[n - 1];
+  return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="Points over the season, now ${fmt(last)}">
+    <line x1="0" x2="${W}" y1="${H / 2}" y2="${H / 2}" stroke="var(--line)"/>
+    <path d="${path}" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+    <circle cx="${x(n - 1)}" cy="${y(last)}" r="2.8" fill="var(--accent)"/></svg>`;
+}
+
+function renderSheet() {
+  if (!state.sheet) return;
+  const pl = players.find(p => p.name === state.sheet);
+  const box = document.querySelector("#sheet .sheet");
+  if (!pl) { closeSheet(); return; }
+  const m = state.method, last = timeline.length - 1, base = baselineIndex();
+  const ranked = [...players].sort((a, b) => b.totals[m][last] - a.totals[m][last]);
+  const rank = ranked.findIndex(p => p.name === pl.name) + 1;
+  const total = pl.totals[m][last], delta = total - pl.totals[m][base];
+  const period = document.querySelector("#period option:checked").textContent.toLowerCase();
+  const rows = pl.picks.map(p => ({ p, s: p.series[m][last], d: p.series[m][last].pts - p.series[m][base].pts }))
+    .sort((a, b) => b.s.pts - a.s.pts);
+  const hits = rows.filter(r => r.s.pts > 0.05).length;
+  const maxDev = Math.max(8, ...rows.map(r => Math.abs(r.s.proj - r.p.line) + 2));
+
+  // Injury notes and today's games, keyed by team
+  const inj = injuryEntries().filter(e => e.impact != null && Math.abs(e.impact) >= 0.3);
+  const games = new Map();
+  for (const g of (todayGames && todayGames.events) || []) for (const t of g.teams) games.set(keyOf(t.name), { g, t });
+
+  const card = ({ p, s, d }) => {
+    const good = s.pts > 0.05, bad = s.pts < -0.05;
+    const known = TEAM_INFO[p.teamKey] || [];
+    const live = games.get(p.teamKey);
+    const badge = `<span class="abbr" style="${teamColours((live && live.t.color) || known[1])}">${esc((live && live.t.abbr) || known[0] || p.team.slice(0, 3).toUpperCase())}</span>`;
+    const pos = v => 50 + (Math.max(-maxDev, Math.min(maxDev, v - p.line)) / maxDev) * 48;
+    const lo = Math.min(pos(s.proj), 50), hi = Math.max(pos(s.proj), 50);
+    const gauge = `<div class="gauge" title="Projected ${s.proj.toFixed(1)} wins vs a line of ${p.line.toFixed(1)}">
+      <div class="track"></div><div class="fill ${good ? "pos" : bad ? "neg" : ""}" style="left:${lo}%;width:${hi - lo}%"></div>
+      <div class="line" style="left:50%"></div><div class="dot" style="left:${pos(s.proj)}%"></div>
+      <span class="lbl" style="left:50%">line ${p.line.toFixed(1)}</span>
+      ${Math.abs(pos(s.proj) - 50) > 14 ? `<span class="lbl" style="left:${pos(s.proj)}%"><b>${s.proj.toFixed(1)}</b></span>` : ""}</div>`;
+    const notes = [];
+    if (live) {
+      const { g, t } = live, opp = g.teams.find(x => x !== t) || {}, home = t.homeAway === "home";
+      const needWin = p.side === "Over";
+      if (g.state === "pre") {
+        const when = new Date(g.date).toLocaleString(undefined, { weekday: "short", hour: "numeric", minute: "2-digit" });
+        notes.push(["🏀", `Plays ${home ? "vs" : "at"} the ${esc(opp.name || "TBD")} · ${esc(when)} · needs a ${needWin ? "win" : "loss"}`, ""]);
+      } else if (g.state === "in") {
+        const ahead = t.score > opp.score, level = t.score === opp.score;
+        const goodNow = level ? null : (ahead === needWin);
+        notes.push(["●", `Live: ${t.score}–${opp.score} ${home ? "vs" : "at"} the ${esc(opp.name)} · ${esc(g.detail)}`, goodNow == null ? "" : goodNow ? "pos" : "neg"]);
+      } else if (g.state === "post" && (t.winner || opp.winner)) {
+        const ok = t.winner === needWin;
+        notes.push([ok ? "✓" : "✗", `${t.winner ? "Won" : "Lost"} ${t.score}–${opp.score} ${home ? "vs" : "at"} the ${esc(opp.name)} today`, ok ? "pos" : "neg"]);
+      }
+    }
+    for (const e of inj.filter(e => e.key === p.teamKey)) {
+      const effect = p.side === "Over" ? e.impact : -e.impact;
+      const what = e.status === "returned" ? "back from injury" : e.status === "season" ? "out for the season"
+        : e.status === "dtd" ? "day-to-day" : e.returnDate ? `out until ~${dayText(e.returnDate)}` : "out, no return date";
+      notes.push([e.status === "returned" ? "▲" : "▼", `${esc(e.name)} ${what} · ${fmt(effect)} for this pick`, effect >= 0 ? "pos" : "neg"]);
+    }
+    const sub = p.round ? `Round ${p.round} · pick ${p.pick}` : "Not in the draft";
+    return `<article class="pk-card ${good ? "good" : bad ? "bad" : ""}">
+      <div class="pk-top">${badge}
+        <div style="min-width:0"><div class="pk-team">${esc(p.team)} <span class="tag ${p.side.toLowerCase()}">${p.side}</span></div>
+          <div class="pk-sub">${sub} · ${s.rec.wins}–${s.rec.losses} · projected ${s.proj.toFixed(1)} wins</div></div>
+        <div class="pk-pts"><div class="v ${cls(s.pts)}">${fmt(s.pts)}</div>
+          <div class="d ${cls(d)}" title="Change over the ${esc(period)}">${arrow(d)}${fmt(d)}</div></div></div>
+      <div class="pk-mid">${gauge}<div class="spark">${sparkline(p.series[m].map(x => x.pts))}</div></div>
+      ${notes.length ? `<div class="pk-notes">${notes.map(([ic, t, c]) => `<div class="n ${c}"><span class="ic">${ic}</span><span>${t}</span></div>`).join("")}</div>` : ""}
+    </article>`;
+  };
+
+  const modes = [{ pace: "Win pace", eff: "Efficiency", blend: "Blended" }[m]];
+  if (state.injuries) modes.push("Injury-adjusted");
+  if (liveCount) modes.push("As it stands");
+  const filtered = document.getElementById("filterName").value === pl.name;
+  box.innerHTML = `
+    <div class="sheet-hd">${avatar(pl.name, 40).replace("av-40", "av-40\" style=\"width:56px;height:56px")}
+      <div style="min-width:0"><h2 id="sheetTitle">${esc(pl.name)}</h2>
+        <p class="sub">${["1st", "2nd", "3rd"][rank - 1] || rank + "th"} of ${players.length} · ${hits} of ${rows.length} picks beating the line</p></div>
+      <div class="sheet-total"><span class="big ${cls(total)}">${fmt(total)}</span><span class="chg"> ${arrow(delta)}${fmt(delta)} over the ${esc(period)}</span>
+        <button class="sheet-x" aria-label="Close">✕</button></div>
+    </div>
+    <div class="sheet-body">
+      <div class="sheet-modes">${modes.map(x => `<span>${x}</span>`).join("")}</div>
+      ${rows.map(card).join("")}
+      <div class="sheet-ft"><span class="note">Bars show projected wins against the line; the small chart is the pick's points this season.</span>
+        <button class="${filtered ? "" : "primary"}" id="sheetFilter">${filtered ? "Show all picks in table" : "Show only these in the picks table"}</button></div>
+    </div>`;
+  box.querySelector(".sheet-x").onclick = closeSheet;
+  box.querySelector("#sheetFilter").onclick = () => {
     const sel = document.getElementById("filterName");
-    sel.value = sel.value === b.dataset.name ? "" : b.dataset.name;
-    render();
-  });
+    sel.value = filtered ? "" : pl.name;
+    closeSheet(); render();
+    if (!filtered) document.getElementById("filterName").scrollIntoView({ behavior: "smooth", block: "start" });
+  };
 }
 
 function renderMovers() {
@@ -1151,6 +1332,7 @@ function render() {
   document.getElementById("methodNote").textContent = METHOD_NOTES[state.method];
   renderBoard(); renderGames(); renderInjuries(); renderMovers(); renderRounds(); renderCharts(); renderTable();
   updateInjUI();
+  renderSheet();
 }
 
 // ---------- Games ----------
@@ -1654,6 +1836,8 @@ async function init() {
   document.querySelectorAll("#gameDay button").forEach(b => b.onclick = () => showGames(+b.dataset.o));
   document.getElementById("liveToggle").onchange = e => setLiveMode(e.target.checked);
   document.getElementById("injToggle").onchange = e => setInjuries(e.target.checked);
+  document.getElementById("sheet").addEventListener("click", e => { if (e.target.id === "sheet") closeSheet(); });
+  document.addEventListener("keydown", e => { if (e.key === "Escape" && state.sheet) closeSheet(); });
   document.querySelectorAll("#injFilter button").forEach(b => b.onclick = () => {
     state.injFilter = b.dataset.f;
     document.querySelectorAll("#injFilter button").forEach(x => x.classList.toggle("on", x === b));

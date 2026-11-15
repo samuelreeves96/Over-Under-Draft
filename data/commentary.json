@@ -1,70 +1,70 @@
 {
-  "headline": "Roscoe The Dog Is Bossing The Comp, Mr Overs Just Got Cooked, And Harry Is Fully In The Dregs",
-  "intro": "Eight to eleven games in, so projections are swinging like a barn door, but Roscoe the Dog has jumped +44.0 to 52.8 and now leads the humans he's meant to be fading. Last week's leader Leon dropped a monstrous −44.3 and slid to third, while Harry fell −46.8 and is holding the spoon at −57.3. Reminder to Harry: the punishment is still on the table, and Roscoe is in a generous mood.",
+  "headline": "Mr Overs Retakes The Throne, Roscoe Loses 34 Points In A Week, And Sammy Is Digging A Hole",
+  "intro": "Leon is back on top at 31.9, just 0.7 clear of Visdog, while last week's king Roscoe got absolutely hosed for a 34-point drop and slid to third. It's only 11 to 14 games in, so projections are swinging like a screen door in a cyclone, but the bottom three (Sammy, Harry and Pos) are already well into the dregs. Remember: in this comp a single −10 will kill ya, and whoever finishes last is eating Roscoe's shit.",
   "players": [
     {
-      "name": "Roscoe the Dog",
-      "text": "52.8, up 44.0, and a dog is topping a comp his owners drafted for. The Warriors Over (+16.9) is the star: Curry dropped 41 in an overtime win over the Magic, and that's seven straight for Golden State. The Hawks Over added another 17.0 with Jalen Johnson back and putting up 30 on return. The Heat Under (+19.2, and +20.4 on efficiency) is sitting there like a loaded gun. Roscoe's only wobble is the Nuggets Under, with Spencer Jones back, but it's a rounding error.",
+      "name": "Leon",
+      "text": "Back on top at 31.9 (+7.3), and Mr Overs shows optimism has merit. Rockets (63 wins pace), Blazers and Grizzlies are carrying the load while the Jazz at 1–12 sit there at −31.2 like a boat anchor. Efficiency says 44.8, so he's actually travelling better than the scoreboard shows. Steven Adams is back for the Rockets, but at 8 minutes a game that's not moving anything.",
       "rank": 1,
-      "total": 52.8
+      "total": 31.9
     },
     {
       "name": "Nic",
-      "text": "38.9, down 2.7, so Visdog treads water while the dog sprints past. The Bucks and Kings Unders (1-8 each) are still printing, but the Kings Under gave back 9.1 this week, and with De'Andre Hunter back that one needs watching. Thunder Over (+3.1) is barely above water on pace and slightly negative on efficiency, though Shai's 30 in three quarters against the Wizards and the Nique Clifford trade won't hurt. The Knicks Under bled 18.2 after that Brunson and Towns win over the Cavs, and with Josh Hart out it might bleed more.",
+      "text": "Visdog's 0.7 off top spot, but he dropped 7.6 this week and the Thunder are the culprit: that Over 62.5 shed 15.1 and is now −12. The Blazers Under (−19) is also cooked at 9–3, and the Kings and Bucks Unders at 1–11 and 1–12 are keeping the wheels on. Efficiency has him at just 7.2, so that rank of 2 is a bit of a flatterer. Nikola Topic's back for OKC, which technically helps the Over, but at a −3 wins-at-stake impact it's more of a prayer.",
       "rank": 2,
-      "total": 38.9
+      "total": 31.2
     },
     {
-      "name": "Leon",
-      "text": "24.6, down a brutal 44.3. Mr Overs got the haircut, and the Jazz Over (1-8, −28.4) is now a crime scene, with Trey Alexander back being about as helpful as a screen door on a submarine. The Grizzlies Over still holds +25.2 but shed 27.3 this week, and Memphis are on a three-game skid. Efficiency says he's at 44.3 and the record says 24.6, so the Pistons and Rockets Overs are doing real work, but Clint Capela going out in Houston is a worry. In this comp a single −10 will kill ya, and Leon's got a −28 sitting in his lap.",
+      "name": "Roscoe the Dog",
+      "text": "From bossing the comp to a 34.2-point face-plant: the Heat Under bled 16.8 (Giannis dropping 34 in a 137–117 flogging of the Pistons will do that), the Pelicans Over lost 13 with the Pels on a 6-game skid, and the Hawks Over gave back 8. Still 18.5 and third, so the dog's bark remains worse than his bite. Klay Thompson was out and back for Miami in a day, so keep an eye on that Heat Under.",
       "rank": 3,
-      "total": 24.6
-    },
-    {
-      "name": "Ned",
-      "text": "13.1, up 18.9, and the best mover among the humans after the dog. The Magic Under is a monster at +25.3 (2-7), the Cavaliers Under swung 13.7 his way, and the Rockets Under added 12.9. But he's got the Thunder Under, the Pistons Under and the Rockets Under all swimming upstream, and the efficiency total of −3.2 says it's thinner than it looks. Jarrett Allen going out in Cleveland is handy for his Cavs Under, though Sam Merrill's absence is the real tell on how banged up that team is. Hang on, Ned.",
-      "rank": 4,
-      "total": 13.1
-    },
-    {
-      "name": "Dan",
-      "text": "12.9, down 12.1, and Doc is doing it the hard way. The Lakers Under is −19.1 with the Lakers at 8-2, and Luka sitting out against the Pistons with lower back tightness is the only lifeline, though there's no timeline yet. The Bulls Over (1-7, −19.2) is a train wreck even with Nic Claxton back, and Norman Powell going out hurts it further. On the bright side, the Clippers Under (+20.2) is cruising and the 76ers Over (+15.1) is great on pace, though efficiency says the Sixers are a mirage at 0.0. Doccy needs the Spurs to keep winning, and they've won eight straight.",
-      "rank": 5,
-      "total": 12.9
+      "total": 18.5
     },
     {
       "name": "Angus",
-      "text": "3.5, down 5.3, and Gooey's week was a coin flip that landed on his foot. The Warriors Under (−16.9) is getting flogged by Curry every night, and the Pelicans Under (−8.9) isn't going well with Dejounte Murray back in the lineup. The Lakers Over (+19.1) is carrying him, and Luka's back tightness is a genuine threat to it. The Pacers Under (+19.9) is the one to protect, and T.J. McConnell and Obi Toppin both returning is a quiet problem for it, though Pascal Siakam going out earlier in the week helps.",
+      "text": "Gooey climbed 14.1 to 17.7, mostly off the Pelicans Under (+13, and Denver just handed NOLA a sixth straight loss), and the Lakers Over at 11–2 is a beauty. The Raptors Over at 5–7 (−11.4) is the problem child, and the Warriors Under at 8–5 is quietly costing him. Jalen Johnson's return helps the Hawks, but that's Roscoe's pick, not Gooey's. Pelicans without Murray and Trey Murphy III is a gift for his Under, though Yves Missi's back.",
+      "rank": 4,
+      "total": 17.7
+    },
+    {
+      "name": "Ned",
+      "text": "Down 2 to 11.0, and the Rockets Under at 10–3 (−15.6) is the open wound. The Thunder Under at least did something useful (+15.1), and Magic Under dropped 15.9 with Jalen Suggs back in the lineup. Efficiency says 8.3, so he's drifting along about where he should be: a very average Ned. If the Thunder keep slumping with Ajay Mitchell now out, that Under gets healthier.",
+      "rank": 5,
+      "total": 11.0
+    },
+    {
+      "name": "Dan",
+      "text": "Doccy sheds 9.6 to land at 3.2, and the Clippers Under (3–8, down 12.1) bled out despite the team being rubbish. Spurs Over and 76ers Over are both flying, but the Lakers Under at 11–2 is a −22.9 slab of concrete round his neck. And with De'Aaron Fox going down for San Antonio, that Spurs Over might need some nervous chewing of fingernails. Efficiency has him at −5.2, so he's skating on thin ice.",
       "rank": 6,
-      "total": 3.5
+      "total": 3.2
     },
     {
       "name": "Marco",
-      "text": "−20.1, up 5.7, and Marci's in the red but at least heading the right way. The Wolves Over (+8.9) is fine, but the Hornets Over (3-7, −14.9, and −27.0 on efficiency) is a slow-motion disaster, with Schroder and Diabate both going out. The Mavericks Under (−11.1) is under pressure with Santi Aldama back, and the Cavs Over is bleeding −6.5. He's got the Nuggets on both sides of the ledger with Roscoe, which is a sentence nobody wants to read.",
+      "text": "Marci's up 12.0 but still in the red at −8.1. The Wizards Under (+9.3) and Wolves Over are doing the job, but the Hornets Over is a −12.2 mess (−22.5 on efficiency) and the Cavs Over at 7–7 is going nowhere. Evan Mobley went out for Cleveland this week, though the Cavs beat Dallas without their entire starting five, so credit where it's due. Cheers to Grant Williams being back, but it's a small fix for the Hornets.",
       "rank": 7,
-      "total": -20.1
-    },
-    {
-      "name": "Sam",
-      "text": "−24.2, up 29.5, the biggest human jump of the week, and Sammy is still second-last. The efficiency number is a healthy +24.0, which tells you the Sixers (8-2 but flat on points) and the Hornets Under are better than the record suggests. The Pacers Over (−19.9) is the albatross, though McConnell and Toppin returning gives it a pulse. The Knicks Over added 18.2 after that win over the Cavs, and the Bulls Under (+19.2) took a hit with Claxton back. Sam is slowly dragging himself out of the hole.",
-      "rank": 8,
-      "total": -24.2
+      "total": -8.1
     },
     {
       "name": "Pos",
-      "text": "−43.2, up 13.1, and Pos is propping up the table with the spoon within a whisker. The Grizzlies Under (−25.2) is the killer, though he clawed back 27.3 of it this week. The Heat Over (−19.2) is the other half of the Roscoe sandwich, and Jalen Johnson back for 30 points on the Hawks keeps the Hawks Under (−8.7) in a headlock. The Jazz Under (+28.4) is his lifeline, but the Spurs Under at 8-2 is another thing sinking him. It's a bleak fortnight.",
+      "text": "A 19.4-point recovery, the biggest of anyone, and he's still −23.7. The Jazz Under is a whopping +31.2, but the Grizzlies Under at 9–4 is a −27.3 disaster, and Memphis just beat Brooklyn by 19. Kings Over at 1–11 and Spurs Under at 11–2 are both rotting. Efficiency has him at −33.9, so the pain isn't over. Jalen Johnson back for Atlanta nudges the Hawks up, which doesn't help his Under.",
+      "rank": 8,
+      "total": -23.7
+    },
+    {
+      "name": "Sam",
+      "text": "Sammy's 38.6 under and falling (−14.4 this week), and the 76ers Under at 11–3 is −13.9 of pain, with LeBron apparently now in Philly passing Kidd on the assists list. The Bucks Over at 1–12 is −19.2 and the Pacers Over at 5–9 is another −15.2. Here's a silver lining, though: efficiency has him at +12.2, so the points say his picks are cleaner than the wins. Joel Embiid sitting out Sunday with plantar fascia management is bad news for his Under, which needs Philly to stumble.",
       "rank": 9,
-      "total": -43.2
+      "total": -38.6
     },
     {
       "name": "Harry",
-      "text": "−57.3, down 46.8, and he's now holding the spoon. Magic Over (−25.3 at 2-7), Clippers Over (−20.2 at 1-7), and the Wolves Under (−8.9 at 7-3) all went the wrong way, and with Desmond Bane going out in Orlando the Magic Over is cooked. The Mavericks Over (+11.1) is the lone bright spot, with Santi Aldama back, but it's hardly a lifeline. A reminder that the punishment is looming, Harry: Roscoe's been very patient, and he's a dog with a plan.",
+      "text": "Harry holds the spoon at −42.1, so consider this your gentle reminder about Roscoe's shit. Efficiency is a ghastly −47.8, so there's no hiding. Wins pace has him up 15.0 this week thanks to the Magic Over (+15.9) and the Clippers Over bouncing back, but the Celtics Under at 10–2 (−16.8) is the sort of pick that haunts a man. Devin Carter's return only makes Boston's life easier, so the Celtics Under is still pointing the wrong way.",
       "rank": 10,
-      "total": -57.3
+      "total": -42.1
     }
   ],
   "signoff": "May your unders tank and your overs thrive!",
-  "date": "2026-11-08",
+  "date": "2026-11-15",
   "basis": "Win pace",
   "model": "claude-sonnet-5-5"
 }
